@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Content payload for the Misk Leadership Competency Assessment RFP."""
 
-COVER_TITLE = "Misk Leadership Competency Assessment"
-HEADER_TEXT = "Request for Proposal (RFP): Misk Leadership Competency Assessment"
+COVER_TITLE = "Misk Leadership Competency Model and Assessment"
+HEADER_TEXT = "Request for Proposal (RFP): Misk Leadership Competency Model and Assessment"
 
 # --- About Misk Foundation > The Misk Leadership Track -------------------------
 TRACK_H2 = "The Misk Leadership Track"
@@ -49,7 +49,7 @@ MODEL_H2 = "The Misk Leadership Competency Model"
 MODEL_PARAS_1 = [
     ("The Foundation has developed a leadership competency model that defines the behaviours required of Saudi "
      "leaders who will deliver Vision 2030. The model was first articulated for the 2030 Leaders program, where it "
-     "underpins the rigorous selection process, the curriculum, executive coaching, and participant feedback. It is "
+     "underpins the rigorous selection process, the curriculum, and participant feedback. It is "
      "expressed through seven competencies fit for leadership in a Saudi context, and it supports leaders in "
      "balancing the polarities of decision making so that they become progress drivers, strategic shapers, "
      "constant learners, principled leaders, and a powerful force for the future."),
@@ -111,13 +111,15 @@ MODEL_PARAS_4 = [
 
 # --- Project Objectives --------------------------------------------------------
 PO_PARAS = [
-    ("The objective of this RFP is to design, develop, validate, and implement a customized leadership competency "
-     "assessment for the Foundation’s Leadership Track, to deliver it as a fully operational digital tool, and "
-     "to build the capability of the Foundation’s team and its extended network of coaches, facilitators, and "
-     "faculty to use that tool independently and to a professional standard."),
-    ("The assessment shall measure the Misk leadership competency model across every level of the Leadership Track, "
-     "and shall support the Foundation’s use of competency data in selection, individual development, coaching, "
-     "program design, and impact measurement."),
+    ("The objective of this RFP is, first, to review, revise, and develop the Misk leadership competency model so "
+     "that it serves every program in the Foundation’s Leadership Track and, second, to design, develop, and "
+     "validate a customized assessment against that model, to deliver the assessment as a fully operational digital "
+     "tool, and to train the Foundation’s team and other nominated members to use that tool independently and "
+     "to a professional standard."),
+    ("The Leadership Track comprises the Distinct College Preparatory Program, the Misk Fellowship, Ignited Voices, "
+     "10X Saudi Leaders, 2030 Leaders, and the Saudi Leaders Society (SLS). The competency model and the assessment "
+     "shall serve all of them, and shall support the Foundation’s use of competency data in selection, "
+     "individual development, program design, and impact measurement."),
 ]
 
 NEED_H2 = "The Need for a Customized Assessment for Misk"
@@ -143,12 +145,12 @@ USES_BULLETS = [
     (0, "Selection and admissions – screening, shortlisting, and final selection of candidates across Leadership Track programs, including inputs to competency-based interviews and to the admission committee’s decision."),
     (0, "Candidate feedback – providing evaluation and feedback reports to candidates who reach advanced selection stages, whether or not they are accepted, consistent with the Foundation’s commitment to make selection itself a learning experience."),
     (0, "Individual development planning – establishing an entry baseline for every beneficiary and generating a personal development plan against the seven competencies."),
-    (0, "Coaching and mentoring – giving coaches, mentors, and faculty a common, evidence-based starting point for coaching conversations and a means of tracking progress across the coaching journey."),
+    (0, "Development feedback and debriefs – giving the Foundation’s certified debriefers and program teams a common, evidence-based basis for one-to-one feedback conversations and for tracking a beneficiary’s progress against the model."),
     (0, "Program and curriculum design – using aggregated cohort data to shape module content, electives, capstone challenges, and the design of new interventions across the Leadership Track."),
     (0, "Impact measurement – pre-program, post-program, and follow-up measurement to evidence competency growth and demonstrate the return on the Foundation’s investment to internal and external stakeholders."),
     (0, "Cohort and portfolio benchmarking – comparing cohorts, programs, sectors, and years, and building a Kingdom-level picture of leadership strengths and capability gaps."),
     (0, "Alumni and community development – supporting the continued development of Saudi Leaders Society members and informing the design of alumni offerings."),
-    (0, "Assessor and faculty calibration – providing a shared standard and common language for everyone who selects, teaches, coaches, and evaluates within the Leadership Track."),
+    (0, "Assessor and faculty calibration – providing a shared standard and common language for everyone who selects, teaches, and evaluates within the Leadership Track."),
 ]
 
 POP_H2 = "Assessment Population and Indicative Volumes"
@@ -175,13 +177,13 @@ DELIV_INTRO = "In this RFP, we are looking for a partner to manage and execute t
 # details_blocks: list of (kind, text) where kind is 'p' (plain paragraph) or 'b' (bullet)
 SCOPE_ROWS = [
     ("1.", "Competency Model",
-     [("p", "The objective of this scope is to confirm, calibrate, and extend the Misk leadership competency model so that it can be measured reliably and consistently across the full Leadership Track."),
+     [("p", "The objective of this scope is to review, revise, and develop the Misk leadership competency model so that it serves every program in the Leadership Track and can be measured reliably and consistently at each leadership level."),
       ("p", "The Vendor shall:"),
       ("b", "Review existing materials, including the current seven-competency model and its behavioural indicators, program curricula, selection criteria, and any existing assessment data made available by the Foundation."),
-      ("b", "Conduct stakeholder engagement through interviews and focus groups with Foundation leadership, program owners, faculty, coaches, alumni, and a sample of beneficiaries and their sponsoring organisations."),
+      ("b", "Conduct stakeholder engagement through interviews and focus groups with Foundation leadership, program owners, faculty, alumni, and a sample of beneficiaries and their sponsoring organisations."),
       ("b", "Conduct role and behavioural analysis appropriate to each leadership level represented in the Leadership Track."),
       ("b", "Define, for each of the seven competencies, observable behavioural indicators and proficiency levels for early leaders, young professionals, first-level leaders, senior leaders, and executives."),
-      ("b", "Benchmark the model against recognised leadership frameworks and against the Saudi and regional leadership context, and recommend refinements."),
+      ("b", "Benchmark the model against recognised leadership frameworks and against the Saudi and regional leadership context, and recommend revisions to the competencies, their definitions, and their behavioural indicators."),
       ("b", "Produce a bilingual competency dictionary and present the calibrated model to the Foundation for approval before assessment design begins.")],
      [("b", "The Foundation shall provide the current competency model documentation, program materials, and access to stakeholders."),
       ("b", "The Vendor shall retain the seven Misk competencies and shall not substitute a proprietary framework."),
@@ -200,7 +202,7 @@ SCOPE_ROWS = [
       ("b", "Author all items, scenarios, rating scales, and scoring rules specifically against the Misk competency model."),
       ("b", "Develop the Arabic and English versions in parallel, with linguistic and cultural equivalence review. Translation of an existing instrument shall not be acceptable."),
       ("b", "Define the scoring model, including weighting and the rules by which results roll up to competency, cluster, and overall level."),
-      ("b", "Design the report suite, including individual, coach and facilitator, program owner, and executive or cohort reports, with visualisation, narrative interpretation, and development suggestions linked to the Foundation’s development offerings."),
+      ("b", "Design the report suite, including individual, facilitator, program owner, and executive or cohort reports, with visualisation, narrative interpretation, and development suggestions linked to the Foundation’s development offerings."),
       ("b", "Conduct a bias and fairness review of all assessment content and scoring.")],
      [("b", "The Vendor has demonstrable expertise in psychometric instrument design and in Arabic-language assessment development."),
       ("b", "Content shall be developed specifically for the Foundation and shall not be re-used from other clients’ instruments."),
@@ -238,9 +240,9 @@ SCOPE_ROWS = [
       ("b", "Participant journey: automated invitations, reminders, registration, informed consent, completion, and report release, all configurable by the Foundation."),
       ("b", "Multi-rater administration: rater nomination, approval, progress tracking, and anonymity rules for 360° instruments."),
       ("b", "Administrator console: the Foundation’s team shall be able to create cohorts and projects, assign assessments, monitor completion, release reports, and export data without Vendor intervention."),
-      ("b", "Reporting engine: automated generation of individual, coach, program owner, and cohort reports in Arabic and English."),
+      ("b", "Reporting engine: automated generation of individual, facilitator, program owner, and cohort reports in Arabic and English."),
       ("b", "Analytics and dashboards: program-level and Track-level dashboards showing competency profiles, capability gaps, trends over time, and pre- and post-program comparison."),
-      ("b", "Integration: API or agreed import and export mechanisms to integrate with the Foundation’s existing systems, including the leadership coaching platform and program management systems, together with single sign-on."),
+      ("b", "Integration: API or agreed import and export mechanisms to integrate with the Foundation’s existing program management and beneficiary systems, together with single sign-on."),
       ("b", "Security and privacy: compliance with the Personal Data Protection Law (PDPL) of the Kingdom of Saudi Arabia and the Foundation’s information security requirements, with data residency, retention, encryption, access control, audit logging, and data return or destruction on exit all clearly stated."),
       ("b", "Accessibility: conformance with recognised accessibility standards."),
       ("b", "Service levels: stated availability, support hours, response and resolution times, maintenance windows, and release schedule.")],
@@ -259,7 +261,7 @@ SCOPE_ROWS = [
      [("p", "The objective of this scope is to enable the Foundation’s team and its extended network to use the assessment independently, ethically, and to a professional standard, and to reduce the Foundation’s long-term dependence on the Vendor."),
       ("p", "The Vendor shall deliver:"),
       ("b", "Administrator training: enabling the Foundation’s team to configure projects, launch assessments, manage participants and raters, generate reports, and extract data."),
-      ("b", "Certification training: a structured accreditation for the Foundation’s team, program managers, coaches, facilitators, and selected faculty, covering the competency model, the psychometric basis of the tool, ethical and professional use, interpretation of results, and one-to-one feedback and debrief skills. Certification shall be formally awarded, and any re-certification requirement shall be stated."),
+      ("b", "Certification training: a structured accreditation for the Foundation’s team, program managers, facilitators, selected faculty, and other members nominated by the Foundation, covering the competency model, the psychometric basis of the tool, ethical and professional use, interpretation of results, and one-to-one feedback and debrief skills. Certification shall be formally awarded, and any re-certification requirement shall be stated."),
       ("b", "Supervised practice: observed practice debriefs, with assessment against defined criteria before certification is granted."),
       ("b", "Interviewer and assessor training: competency-based interviewing, use of assessment output in selection decisions, and assessor calibration sessions for panel members and admission committees."),
       ("b", "Participant orientation: short orientation materials for beneficiaries explaining the competency model, the assessment, and how to use their own results."),
@@ -281,7 +283,7 @@ SCOPE_ROWS = [
       ("p", "The Vendor shall:"),
       ("b", "Deliver a phased rollout across the Leadership Track programs, sequenced with the Foundation’s program calendar and selection cycles."),
       ("b", "Define an operating model, including roles and responsibilities between the Vendor and the Foundation and a clear handover point after which the Foundation operates the tool."),
-      ("b", "Provide a helpdesk offering technical and professional support to administrators, participants, raters, and coaches, in Arabic and English."),
+      ("b", "Provide a helpdesk offering technical and professional support to administrators, participants, raters, and certified users, in Arabic and English."),
       ("b", "Carry out periodic quality assurance covering item performance, report quality, and assessor consistency."),
       ("b", "Provide agreed periodic reports covering usage, completion rates, competency insight across the Leadership Track, and recommendations for the Foundation."),
       ("b", "Conduct an annual review of the model, items, norms, and reports, and operate an agreed change-request process supported by a rate card for enhancements.")],

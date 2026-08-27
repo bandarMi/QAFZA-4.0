@@ -12,7 +12,7 @@ from docx.oxml.ns import qn
 import content as C
 
 TEMPLATE = 'tpl/template.docx'
-OUT = 'out/Misk_Leadership_Competency_Assessment_RFP_DRAFT_v1.0.docx'
+OUT = 'out/Misk_Leadership_Competency_Model_and_Assessment_RFP_DRAFT_v1.0.docx'
 
 W = qn('w:t')
 

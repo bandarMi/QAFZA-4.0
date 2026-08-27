@@ -1,12 +1,13 @@
-# Misk Leadership Competency Assessment — RFP
+# Misk Leadership Competency Model & Assessment — RFP
 
-First draft of the RFP for the design, development, validation, and rollout of a
-customized leadership competency assessment for the Misk Leadership Track.
+First draft of the RFP for reviewing and developing the Misk leadership competency
+model across the Leadership Track, and for building and validating a customized
+assessment against it.
 
 ## Deliverables
 
-- `Misk_Leadership_Competency_Assessment_RFP_DRAFT_v1.0.docx` — editable draft
-- `Misk_Leadership_Competency_Assessment_RFP_DRAFT_v1.0.pdf` — read-only copy for review
+- `Misk_Leadership_Competency_Model_and_Assessment_RFP_DRAFT_v1.0.docx` — editable draft
+- `Misk_Leadership_Competency_Model_and_Assessment_RFP_DRAFT_v1.0.pdf` — read-only copy for review
 
 The DOCX is built from the "Leadership Programs & Coaching RFP DRAFT – Enh" template,
 so styles, cover page, header/footer, numbering, tables and standard clauses are the
