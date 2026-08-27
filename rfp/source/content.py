@@ -334,3 +334,105 @@ APPENDIX2_ITEMS = [
     "Annexure D: The Foundation’s information security and personal data protection requirements.",
     "Annexure E: Rate card template.",
 ]
+
+
+# =============================================================================
+# Additions for the Professional Services RFP Template (Misk Foundation v4)
+# =============================================================================
+
+PROJECT_TITLE = "Misk Leadership Competency Model and Assessment"
+
+BACKGROUND_H1 = "Background"
+
+# --- Background > The Misk Leadership Track -----------------------------------
+# Two-level numbered list, matching the template's own list idiom (1- / a.)
+TRACK_LIST = [
+    (0, "Early Leadership Development targets young Saudis early in their academic journeys, offering mentorship, training, and preparation for university and beyond."),
+    (1, "Distinct College Preparatory Program – a 2.5-year initiative for high-performing high school students, providing admissions counseling, standardized test preparation (SAT, IELTS, TOEFL), and immersive summer experiences. 460 beneficiaries are currently enrolled."),
+    (1, "Misk Fellowship – aimed at Saudi students attending leading universities, providing comprehensive leadership training, mentorship, and global exposure. 70 beneficiaries are enrolled every year."),
+    (0, "Young Leadership Programs equip young professionals with the skills to grow as influential leaders within key sectors."),
+    (1, "Ignited Voices – an 8-week program focused on media and ambassadorial skills, equipping young talents with public speaking, media engagement, and storytelling skills. 100 beneficiaries are enrolled every year."),
+    (1, "10X Saudi Leaders – designed for professionals with 4-8 years of experience, emphasising leadership agility, strategic planning, and innovation, and aligned with Vision 2030 priorities. 250 beneficiaries are enrolled every year."),
+    (0, "Senior Leadership Development cultivates high-level strategic leaders who can directly support Saudi Arabia’s Vision 2030 and take on transformative roles within the Kingdom."),
+    (1, "2030 Leaders – targets high-potential senior leaders and executives, providing advanced skills in strategic leadership and innovation. It is highly selective. 90 executive beneficiaries are enrolled every year."),
+    (0, "Alumni and Continued Development sustains the growth of the Track’s graduates and keeps them connected to one another and to the Kingdom’s leadership agenda."),
+    (1, "Saudi Leaders Society (SLS) – an exclusive network for graduates of Misk’s leadership programs, supporting continued professional growth, cross-sectorial networking, and opportunities to give back. 670 members are currently in this community, which continues to expand."),
+]
+
+TRACK_CLOSING_2 = ("This RFP addresses the Leadership Track in its entirety. While the competency model described "
+                   "below was first articulated for the 2030 Leaders program, the model and the assessment sought "
+                   "under this RFP shall serve every program in the Track, and shall not be limited to any single "
+                   "program.")
+
+# --- Project Goals and Objectives ---------------------------------------------
+GOALS_PARAS = [
+    ("The Misk Leadership Competency Model and Assessment Project aims, first, at reviewing, revising, and "
+     "developing the Misk leadership competency model so that it serves every program in the Foundation’s "
+     "Leadership Track and, second, at designing, developing, and validating a customized assessment against that "
+     "model, delivering that assessment as a fully operational digital tool, and training the Foundation’s team "
+     "and other nominated members to use the tool independently and to a professional standard."),
+    ("The Leadership Track comprises the Distinct College Preparatory Program, the Misk Fellowship, Ignited "
+     "Voices, 10X Saudi Leaders, 2030 Leaders, and the Saudi Leaders Society (SLS). The competency model and the "
+     "assessment shall serve all of them, and shall support the Foundation’s use of competency data in selection, "
+     "individual development, program design, and impact measurement."),
+]
+
+# --- Project Duration ----------------------------------------------------------
+DURATION_TEXT = ("The duration of project implementation shall be approximately twelve (12) months from the project "
+                 "kick-off, followed by a support and continuous improvement period to be proposed by the Vendor. "
+                 "The indicative phasing below is provided for guidance. Bidders shall propose their own timeline "
+                 "against these phases, state clearly any dependency on the Foundation, and identify the stage "
+                 "gates at which the Foundation’s approval is required.")
+
+PHASE_TABLE = [
+    ("Phase", "Timeframe"),
+    ("Phase 1 – Mobilisation, competency model review, and stakeholder engagement", "Months 1-3"),
+    ("Phase 2 – Model revision, level calibration, and Foundation sign-off", "Months 3-4"),
+    ("Phase 3 – Assessment design, item development, and bilingual content build", "Months 4-7"),
+    ("Phase 4 – Pilot administration, psychometric validation, norming, and refinement", "Months 7-10"),
+    ("Phase 5 – Tool configuration, integration, testing, and go-live", "Months 8-11"),
+    ("Phase 6 – Training, certification, and train-the-trainer", "Months 10-12"),
+    ("Phase 7 – Rollout across the Leadership Track, support, and annual review", "Month 12 onwards"),
+]
+
+# --- Elements of the proposal --------------------------------------------------
+ELEMENTS_TEAM = [
+    (0, "Please provide the profiles of named key personnel who would be assigned to the project, including the lead psychometrician or occupational psychologist, the Arabic-language assessment lead, the technology or platform lead, and the training lead."),
+    (1, "Misk has the right to ask for replacement of any team member if he/she doesn’t meet the qualifications."),
+    (0, "Named personnel shall hold recognised credentials in psychometric assessment, and shall evidence prior work on competency model development and on assessment design and validation."),
+    (0, "At least one Arabic-speaking specialist shall be assigned to the Arabic assessment content and to Arabic-language debriefs and training."),
+    (0, "Vendor is expected to provide detailed information of the management team and specialists in the proposal with an acceptable margin of 15% of change by the time of delivery however with the same qualification. Failing to do so might result in affecting the vendors evaluation and selection (high level CVs will not be considered)."),
+    (0, "Misk team has the right to interview the proposed team members and the management team."),
+]
+
+ELEMENTS_TECHNICAL = [
+    (0, "Vendor is expected to provide a detailed methodology on project implementation and delivery, including the assessment methods proposed, the item development process, the validation design, and the structure of data storage and software used."),
+    (0, "Vendor shall state the professional standards the assessment will be built to, and shall provide an anonymised sample technical manual and sample reports from comparable work."),
+    (0, "Vendor shall describe how the Arabic and English versions will be developed and validated in parallel, and how linguistic and cultural equivalence will be evidenced."),
+    (1, "Translation of an existing instrument will not be accepted as a substitute for parallel development."),
+    (0, "Vendor shall set out the hosting model, data residency, retention, encryption, access control, and audit arrangements, and shall confirm compliance with the Personal Data Protection Law (PDPL) of the Kingdom of Saudi Arabia."),
+    (0, "Vendor shall state the licensing model clearly, including the basis of the licence, its term, renewal cost, and the cost of additional volume, and shall confirm the Foundation’s ownership of the customized content, norms, reports, and data."),
+    (0, "Misk team has the right to observe assessment administration, training delivery, and debrief sessions, and to review performance at any time without giving notice."),
+    (1, "Feedback will be shared with point of contact from the company only."),
+    (0, "Misk has the right to be involved in all mass communication prior it’s shared with the beneficiaries and has the right to view any direct communication if needed."),
+    (0, "All assessment content, norms, reports, and data produced under this engagement shall be delivered to Misk in an agreed machine-readable format at each milestone and on exit."),
+    (0, "The invoices will be received based on quantity of completed work, the unit price should be fixed and not affected by number of received quantity."),
+]
+
+# --- Evaluation criteria to append to the template's list ----------------------
+EVAL_EXTRA_2 = [
+    "Psychometric rigour and strength of the evidence of validity presented",
+    "Depth of customization to the Misk competency model and the Saudi leadership context",
+    "Arabic-language assessment development capability",
+    "Data protection, information security, and compliance",
+]
+
+# --- Technical proposal contents to append ------------------------------------
+TECH_PROPOSAL_EXTRA_2 = [
+    "Psychometric credentials of the proposed team, with sample technical documentation and anonymised sample reports.",
+    "Approach to data protection, information security, and hosting.",
+    "Proposed licensing model and ownership of the customized content, norms, and data.",
+]
+
+APPENDIX2_INTRO_2 = ("The following annexures form part of this RFP and shall be made available to Bidders on request "
+                     "through the supplier portal:")
