@@ -6,16 +6,20 @@ The template's styles, cover, header/footer, table of contents, numbering,
 tables and standard clauses are preserved; only the project-specific content
 is filled in or replaced.
 """
-import copy, os
+import copy, os, sys
 
 from docx import Document
 from docx.oxml import OxmlElement, parse_xml
 from docx.oxml.ns import qn, nsdecls
 
 import content as C
+from variants import VARIANTS
+
+VARIANT = (sys.argv[1] if len(sys.argv) > 1 else 'A').upper()
+V = VARIANTS[VARIANT]
 
 TEMPLATE = 'tpl2/template.docx'
-OUT = 'out/Misk_Leadership_Competency_Model_and_Assessment_RFP_DRAFT_v2.0.docx'
+OUT = 'out/' + V['out_name']
 
 BULLET_NUM = 900   # single-level bullet list  (abstract 12)
 TRACK_NUM = 901    # two-level "1- / a." list  (abstract 48)
@@ -226,11 +230,16 @@ for p in hdr.paragraphs:
 blk = [h1(C.BACKGROUND_H1), empty(),
        sub(C.TRACK_H2), para(C.TRACK_INTRO)]
 blk += [track_item(lvl, txt) for lvl, txt in C.TRACK_LIST]
-blk += [empty(), para(C.TRACK_CLOSING_2), empty(),
-        sub(C.MODEL_H2)]
-blk += body_block(C.MODEL_PARAS_1)
-blk += [term_bullet(t) for _, t in C.PHILOSOPHY_BULLETS]
-blk += [empty()] + body_block(C.MODEL_PARAS_2)
+blk += [empty(), para(V['track_closing']), empty()]
+if V['model_section']:
+    blk += [sub(C.MODEL_H2)]
+    blk += body_block(C.MODEL_PARAS_1)
+    blk += [term_bullet(t) for _, t in C.PHILOSOPHY_BULLETS]
+    blk += [empty()] + body_block(C.MODEL_PARAS_2)
+else:
+    import variants as _V
+    blk += [sub(_V.CASE_H2)]
+    blk += body_block(_V.CASE_PARAS)
 anchor = kids[52]
 for el in blk:
     anchor.addnext(el); anchor = el
@@ -269,19 +278,20 @@ def two_col_table(rows, widths):
             tcW.set(qn('w:w'), str(w)); tcW.set(qn('w:type'), 'dxa')
     return tbl
 
-anchor = insert_after(anchor, [two_col_table(C.COMPETENCY_TABLE, (2900, 6640)), empty()])
-anchor = insert_after(anchor, body_block(C.MODEL_PARAS_3))
-anchor = insert_after(anchor, [term_bullet(t) for _, t in C.FLEX_BULLETS])
-anchor = insert_after(anchor, [empty()])
-anchor = insert_after(anchor, body_block(C.MODEL_PARAS_4))
+if V['model_section']:
+    anchor = insert_after(anchor, [two_col_table(C.COMPETENCY_TABLE, (2900, 6640)), empty()])
+    anchor = insert_after(anchor, body_block(C.MODEL_PARAS_3))
+    anchor = insert_after(anchor, [term_bullet(t) for _, t in C.FLEX_BULLETS])
+    anchor = insert_after(anchor, [empty()])
+    anchor = insert_after(anchor, body_block(C.MODEL_PARAS_4))
 anchor = insert_after(anchor, [empty()])
 
 # ----------------------------------------------- 3. Project Goals and Objectives
-blk = body_block(C.GOALS_PARAS)
-blk += [empty(), sub(C.NEED_H2), para(C.NEED_INTRO)]
-blk += [term_bullet(t) for _, t in C.NEED_BULLETS]
+blk = body_block(V['goals_paras'])
+blk += [empty(), sub(C.NEED_H2), para(V['need_intro'])]
+blk += [term_bullet(t) for _, t in V['need_bullets']]
 blk += [empty(), sub(C.USES_H2), para(C.USES_INTRO)]
-blk += [term_bullet(t) for _, t in C.USES_BULLETS]
+blk += [term_bullet(t) for _, t in V['uses_bullets']]
 blk += [empty(), sub(C.POP_H2), para(C.POP_INTRO), empty()]
 insert_after(kids[56], blk)
 anchor = insert_after(blk[-1], [two_col_table(C.POP_TABLE, (5900, 3640))])
@@ -312,7 +322,7 @@ def set_table_indent(tbl, twips):
 
 # the five-column scope table needs more room than the body text column allows,
 # so it runs slightly into the page margins
-set_table_widths(scope_tbl, (560, 1600, 3900, 2270, 2470))
+set_table_widths(scope_tbl, (700, 1600, 3800, 2200, 2500))
 set_table_indent(scope_tbl, -580)
 trs = scope_tbl.findall(qn('w:tr'))
 head_tr, row_ref = trs[0], copy.deepcopy(trs[1])
@@ -374,7 +384,7 @@ def fill_cell(tc, ref_p, blocks, size=None, valign=None):
         tc.append(cell_para(ref_p, text, kind, size))
 
 anchor_tr = head_tr
-for idx, (no, title, details, assumptions, deliverables) in enumerate(C.SCOPE_ROWS, start=1):
+for idx, (no, title, details, assumptions, deliverables) in enumerate(V['scope_rows'], start=1):
     tr = copy.deepcopy(row_ref)
     tcs = tr.findall(qn('w:tc'))
     fill_cell(tcs[0], REF_TC[0], [('p', str(idx))], size=20, valign='top')
@@ -386,7 +396,7 @@ for idx, (no, title, details, assumptions, deliverables) in enumerate(C.SCOPE_RO
     anchor_tr = tr
 
 # ---------------------------------------------------------- 5. Project Duration
-set_text(kids[66], C.DURATION_TEXT)
+set_text(kids[66], V['duration_text'])
 
 phase_tbl = kids[68]
 trs = phase_tbl.findall(qn('w:tr'))
@@ -397,7 +407,7 @@ for tr in trs[1:]:
     phase_tbl.remove(tr)
 
 anchor_tr = head_tr
-for phase, timeframe in C.PHASE_TABLE[1:]:
+for phase, timeframe in V['phase_table'][1:]:
     tr = copy.deepcopy(row_ref)
     tcs = tr.findall(qn('w:tc'))
     fill_cell(tcs[0], REF_PC[0], [('p', phase)])
@@ -415,11 +425,11 @@ def numbered(lvl, text, num_id):
     set_numbering(p, num_id, lvl)
     return p
 
-insert_after(kids[79], [numbered(lvl, t, 47) for lvl, t in C.ELEMENTS_TEAM])
+insert_after(kids[79], [numbered(lvl, t, 47) for lvl, t in V['elements_team']])
 for i in (76, 77, 78, 79):
     drop(kids[i])
 
-insert_after(kids[89], [numbered(lvl, t, 48) for lvl, t in C.ELEMENTS_TECHNICAL])
+insert_after(kids[89], [numbered(lvl, t, 48) for lvl, t in V['elements_technical']])
 for i in range(82, 90):
     drop(kids[i])
 
@@ -427,12 +437,12 @@ for i in range(82, 90):
 insert_after(kids[99], [clone(REF_LIST, t) for t in C.TECH_PROPOSAL_EXTRA_2])
 
 # ------------------------------------- 8. Evaluation criteria / Key Obligations
-insert_after(kids[123], [clone(REF_EVAL, t) for t in C.EVAL_EXTRA_2])
-insert_after(kids[145], [clone(REF_OBLIG, t) for t in C.KEY_OBLIGATIONS_EXTRA])
+insert_after(kids[123], [clone(REF_EVAL, t) for t in V['eval_extra']])
+insert_after(kids[145], [clone(REF_OBLIG, t) for t in V['key_obligations_extra']])
 
 # -------------------------------------------------------------- 9. Appendix 2
 set_text(kids[211], C.APPENDIX2_INTRO_2)
-insert_after(kids[211], [term_bullet(t, sep=': ') for t in C.APPENDIX2_ITEMS])
+insert_after(kids[211], [term_bullet(t, sep=': ') for t in V['appendix2_items']])
 
 # ------------------------------- 10. clear the template's fill-in highlighting
 for part in (body, hdr._element, doc.sections[0].footer._element):
@@ -456,4 +466,4 @@ cp.last_modified_by = 'Misk Foundation'
 
 os.makedirs('out', exist_ok=True)
 doc.save(OUT)
-print('written:', OUT, os.path.getsize(OUT), 'bytes')
+print('written [Option %s]:' % VARIANT, OUT, os.path.getsize(OUT), 'bytes')

@@ -47,12 +47,12 @@ ANNEX_LINE = ("For more detailed information about the Misk Leadership Track, pl
 MODEL_H2 = "The Misk Leadership Competency Model"
 
 MODEL_PARAS_1 = [
-    ("The Foundation has developed a leadership competency model that defines the behaviours required of Saudi "
-     "leaders who will deliver Vision 2030. The model was first articulated for the 2030 Leaders program, where it "
-     "underpins the rigorous selection process, the curriculum, and participant feedback. It is "
-     "expressed through seven competencies fit for leadership in a Saudi context, and it supports leaders in "
-     "balancing the polarities of decision making so that they become progress drivers, strategic shapers, "
-     "constant learners, principled leaders, and a powerful force for the future."),
+    ("The Foundation has developed a leadership competency model for the Misk Leadership Track. The model defines "
+     "the behaviours required of the Saudi leaders who will deliver Vision 2030, and it underpins how the "
+     "Foundation selects, develops, and gives feedback to the leaders in its programs. It is expressed through "
+     "seven competencies fit for leadership in a Saudi context, and it supports leaders in balancing the "
+     "polarities of decision making so that they become progress drivers, strategic shapers, constant learners, "
+     "principled leaders, and a powerful force for the future."),
     ("The model is anchored in the Misk Leadership Philosophy, which is linked to leading the change required to "
      "deliver Vision 2030 and is built on three pillars:"),
 ]
@@ -104,9 +104,9 @@ FLEX_BULLETS = [
 MODEL_PARAS_4 = [
     ("The descriptions above are indicative and are provided to orient Bidders. The full competency definitions, "
      "behavioural indicators, and supporting materials will be shared with shortlisted Bidders and with the awarded "
-     "Vendor. The model is currently defined at senior and executive level; a core requirement of this RFP is to "
-     "calibrate and extend it across the full Leadership Track so that the same competency architecture is "
-     "expressed at proficiency levels appropriate to each leadership level."),
+     "Vendor. A core requirement of this RFP is to review the model and calibrate it across the full Leadership "
+     "Track, so that the same competency architecture is expressed at proficiency levels appropriate to each "
+     "leadership level, from early leaders through to executives."),
 ]
 
 # --- Project Objectives --------------------------------------------------------
@@ -330,7 +330,7 @@ APPENDIX2_INTRO = ("The following annexures form part of this RFP and shall be m
 APPENDIX2_ITEMS = [
     "Annexure A: Misk Leadership Track – program profiles, objectives, target audiences, and annual beneficiary volumes.",
     "Annexure B: Misk Leadership Competency Model – the seven competencies, current definitions, and behavioural indicators.",
-    "Annexure C: 2030 Leaders program overview and current selection process.",
+    "Annexure C: Leadership Track selection processes and current assessment practice.",
     "Annexure D: The Foundation’s information security and personal data protection requirements.",
     "Annexure E: Rate card template.",
 ]
@@ -359,10 +359,10 @@ TRACK_LIST = [
     (1, "Saudi Leaders Society (SLS) – an exclusive network for graduates of Misk’s leadership programs, supporting continued professional growth, cross-sectorial networking, and opportunities to give back. 670 members are currently in this community, which continues to expand."),
 ]
 
-TRACK_CLOSING_2 = ("This RFP addresses the Leadership Track in its entirety. While the competency model described "
-                   "below was first articulated for the 2030 Leaders program, the model and the assessment sought "
-                   "under this RFP shall serve every program in the Track, and shall not be limited to any single "
-                   "program.")
+TRACK_CLOSING_2 = ("This RFP addresses the Leadership Track in its entirety. The competency model described below "
+                   "is the Foundation’s model for the Track as a whole. Both the model and the assessment sought "
+                   "under this RFP shall serve every program within the Track, and shall not be shaped around any "
+                   "single program.")
 
 # --- Project Goals and Objectives ---------------------------------------------
 GOALS_PARAS = [
