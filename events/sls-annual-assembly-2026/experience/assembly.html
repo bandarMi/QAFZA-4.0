@@ -1,0 +1,669 @@
+<title>Four Hundred Nodes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F2F6F3; --surface:#FFFFFF; --raised:#FAFCFB;
+  --ink:#0C1F19; --ink-2:#3B534B; --muted:#6B837A; --rule:#D9E4DE; --rule-soft:#E8EFEB;
+  --accent:#12876A; --warm:#C25E00;
+  --hero-bg:#00291F; --hero-ink:#EAF3EE; --hero-2:#9DBAAE; --hero-rule:#1B4335; --hero-accent:#5FD4AC;
+  --font-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --font-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#08120F; --surface:#0B1A16; --raised:#0F211C;
+    --ink:#E8F0EC; --ink-2:#B4C7BE; --muted:#7F958C; --rule:#1D3129; --rule-soft:#152621;
+    --accent:#26A07E; --warm:#CB7B24;
+    --hero-bg:#04211A; --hero-ink:#E8F0EC; --hero-2:#93AFA4; --hero-rule:#183B2F; --hero-accent:#4FC49D;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#08120F; --surface:#0B1A16; --raised:#0F211C;
+  --ink:#E8F0EC; --ink-2:#B4C7BE; --muted:#7F958C; --rule:#1D3129; --rule-soft:#152621;
+  --accent:#26A07E; --warm:#CB7B24;
+  --hero-bg:#04211A; --hero-ink:#E8F0EC; --hero-2:#93AFA4; --hero-rule:#183B2F; --hero-accent:#4FC49D;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--font-body);
+  font-size:17px;line-height:1.68;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+.prose{max-width:66ch}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0}
+h1{font-size:clamp(2.15rem,5.2vw,3.5rem);font-weight:700;letter-spacing:-.028em;line-height:1.06}
+h2{font-size:clamp(1.45rem,3vw,2.05rem);font-weight:600;letter-spacing:-.018em;line-height:1.16}
+h3{font-size:1.02rem;font-weight:600;letter-spacing:-.005em}
+p{margin:0 0 1.05em}
+a{color:inherit}
+.eyebrow{font-family:var(--font-mono);font-size:.685rem;text-transform:uppercase;
+  letter-spacing:.17em;color:var(--muted);margin:0 0 .85rem;font-weight:500}
+
+/* ---------- hero ---------- */
+.hero{background:var(--hero-bg);color:var(--hero-ink);padding:clamp(46px,7vw,84px) 0 0}
+.hero .eyebrow{color:var(--hero-2)}
+.hero h1{max-width:19ch}
+.hero .lede{font-size:1.12rem;color:var(--hero-ink);max-width:60ch;margin-top:1.4rem;opacity:.94}
+.facts{display:flex;flex-wrap:wrap;gap:0;margin:2.2rem 0 0;padding:0;
+  border-top:1px solid var(--hero-rule);border-bottom:1px solid var(--hero-rule)}
+.facts div{flex:1 1 168px;padding:.95rem 1.1rem .95rem 0;border-right:1px solid var(--hero-rule)}
+.facts div:last-child{border-right:0}
+.facts dt{font-family:var(--font-mono);font-size:.66rem;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--hero-2);margin-bottom:.3rem}
+.facts dd{margin:0;font-family:var(--font-display);font-size:.95rem;font-weight:500;line-height:1.35}
+
+/* ---------- network figure ---------- */
+.netfig{margin:0;padding:2.4rem 0 clamp(40px,6vw,64px)}
+.netfig svg{width:100%;height:auto;display:block;color:var(--hero-ink)}
+.gedge{stroke:currentColor;stroke-opacity:.26;stroke-width:1}
+.gedge.new{stroke:var(--hero-accent);stroke-opacity:.72;stroke-width:1.15}
+.gnode{fill:currentColor;fill-opacity:.42}
+.gnode.lit{fill:var(--hero-accent);fill-opacity:.95}
+.glabel{font-family:var(--font-mono);font-size:11.5px;fill:currentColor;fill-opacity:.62;
+  letter-spacing:.09em;text-transform:uppercase}
+.gcount{font-family:var(--font-display);font-size:20px;font-weight:600;fill:currentColor}
+.netfig figcaption{font-size:.9rem;color:var(--hero-2);max-width:74ch;margin-top:1.4rem}
+.netkey{display:flex;gap:1.6rem;flex-wrap:wrap;margin-top:1.1rem;
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--hero-2)}
+.netkey span{display:flex;align-items:center;gap:.5rem}
+.netkey i{width:22px;height:0;border-top:2px solid currentColor;opacity:.4}
+.netkey i.n{border-color:var(--hero-accent);opacity:1}
+
+/* ---------- sections ---------- */
+section{padding:clamp(48px,6.5vw,80px) 0;border-top:1px solid var(--rule)}
+section:first-of-type{border-top:0}
+.lead{font-size:1.09rem;color:var(--ink-2);max-width:64ch;margin-top:1.1rem}
+
+/* ---------- chart ---------- */
+.chartwrap{margin:2.4rem 0 0;overflow-x:auto}
+table.chart{border-collapse:collapse;width:100%;min-width:520px;font-family:var(--font-body)}
+table.chart caption{text-align:left;font-family:var(--font-mono);font-size:.68rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-bottom:1rem}
+table.chart th[scope=row]{text-align:left;font-weight:400;font-size:.94rem;color:var(--ink-2);
+  padding:.34rem 1.1rem .34rem 0;width:38%;position:relative;cursor:help}
+table.chart td.cell{width:auto;padding:.34rem 0;position:relative;
+  background:linear-gradient(90deg,var(--rule-soft) 0 1px,transparent 1px) 0 0/25% 100% repeat-x;
+  border-right:1px solid var(--rule-soft)}
+table.chart td.val{padding:.34rem 0 .34rem .85rem;text-align:right;width:4.6rem;
+  font-family:var(--font-mono);font-size:.86rem;font-variant-numeric:tabular-nums;color:var(--ink)}
+.bar{display:block;height:15px;width:calc(var(--v) * 1%);
+  border-radius:0 4px 4px 0;background:var(--accent)}
+tr.prog .bar{background:var(--warm)}
+table.chart tbody tr:hover th[scope=row]{color:var(--ink)}
+th[data-full]::after{content:attr(data-full);position:absolute;left:0;bottom:calc(100% + 8px);
+  z-index:5;width:min(30rem,68vw);padding:.6rem .75rem;border-radius:5px;
+  background:var(--ink);color:var(--ground);font-family:var(--font-body);font-size:.82rem;
+  line-height:1.45;opacity:0;pointer-events:none;transition:opacity .12s}
+@media (prefers-reduced-motion:reduce){th[data-full]::after{transition:none}}
+th[data-full]:hover::after,th[data-full]:focus-visible::after{opacity:1}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+td.axis{position:relative;height:1.7rem;padding:0}
+td.axis span{position:absolute;top:.45rem;font-family:var(--font-mono);font-size:.68rem;
+  color:var(--muted);font-variant-numeric:tabular-nums}
+td.axis span:nth-child(1){left:0}
+td.axis span:nth-child(2){left:25%;transform:translateX(-50%)}
+td.axis span:nth-child(3){left:50%;transform:translateX(-50%)}
+td.axis span:nth-child(4){left:75%;transform:translateX(-50%)}
+td.axis span:nth-child(5){right:0}
+.legend{display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:1.5rem;
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:.5rem}
+.legend i{width:12px;height:12px;border-radius:3px;background:var(--accent)}
+.legend i.p{background:var(--warm)}
+.finding{margin:2.4rem 0 0;padding:1.4rem 1.5rem;background:var(--surface);
+  border-left:3px solid var(--warm);border-radius:0 6px 6px 0;max-width:64ch}
+.finding p{margin:0;font-size:1.02rem}
+.finding strong{font-weight:600}
+
+/* ---------- states / run of show / lists ---------- */
+.states{list-style:none;padding:0;margin:2.2rem 0 0;display:grid;gap:0;max-width:74ch}
+.states li{display:grid;grid-template-columns:minmax(8.5rem,10rem) 1fr;gap:1.6rem;
+  padding:1.15rem 0;border-top:1px solid var(--rule-soft)}
+.states li:first-child{border-top:1px solid var(--rule)}
+.states .when{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--accent);padding-top:.28rem}
+.states p{margin:0;font-size:.99rem;color:var(--ink-2)}
+.states b{font-family:var(--font-display);font-weight:600;font-size:1rem;
+  color:var(--ink);display:block;margin-bottom:.24rem}
+
+.rundown{width:100%;border-collapse:collapse;margin-top:2.2rem;min-width:600px}
+.runwrap{overflow-x:auto}
+.rundown th{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);text-align:left;font-weight:500;
+  padding:0 1rem .7rem 0;border-bottom:1px solid var(--rule)}
+.rundown td{padding:.8rem 1rem .8rem 0;border-bottom:1px solid var(--rule-soft);
+  vertical-align:baseline;font-size:.97rem}
+.rundown td.t{font-family:var(--font-mono);font-size:.88rem;font-variant-numeric:tabular-nums;
+  color:var(--ink);white-space:nowrap;width:4.6rem}
+.rundown td.d{font-family:var(--font-mono);font-size:.78rem;color:var(--muted);
+  font-variant-numeric:tabular-nums;white-space:nowrap;width:3.4rem}
+.rundown td.s{font-weight:400}
+.rundown td.s em{font-style:normal;color:var(--muted);font-size:.88rem;display:block}
+.rundown tr.end td{border-bottom:0;color:var(--muted)}
+.chip{display:inline-block;font-family:var(--font-mono);font-size:.66rem;
+  letter-spacing:.1em;text-transform:uppercase;padding:.2rem .5rem;border-radius:3px;
+  border:1px solid var(--rule);color:var(--muted);white-space:nowrap}
+.chip.move{border-color:var(--accent);color:var(--accent)}
+.split{display:flex;gap:2rem;flex-wrap:wrap;margin-top:1.6rem;
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted)}
+
+.pillars{display:grid;gap:0;margin-top:2.2rem}
+.pillar{padding:1.6rem 0;border-top:1px solid var(--rule-soft);
+  display:grid;grid-template-columns:minmax(11rem,15rem) 1fr;gap:2rem}
+.pillar:first-child{border-top:1px solid var(--rule)}
+.pillar h3{margin-bottom:.5rem}
+.pillar .was{font-size:.88rem;color:var(--muted);font-style:italic;margin:0}
+.pillar p.now{margin:0;color:var(--ink-2);font-size:1rem}
+
+.calls{list-style:none;padding:0;margin:2.2rem 0 0;max-width:70ch;
+  display:grid;gap:0}
+.calls li{padding:1.05rem 0;border-top:1px solid var(--rule-soft);font-size:1rem;color:var(--ink-2)}
+.calls li:first-child{border-top:1px solid var(--rule)}
+.calls b{font-family:var(--font-display);font-weight:600;color:var(--ink)}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2.6rem;margin-top:2.2rem}
+.mtable{width:100%;border-collapse:collapse}
+.mtable th{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--muted);text-align:left;font-weight:500;
+  padding:0 .8rem .6rem 0;border-bottom:1px solid var(--rule)}
+.mtable th.n,.mtable td.n{text-align:right;font-family:var(--font-mono);
+  font-variant-numeric:tabular-nums;font-size:.85rem;padding-right:0}
+.mtable td{padding:.62rem .8rem .62rem 0;border-bottom:1px solid var(--rule-soft);font-size:.94rem}
+.mtable td.n{color:var(--ink)}
+.mtable td.n.tgt{color:var(--accent)}
+.todo{list-style:none;padding:0;margin:0}
+.todo li{padding:.62rem 0;border-bottom:1px solid var(--rule-soft);font-size:.94rem;color:var(--ink-2)}
+.todo li::before{content:"—";color:var(--muted);margin-right:.6rem}
+
+footer{border-top:1px solid var(--rule);padding:2.6rem 0 3.4rem;color:var(--muted);font-size:.88rem}
+footer p{max-width:70ch}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+@media (max-width:720px){
+  .states li,.pillar{grid-template-columns:1fr;gap:.5rem}
+  .axis{margin-left:0}
+  .facts div{border-right:0;border-bottom:1px solid var(--hero-rule);flex-basis:100%}
+  .facts div:last-child{border-bottom:0}
+}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">SLS Annual Assembly 2026 &middot; Experience design</p>
+    <h1>Four hundred people in one room. The point is what they leave connected to.</h1>
+    <p class="lede">The 2026 assembly is one day, all members, no graduation. That removes the ceremony
+      that organised the last one and leaves a harder question: what does an executive society actually
+      convene for? This is a design for the answer &mdash; the network graph you already have, running
+      as the spine of the day, and a programme built around the two things the 2024 survey scored lowest.</p>
+
+    <dl class="facts">
+      <div><dt>Date</dt><dd>Sat 21 Nov 2026</dd></div>
+      <div><dt>Venue</dt><dd>Hena Experience Center, Riyadh</dd></div>
+      <div><dt>Shape</dt><dd>One day, 14:30&ndash;21:00</dd></div>
+      <div><dt>Room</dt><dd>~400 members, all invited</dd></div>
+      <div><dt>Not this year</dt><dd>No graduation segment</dd></div>
+    </dl>
+
+    <figure class="netfig">
+      <svg viewBox="0 0 780 300" role="img" aria-label="Two views of the same forty-six members: at doors, only a handful of pre-existing connections; at close, the graph is dense with introductions logged during the day.">
+        <text class="glabel" x="0" y="14">14:30 &#183; doors</text>
+        <text class="glabel" x="420" y="14">21:00 &#183; close</text>
+    <!-- left panel: doors -->
+        <g>
+          <line x1="270.6" y1="90.7" x2="237.9" y2="94.5" class="gedge"/>
+          <line x1="277.6" y1="178.1" x2="267.3" y2="209.8" class="gedge"/>
+          <line x1="39.0" y1="159.7" x2="31.6" y2="119.8" class="gedge"/>
+          <line x1="179.7" y1="212.9" x2="149.6" y2="209.1" class="gedge"/>
+          <line x1="230.2" y1="204.6" x2="267.3" y2="209.8" class="gedge"/>
+          <line x1="200.5" y1="175.1" x2="224.1" y2="159.5" class="gedge"/>
+          <line x1="282.4" y1="52.1" x2="245.6" y2="35.9" class="gedge"/>
+          <line x1="189.1" y1="113.5" x2="218.4" y2="123.9" class="gedge"/>
+          <circle cx="103.1" cy="98.5" r="3.4" class="gnode"/>
+          <circle cx="322.3" cy="224.4" r="3.4" class="gnode"/>
+          <circle cx="316.5" cy="148.2" r="3.4" class="gnode"/>
+          <circle cx="270.6" cy="90.7" r="3.4" class="gnode"/>
+          <circle cx="277.6" cy="178.1" r="3.4" class="gnode"/>
+          <circle cx="76.7" cy="226.5" r="3.4" class="gnode"/>
+          <circle cx="39.0" cy="159.7" r="3.4" class="gnode"/>
+          <circle cx="179.7" cy="212.9" r="3.4" class="gnode"/>
+          <circle cx="84.1" cy="149.3" r="3.4" class="gnode"/>
+          <circle cx="230.2" cy="204.6" r="3.4" class="gnode"/>
+          <circle cx="312.4" cy="80.7" r="3.4" class="gnode"/>
+          <circle cx="171.2" cy="44.7" r="3.4" class="gnode"/>
+          <circle cx="137.3" cy="139.2" r="3.4" class="gnode"/>
+          <circle cx="267.3" cy="209.8" r="3.4" class="gnode"/>
+          <circle cx="31.6" cy="119.8" r="3.4" class="gnode"/>
+          <circle cx="177.6" cy="141.3" r="3.4" class="gnode"/>
+          <circle cx="91.3" cy="71.6" r="3.4" class="gnode"/>
+          <circle cx="101.8" cy="171.9" r="3.4" class="gnode"/>
+          <circle cx="138.8" cy="170.9" r="3.4" class="gnode"/>
+          <circle cx="121.1" cy="226.0" r="3.4" class="gnode"/>
+          <circle cx="200.5" cy="175.1" r="3.4" class="gnode"/>
+          <circle cx="104.8" cy="126.8" r="3.4" class="gnode"/>
+          <circle cx="83.7" cy="44.5" r="3.4" class="gnode"/>
+          <circle cx="22.5" cy="62.8" r="3.4" class="gnode"/>
+          <circle cx="333.3" cy="102.5" r="3.4" class="gnode"/>
+          <circle cx="282.4" cy="52.1" r="3.4" class="gnode"/>
+          <circle cx="189.1" cy="113.5" r="3.4" class="gnode"/>
+          <circle cx="208.9" cy="46.1" r="3.4" class="gnode"/>
+          <circle cx="144.4" cy="111.3" r="3.4" class="gnode"/>
+          <circle cx="68.9" cy="104.6" r="3.4" class="gnode"/>
+          <circle cx="311.0" cy="190.4" r="3.4" class="gnode"/>
+          <circle cx="122.7" cy="35.0" r="3.4" class="gnode"/>
+          <circle cx="235.0" cy="62.2" r="3.4" class="gnode"/>
+          <circle cx="143.9" cy="55.9" r="3.4" class="gnode"/>
+          <circle cx="218.4" cy="123.9" r="3.4" class="gnode"/>
+          <circle cx="181.6" cy="83.9" r="3.4" class="gnode"/>
+          <circle cx="167.3" cy="183.6" r="3.4" class="gnode"/>
+          <circle cx="224.1" cy="159.5" r="3.4" class="gnode"/>
+          <circle cx="237.9" cy="94.5" r="3.4" class="gnode"/>
+          <circle cx="245.6" cy="35.9" r="3.4" class="gnode"/>
+          <circle cx="269.2" cy="138.9" r="3.4" class="gnode"/>
+          <circle cx="149.6" cy="209.1" r="3.4" class="gnode"/>
+          <circle cx="211.3" cy="81.5" r="3.4" class="gnode"/>
+          <circle cx="64.7" cy="194.3" r="3.4" class="gnode"/>
+          <circle cx="36.6" cy="30.5" r="3.4" class="gnode"/>
+          <circle cx="44.2" cy="223.2" r="3.4" class="gnode"/>
+        </g>
+    <!-- right panel: close  (new edges = 70) -->
+        <g>
+          <line x1="690.6" y1="90.7" x2="657.9" y2="94.5" class="gedge"/>
+          <line x1="697.6" y1="178.1" x2="687.3" y2="209.8" class="gedge"/>
+          <line x1="459.0" y1="159.7" x2="451.6" y2="119.8" class="gedge"/>
+          <line x1="599.7" y1="212.9" x2="569.6" y2="209.1" class="gedge"/>
+          <line x1="650.2" y1="204.6" x2="687.3" y2="209.8" class="gedge"/>
+          <line x1="620.5" y1="175.1" x2="644.1" y2="159.5" class="gedge"/>
+          <line x1="702.4" y1="52.1" x2="665.6" y2="35.9" class="gedge"/>
+          <line x1="609.1" y1="113.5" x2="638.4" y2="123.9" class="gedge"/>
+          <line x1="523.1" y1="98.5" x2="511.3" y2="71.6" class="gedge new"/>
+          <line x1="523.1" y1="98.5" x2="524.8" y2="126.8" class="gedge new"/>
+          <line x1="523.1" y1="98.5" x2="564.4" y2="111.3" class="gedge new"/>
+          <line x1="523.1" y1="98.5" x2="488.9" y2="104.6" class="gedge new"/>
+          <line x1="523.1" y1="98.5" x2="587.3" y2="183.6" class="gedge new"/>
+          <line x1="742.3" y1="224.4" x2="697.6" y2="178.1" class="gedge new"/>
+          <line x1="742.3" y1="224.4" x2="687.3" y2="209.8" class="gedge new"/>
+          <line x1="742.3" y1="224.4" x2="731.0" y2="190.4" class="gedge new"/>
+          <line x1="742.3" y1="224.4" x2="665.6" y2="35.9" class="gedge new"/>
+          <line x1="736.5" y1="148.2" x2="731.0" y2="190.4" class="gedge new"/>
+          <line x1="736.5" y1="148.2" x2="689.2" y2="138.9" class="gedge new"/>
+          <line x1="690.6" y1="90.7" x2="459.0" y2="159.7" class="gedge new"/>
+          <line x1="690.6" y1="90.7" x2="732.4" y2="80.7" class="gedge new"/>
+          <line x1="690.6" y1="90.7" x2="753.3" y2="102.5" class="gedge new"/>
+          <line x1="690.6" y1="90.7" x2="702.4" y2="52.1" class="gedge new"/>
+          <line x1="690.6" y1="90.7" x2="689.2" y2="138.9" class="gedge new"/>
+          <line x1="697.6" y1="178.1" x2="731.0" y2="190.4" class="gedge new"/>
+          <line x1="496.7" y1="226.5" x2="541.1" y2="226.0" class="gedge new"/>
+          <line x1="496.7" y1="226.5" x2="484.7" y2="194.3" class="gedge new"/>
+          <line x1="496.7" y1="226.5" x2="464.2" y2="223.2" class="gedge new"/>
+          <line x1="459.0" y1="159.7" x2="442.5" y2="62.8" class="gedge new"/>
+          <line x1="459.0" y1="159.7" x2="484.7" y2="194.3" class="gedge new"/>
+          <line x1="459.0" y1="159.7" x2="464.2" y2="223.2" class="gedge new"/>
+          <line x1="599.7" y1="212.9" x2="732.4" y2="80.7" class="gedge new"/>
+          <line x1="599.7" y1="212.9" x2="620.5" y2="175.1" class="gedge new"/>
+          <line x1="599.7" y1="212.9" x2="731.0" y2="190.4" class="gedge new"/>
+          <line x1="599.7" y1="212.9" x2="542.7" y2="35.0" class="gedge new"/>
+          <line x1="599.7" y1="212.9" x2="587.3" y2="183.6" class="gedge new"/>
+          <line x1="504.1" y1="149.3" x2="521.8" y2="171.9" class="gedge new"/>
+          <line x1="504.1" y1="149.3" x2="524.8" y2="126.8" class="gedge new"/>
+          <line x1="650.2" y1="204.6" x2="620.5" y2="175.1" class="gedge new"/>
+          <line x1="650.2" y1="204.6" x2="638.4" y2="123.9" class="gedge new"/>
+          <line x1="650.2" y1="204.6" x2="644.1" y2="159.5" class="gedge new"/>
+          <line x1="650.2" y1="204.6" x2="689.2" y2="138.9" class="gedge new"/>
+          <line x1="732.4" y1="80.7" x2="753.3" y2="102.5" class="gedge new"/>
+          <line x1="732.4" y1="80.7" x2="702.4" y2="52.1" class="gedge new"/>
+          <line x1="591.2" y1="44.7" x2="628.9" y2="46.1" class="gedge new"/>
+          <line x1="591.2" y1="44.7" x2="563.9" y2="55.9" class="gedge new"/>
+          <line x1="591.2" y1="44.7" x2="601.6" y2="83.9" class="gedge new"/>
+          <line x1="557.3" y1="139.2" x2="558.8" y2="170.9" class="gedge new"/>
+          <line x1="557.3" y1="139.2" x2="524.8" y2="126.8" class="gedge new"/>
+          <line x1="557.3" y1="139.2" x2="564.4" y2="111.3" class="gedge new"/>
+          <line x1="451.6" y1="119.8" x2="442.5" y2="62.8" class="gedge new"/>
+          <line x1="451.6" y1="119.8" x2="488.9" y2="104.6" class="gedge new"/>
+          <line x1="597.6" y1="141.3" x2="620.5" y2="175.1" class="gedge new"/>
+          <line x1="511.3" y1="71.6" x2="503.7" y2="44.5" class="gedge new"/>
+          <line x1="511.3" y1="71.6" x2="488.9" y2="104.6" class="gedge new"/>
+          <line x1="511.3" y1="71.6" x2="542.7" y2="35.0" class="gedge new"/>
+          <line x1="521.8" y1="171.9" x2="558.8" y2="170.9" class="gedge new"/>
+          <line x1="521.8" y1="171.9" x2="541.1" y2="226.0" class="gedge new"/>
+          <line x1="558.8" y1="170.9" x2="587.3" y2="183.6" class="gedge new"/>
+          <line x1="541.1" y1="226.0" x2="569.6" y2="209.1" class="gedge new"/>
+          <line x1="524.8" y1="126.8" x2="564.4" y2="111.3" class="gedge new"/>
+          <line x1="524.8" y1="126.8" x2="657.9" y2="94.5" class="gedge new"/>
+          <line x1="503.7" y1="44.5" x2="542.7" y2="35.0" class="gedge new"/>
+          <line x1="503.7" y1="44.5" x2="456.6" y2="30.5" class="gedge new"/>
+          <line x1="442.5" y1="62.8" x2="657.9" y2="94.5" class="gedge new"/>
+          <line x1="442.5" y1="62.8" x2="456.6" y2="30.5" class="gedge new"/>
+          <line x1="753.3" y1="102.5" x2="665.6" y2="35.9" class="gedge new"/>
+          <line x1="609.1" y1="113.5" x2="601.6" y2="83.9" class="gedge new"/>
+          <line x1="628.9" y1="46.1" x2="655.0" y2="62.2" class="gedge new"/>
+          <line x1="628.9" y1="46.1" x2="631.3" y2="81.5" class="gedge new"/>
+          <line x1="542.7" y1="35.0" x2="563.9" y2="55.9" class="gedge new"/>
+          <line x1="655.0" y1="62.2" x2="657.9" y2="94.5" class="gedge new"/>
+          <line x1="655.0" y1="62.2" x2="665.6" y2="35.9" class="gedge new"/>
+          <line x1="563.9" y1="55.9" x2="601.6" y2="83.9" class="gedge new"/>
+          <line x1="638.4" y1="123.9" x2="657.9" y2="94.5" class="gedge new"/>
+          <line x1="587.3" y1="183.6" x2="569.6" y2="209.1" class="gedge new"/>
+          <line x1="657.9" y1="94.5" x2="631.3" y2="81.5" class="gedge new"/>
+          <line x1="484.7" y1="194.3" x2="464.2" y2="223.2" class="gedge new"/>
+          <circle cx="523.1" cy="98.5" r="3.4" class="gnode lit"/>
+          <circle cx="742.3" cy="224.4" r="3.4" class="gnode lit"/>
+          <circle cx="736.5" cy="148.2" r="3.4" class="gnode lit"/>
+          <circle cx="690.6" cy="90.7" r="3.4" class="gnode lit"/>
+          <circle cx="697.6" cy="178.1" r="3.4" class="gnode lit"/>
+          <circle cx="496.7" cy="226.5" r="3.4" class="gnode lit"/>
+          <circle cx="459.0" cy="159.7" r="3.4" class="gnode lit"/>
+          <circle cx="599.7" cy="212.9" r="3.4" class="gnode lit"/>
+          <circle cx="504.1" cy="149.3" r="3.4" class="gnode lit"/>
+          <circle cx="650.2" cy="204.6" r="3.4" class="gnode lit"/>
+          <circle cx="732.4" cy="80.7" r="3.4" class="gnode lit"/>
+          <circle cx="591.2" cy="44.7" r="3.4" class="gnode lit"/>
+          <circle cx="557.3" cy="139.2" r="3.4" class="gnode lit"/>
+          <circle cx="687.3" cy="209.8" r="3.4" class="gnode lit"/>
+          <circle cx="451.6" cy="119.8" r="3.4" class="gnode lit"/>
+          <circle cx="597.6" cy="141.3" r="3.4" class="gnode lit"/>
+          <circle cx="511.3" cy="71.6" r="3.4" class="gnode lit"/>
+          <circle cx="521.8" cy="171.9" r="3.4" class="gnode lit"/>
+          <circle cx="558.8" cy="170.9" r="3.4" class="gnode lit"/>
+          <circle cx="541.1" cy="226.0" r="3.4" class="gnode lit"/>
+          <circle cx="620.5" cy="175.1" r="3.4" class="gnode lit"/>
+          <circle cx="524.8" cy="126.8" r="3.4" class="gnode lit"/>
+          <circle cx="503.7" cy="44.5" r="3.4" class="gnode lit"/>
+          <circle cx="442.5" cy="62.8" r="3.4" class="gnode lit"/>
+          <circle cx="753.3" cy="102.5" r="3.4" class="gnode lit"/>
+          <circle cx="702.4" cy="52.1" r="3.4" class="gnode lit"/>
+          <circle cx="609.1" cy="113.5" r="3.4" class="gnode lit"/>
+          <circle cx="628.9" cy="46.1" r="3.4" class="gnode lit"/>
+          <circle cx="564.4" cy="111.3" r="3.4" class="gnode lit"/>
+          <circle cx="488.9" cy="104.6" r="3.4" class="gnode lit"/>
+          <circle cx="731.0" cy="190.4" r="3.4" class="gnode lit"/>
+          <circle cx="542.7" cy="35.0" r="3.4" class="gnode lit"/>
+          <circle cx="655.0" cy="62.2" r="3.4" class="gnode lit"/>
+          <circle cx="563.9" cy="55.9" r="3.4" class="gnode lit"/>
+          <circle cx="638.4" cy="123.9" r="3.4" class="gnode lit"/>
+          <circle cx="601.6" cy="83.9" r="3.4" class="gnode lit"/>
+          <circle cx="587.3" cy="183.6" r="3.4" class="gnode lit"/>
+          <circle cx="644.1" cy="159.5" r="3.4" class="gnode lit"/>
+          <circle cx="657.9" cy="94.5" r="3.4" class="gnode lit"/>
+          <circle cx="665.6" cy="35.9" r="3.4" class="gnode lit"/>
+          <circle cx="689.2" cy="138.9" r="3.4" class="gnode lit"/>
+          <circle cx="569.6" cy="209.1" r="3.4" class="gnode lit"/>
+          <circle cx="631.3" cy="81.5" r="3.4" class="gnode lit"/>
+          <circle cx="484.7" cy="194.3" r="3.4" class="gnode lit"/>
+          <circle cx="456.6" cy="30.5" r="3.4" class="gnode lit"/>
+          <circle cx="464.2" cy="223.2" r="3.4" class="gnode lit"/>
+        </g>
+        <text class="gcount" x="0" y="296">8 edges</text>
+        <text class="gcount" x="420" y="296">1,200 introductions &mdash; the target</text>
+      </svg>
+      <div class="netkey">
+        <span><i></i> Relationship that already existed</span>
+        <span><i class="n"></i> Introduction requested and completed on the day</span>
+      </div>
+      <figcaption>Schematic, 46 of roughly 400 members. The graph is not a screensaver in the corner:
+        it is how members find each other, how tables and dinner seating get built, and how the day
+        produces a number the Council can report to the 2027 assembly. Three introductions per member
+        is 1,200 &mdash; the target set in the event charter.</figcaption>
+      </figure>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+<section id="evidence">
+  <div class="prose">
+    <p class="eyebrow">What 2024 measured</p>
+    <h2>Operations scored. The programme didn&rsquo;t.</h2>
+    <p class="lead">Overall satisfaction in 2024 was <strong>76.8%</strong>. Underneath that number the
+      survey splits cleanly, and it splits in a way that should decide where 2026&rsquo;s attention goes.
+      Every operational item &mdash; signage, parking, the venue, the pre-event information, registration
+      &mdash; scored 79% or better. Both programme items scored below 75%.</p>
+  </div>
+
+  <div class="chartwrap">
+    <table class="chart">
+      <caption>2024 post-event survey &middot; % satisfied &middot; hover a row for the question as asked</caption>
+      <thead class="vh">
+        <tr><th scope="col">Survey item</th><th scope="col" colspan="2">Percentage satisfied</th></tr>
+      </thead>
+      <tbody>
+        <tr class="ops"><th scope="row" tabindex="0" data-full="The overall satisfaction with wayfinding: the navigation and signage to guide you through the event venue">Wayfinding and signage</th>
+          <td class="cell"><span class="bar" style="--v:92.16"></span></td><td class="val">92.2%</td></tr>
+        <tr class="ops"><th scope="row" tabindex="0" data-full="The overall process of getting to the venue (considering factors such as parking availability and transportation options)">Getting to the venue</th>
+          <td class="cell"><span class="bar" style="--v:88.68"></span></td><td class="val">88.7%</td></tr>
+        <tr class="ops"><th scope="row" tabindex="0" data-full="Rate your experience with the location of the venue: Misk Schools, Riyadh, Saudi Arabia">The venue itself</th>
+          <td class="cell"><span class="bar" style="--v:84.62"></span></td><td class="val">84.6%</td></tr>
+        <tr class="ops"><th scope="row" tabindex="0" data-full="Overall satisfaction on the information provided prior to the event (agenda breakdown, badge pick-up information, arrival, logistics)">Information before the event</th>
+          <td class="cell"><span class="bar" style="--v:83.02"></span></td><td class="val">83.0%</td></tr>
+        <tr class="ops"><th scope="row" tabindex="0" data-full="The overall registration process (online registration, badge pickup, confirmation emails, etc.)">Registration process</th>
+          <td class="cell"><span class="bar" style="--v:79.25"></span></td><td class="val">79.3%</td></tr>
+        <tr class="prog"><th scope="row" tabindex="0" data-full="Networking: the networking opportunities provided during the event">Networking opportunities</th>
+          <td class="cell"><span class="bar" style="--v:74.51"></span></td><td class="val">74.5%</td></tr>
+        <tr class="prog"><th scope="row" tabindex="0" data-full="The overall structure and flow of the agenda (speakers, topics, timing, location of each activation)">Agenda structure and flow</th>
+          <td class="cell"><span class="bar" style="--v:69.81"></span></td><td class="val">69.8%</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td></td>
+          <td class="axis"><span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span></td>
+          <td></td></tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="legend">
+    <span><i></i> Operations</span>
+    <span><i class="p"></i> Programme</span>
+  </div>
+
+  <div class="finding">
+    <p><strong>The read:</strong> 2024&rsquo;s logistics were solved. What members marked down was the
+      thing the day was actually for. So 2026 holds operations to the standard already set and spends
+      the new effort on the programme and the connections &mdash; which is also the cheaper half.</p>
+  </div>
+</section>
+
+<section id="spine">
+  <div class="prose">
+    <p class="eyebrow">The digital spine</p>
+    <h2>Make the graph the day, not a kiosk in the corner</h2>
+    <p class="lead">An interactive screen that people glance at on the way to coffee is a decoration.
+      The same graph, given a job at every hour, becomes the thing members tell each other about.
+      Seven moments, one dataset.</p>
+  </div>
+
+  <ul class="states">
+    <li><span class="when">Two weeks out</span>
+      <p><b>The profile is the RSVP</b>Every member gets a link to their own node. Two questions before
+      they can see anyone else&rsquo;s: what are you working on this year, and what could you help another
+      member with. Confirming attendance and completing the profile are the same action &mdash; which is
+      how the 48-hour headcount reconfirmation finally gets teeth.</p></li>
+    <li><span class="when">At the door</span>
+      <p><b>The badge scan lights your node</b>The wall starts almost empty, and everyone walking in can
+      see that it does. Arriving is visibly an act of joining something, not queueing for it.</p></li>
+    <li><span class="when">15:30</span>
+      <p><b>The Council opens against the wall</b>Not a slide deck. Here is the society, tonight, in this
+      room &mdash; who is here, from which sectors, and where it has grown since last year.</p></li>
+    <li><span class="when">Through the afternoon</span>
+      <p><b>The graph is the interface</b>Filter by sector, by challenge, by chapter. Request an introduction
+      and it comes back with a place and a time to meet, not a business card. Peer circle tables and dinner
+      seating are drawn from the same data, so no table is single-sector and nobody workshops a live problem
+      in front of their closest competitor.</p></li>
+    <li><span class="when">As projects land</span>
+      <p><b>Commitments become edges</b>Every commitment made at the Impact Market is entered on the wall.
+      By 19:00 the graph shows what the society built this year, not only who knows whom.</p></li>
+    <li><span class="when">19:40</span>
+      <p><b>Ninety seconds, lights down</b>The graph replays from doors to close. Then the ledger:
+      introductions requested, introductions completed. That number is the report to the 2027 assembly,
+      and the first time this society has had one.</p></li>
+    <li><span class="when">The week after</span>
+      <p><b>Everyone leaves with their own card</b>Their node, their new connections, their commitments.
+      The graph stays live as the year-round directory &mdash; which is also what keeps the profiles
+      current enough to run this again in 2027.</p></li>
+  </ul>
+</section>
+
+<section id="runofshow">
+  <div class="prose">
+    <p class="eyebrow">Run of show</p>
+    <h2>Two hours seated out of six and a half</h2>
+    <p class="lead">The single loudest note in the 2024 feedback was the sitting. This shape answers it
+      arithmetically: 120 minutes of seated programme, 270 of moving, and the seated block runs once,
+      unbroken, at the end &mdash; because the hardest thing 2024&rsquo;s team did was get a networking
+      crowd back into a theatre.</p>
+  </div>
+
+  <div class="runwrap">
+  <table class="rundown">
+    <thead><tr><th>Time</th><th>Mins</th><th>Segment</th><th>Mode</th></tr></thead>
+    <tbody>
+      <tr><td class="t">14:30</td><td class="d">60</td><td class="s">Doors, badge scan, the wall starts empty<em>Arrival is the first thing that shows up on the graph</em></td><td><span class="chip move">Moving</span></td></tr>
+      <tr><td class="t">15:30</td><td class="d">10</td><td class="s">Opening &mdash; the Council against the wall</td><td><span class="chip">Seated</span></td></tr>
+      <tr><td class="t">15:40</td><td class="d">30</td><td class="s">Keynote dialogue I<em>Two chairs, a member moderating, questions sourced from members</em></td><td><span class="chip">Seated</span></td></tr>
+      <tr><td class="t">16:10</td><td class="d">55</td><td class="s">Peer advisory circles<em>Eight to ten a table, one member&rsquo;s live challenge, Chatham House</em></td><td><span class="chip move">Moving</span></td></tr>
+      <tr><td class="t">17:05</td><td class="d">70</td><td class="s">Impact Market<em>Maghrib (&asymp;17:14) sits inside this block, not against it</em></td><td><span class="chip move">Moving</span></td></tr>
+      <tr><td class="t">18:15</td><td class="d">30</td><td class="s">Keynote dialogue II</td><td><span class="chip">Seated</span></td></tr>
+      <tr><td class="t">18:45</td><td class="d">15</td><td class="s">Isha (&asymp;18:44)</td><td><span class="chip move">Moving</span></td></tr>
+      <tr><td class="t">19:00</td><td class="d">25</td><td class="s">Council roadmap and the three votes</td><td><span class="chip">Seated</span></td></tr>
+      <tr><td class="t">19:25</td><td class="d">15</td><td class="s">Induction of new members<em>No graduation: named, paired with a sponsor, the room stands once</em></td><td><span class="chip">Seated</span></td></tr>
+      <tr><td class="t">19:40</td><td class="d">10</td><td class="s">The replay and the ledger</td><td><span class="chip">Seated</span></td></tr>
+      <tr><td class="t">19:50</td><td class="d">70</td><td class="s">Dinner and curated networking<em>Seating drawn from the graph</em></td><td><span class="chip move">Moving</span></td></tr>
+      <tr class="end"><td class="t">21:00</td><td class="d">&mdash;</td><td class="s">Ends</td><td></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="split">
+    <span>Seated 120 min</span><span>Moving 270 min</span><span>Prayer times approximate &mdash; confirm against 21/11</span>
+  </div>
+</section>
+
+<section id="pillars">
+  <div class="prose">
+    <p class="eyebrow">The five pillars, placed</p>
+    <h2>Each one, treated as a format problem</h2>
+    <p class="lead">The pillars are right. What decides whether they land is the format each one is given.
+      For every pillar below: the version most assemblies default to, and the version this day runs.</p>
+  </div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div><h3>Vision 2030 impact</h3><p class="was">Default: members present projects from a stage to a seated room.</p></div>
+      <p class="now">Run it as an <strong>Impact Market</strong>. Twelve to fifteen member-led stands across
+        the venue, each carrying exactly one ask &mdash; a partner, a pilot site, a regulator conversation.
+        Members walk, talk and commit; every commitment is entered on the wall as an edge. The output is
+        a list of commitments, not applause.</p>
+    </div>
+    <div class="pillar">
+      <div><h3>Induction of new leaders</h3><p class="was">Default: a graduation, with a procession and certificates.</p></div>
+      <p class="now">There is no graduation in 2026. New members from the latest Misk Fellowship and 2030
+        Leaders cohorts are <strong>inducted into the society</strong> in fifteen minutes: named on the wall,
+        paired on the spot with a sponsor member who is standing there, and the room stands once. If even
+        that reads as ceremony the Track doesn&rsquo;t want this year, cut it &mdash; nothing else in the
+        day depends on it.</p>
+    </div>
+    <div class="pillar">
+      <div><h3>Executive knowledge exchange</h3><p class="was">Default: a keynote, then a Q&amp;A that never comes.</p></div>
+      <p class="now">Two <strong>dialogues</strong> of thirty minutes each, paired on stage, moderated by a
+        member rather than a broadcaster, with the questions collected from members through the graph in
+        the fortnight before. 2024&rsquo;s feedback was specific about this: shorter, more inspiring, an
+        interviewer matched to the interviewee, and leaders sharing what happened to them rather than
+        general advice. The deeper exchange happens in the <strong>peer advisory circles</strong>, where
+        tables are mixed by sector from the graph.</p>
+    </div>
+    <div class="pillar">
+      <div><h3>Community governance</h3><p class="was">Default: the Council presents a roadmap and invites questions.</p></div>
+      <p class="now">The Council brings <strong>three decisions the membership actually makes</strong>:
+        which international chapter opens next, which transformational visit the society funds, and one
+        change to how members are engaged. Voted in the room, results on the wall before the segment ends.
+        An elected body that only presents stops being one.</p>
+    </div>
+    <div class="pillar">
+      <div><h3>Relationship building</h3><p class="was">Default: a networking break, and hope.</p></div>
+      <p class="now">Introductions are <strong>requested through the graph and delivered with a place and
+        a time</strong>. Mentorship pairs are matched from the same data and must set a first meeting date
+        before they leave the room &mdash; a pairing that ends in a handshake has evaporated by Tuesday.
+        Dinner seating comes from the graph too, so the last seventy minutes are designed rather than
+        left to chance.</p>
+    </div>
+  </div>
+</section>
+
+<section id="calls">
+  <div class="prose">
+    <p class="eyebrow">What makes it memorable</p>
+    <h2>Nine decisions, most of them free</h2>
+    <p class="lead">None of these need budget so much as a decision taken early and held. Each one answers
+      something the 2024 report already told you.</p>
+  </div>
+
+  <ul class="calls">
+    <li><b>Put the strongest hour last.</b> In 2024 the theatre ran long and half the audience left the
+      moment it ended. Give people a reason to still be there at 19:40, and make the close worth staying for
+      rather than a thank-you slide.</li>
+    <li><b>Never ask a room to reassemble.</b> The hardest operational moment of 2024 was pulling a
+      networking crowd back into the theatre; doors opened and closed through the whole second half.
+      Front-load the moving segments, then run the seated block once, unbroken.</li>
+    <li><b>Dialogues, not speeches.</b> Thirty minutes, a member moderating, questions from the membership.
+      Brief every speaker on one rule: tell us what happened to you, not what we should do.</li>
+    <li><b>One signature image.</b> Ninety seconds of the graph replaying with the lights down. Every event
+      people remember has one thing they photograph &mdash; choose it deliberately instead of leaving it
+      to the stage set.</li>
+    <li><b>Publish the guest rule with the invitation.</b> In 2024 members asked for more than one guest
+      each. Decide it, print it on the invitation, and stop negotiating it in the final week.</li>
+    <li><b>Digital badge, no pick-up trip.</b> 2024 sent guests travelling in from outside Riyadh on a
+      separate journey to collect a badge, to a location beside the venue they were coming to anyway.</li>
+    <li><b>Cater to the reconfirmed number.</b> 2024 catered for 400 and served 150&ndash;200. Contract to a
+      headcount reconfirmed 48 hours out, with a staged release for the rest.</li>
+    <li><b>Build the agenda around prayer, not against it.</b> Members asked for more time at the break.
+      Maghrib and Isha are fixed points on 21 November; put a moving segment across them so the room
+      never has to be stopped and restarted.</li>
+    <li><b>The takeaway is the network card.</b> Personal, near-free, and it keeps the graph in front of
+      members for the eleven months when there is no assembly.</li>
+  </ul>
+</section>
+
+<section id="close">
+  <div class="cols">
+    <div>
+      <p class="eyebrow">How we&rsquo;ll know</p>
+      <h3 style="margin-bottom:1.2rem">Targets against the 2024 baseline</h3>
+      <table class="mtable">
+        <thead><tr><th>Measure</th><th class="n">2024</th><th class="n">2026</th></tr></thead>
+        <tbody>
+          <tr><td>Overall satisfaction</td><td class="n">76.8%</td><td class="n tgt">&ge;85%</td></tr>
+          <tr><td>Agenda structure and flow</td><td class="n">69.8%</td><td class="n tgt">&ge;85%</td></tr>
+          <tr><td>Networking</td><td class="n">74.5%</td><td class="n tgt">&ge;85%</td></tr>
+          <tr><td>Attended vs registered</td><td class="n">68%</td><td class="n tgt">&ge;85%</td></tr>
+          <tr><td>Introductions logged per member</td><td class="n">&mdash;</td><td class="n tgt">&ge;3</td></tr>
+          <tr><td>Impact Market commitments</td><td class="n">&mdash;</td><td class="n tgt">&ge;20</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <p class="eyebrow">Open decisions</p>
+      <h3 style="margin-bottom:1.2rem">For the Track and the Council</h3>
+      <ul class="todo">
+        <li>Confirm 21 November and the 14:30&ndash;21:00 window against the Council diary and venue availability.</li>
+        <li>Decide whether the induction segment runs at all this year, given there is no graduation.</li>
+        <li>Guest policy: one per member, or more &mdash; and published with the invitation.</li>
+        <li>Confirm the Council will put three decisions to a live vote; the segment does not work as a presentation.</li>
+        <li>Member consent and data accuracy for the graph &mdash; profiles, sectors and contact preferences current before invitations go out.</li>
+        <li>Budget, cost-centre codes and named owners, all still <span style="font-family:var(--font-mono);font-size:.85em">TBC</span> on the charter.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Companion to the <strong>SLS Annual Assembly 2026 event charter</strong>, which carries the
+      approved scope of work, the project timeline, the stakeholder map, the budget lines and the risk
+      register. Survey figures and lessons learned are taken from the 2024 post-event report
+      (468 registrants, 320 attendees, 27 April 2024, Misk Schools). Prayer times for 21 November 2026
+      are approximate and should be confirmed before the run of show is locked.</p>
+  </div>
+</footer>

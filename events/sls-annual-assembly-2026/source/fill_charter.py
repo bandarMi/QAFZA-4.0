@@ -81,6 +81,18 @@ def drop(shape):
     shape._element.getparent().remove(shape._element)
 
 
+def set_run_color(cell, hexcolor):
+    """Recolour a cell's runs. The template ships the budget amounts as white text on a
+    white fill, so anything written there is invisible until this is applied."""
+    for rPr in cell._tc.iter(qn("a:rPr")):
+        for fill in rPr.findall(qn("a:solidFill")):
+            rPr.remove(fill)
+        fill = rPr.makeelement(qn("a:solidFill"), {})
+        clr = rPr.makeelement(qn("a:srgbClr"), {"val": hexcolor})
+        fill.append(clr)
+        rPr.insert(0, fill)
+
+
 def set_fill(shape, hexcolor):
     shape._element.spPr.find(qn("a:solidFill")).find(qn("a:srgbClr")).set("val", hexcolor)
 
@@ -101,49 +113,52 @@ set_text(main.cell(3, 1), "SLS")
 set_text(main.cell(3, 3), "[TBC - EMU]")
 set_text(main.cell(4, 1), "Yes")
 set_text(main.cell(4, 3), "Hena Experience Center (proposed)")
-set_text(main.cell(5, 1), "2030 Leaders graduation")
+set_text(main.cell(5, 1), "Fellowship & 2030 Leaders")
 set_text(main.cell(5, 3), "400 (estimated confirmed)")
 set_text(main.cell(6, 1), "Private - invitation only")
 set_text(main.cell(6, 3), "400 SLS members")
 set_text(main.cell(7, 3), "Yes")
 
 set_lines(b1[12].table.cell(1, 0), [
-    "Annual convening of the full SLS membership under the Leadership Track.",
-    "The 2026 edition gathers the community at the Hena Experience Center, Riyadh, for one "
-    "afternoon-to-evening programme of plenary content, recognition and structured networking. "
-    "All members are invited and around 400 are expected to attend.",
+    "One-day annual assembly for the full SLS membership. No graduation segment in 2026.",
+    "Members convene at the Hena Experience Center, Riyadh, for impact showcases, peer advisory "
+    "circles, keynote dialogues, the Council roadmap and the induction of new members, with an "
+    "interactive network graph running as the spine of the day.",
 ], tmpls=(0, 1))
 
 set_lines(b1[2].table.cell(1, 0), [
-    "Convene the full SLS membership in one place and reinforce it as a single, active community.",
-    "Make networking a designed part of the programme, set out the Track's year and its 2027 agenda, "
-    "and beat the 2024 benchmarks: satisfaction of 85% or better (2024: 77%) and 85% of confirmed "
-    "guests attending (2024: 320 of 468 registrants).",
+    "Convene the full SLS membership for one day and turn the society's network into something "
+    "members actively use.",
+    "Make connection the measurable outcome: three or more new introductions logged per member on "
+    "the network graph, satisfaction of 85% or better (2024: 77%) and 85% of confirmed guests "
+    "attending (2024: 320 of 468).",
 ], tmpls=(0, 1))
 
 set_lines(b1[3].table.cell(1, 0), [
     "Venue: Hena Experience Center, Riyadh - site survey before contract, exclusive access from 18/11",
     "Agency: full pre-production, on-site delivery, dismantle and closeout",
+    "Digital: network graph wall, member app, badge scan to node, live voting, introduction ledger",
+    "Connectivity: bonded internet with failover, touch screens, on-site technical support",
     "Production: stage, LED, sound, lighting, show-calling, standby generator and UPS on critical AV",
-    "Programme: run of show, speaker briefing, capped plenary, Maghrib and Isha prayer breaks",
-    "Registration: online sign-up, digital badge (no advance pick-up), 48-hour reconfirmation",
+    "Programme: impact market, peer circles, keynote dialogues, Council vote, induction, prayer breaks",
+    "Registration: online sign-up, digital badge, profile and consent capture, 48-hour reconfirmation",
     "Branding: internal and outer signage, wayfinding, photo drop",
     "Guest experience: protocol, seating, valet, traffic and parking, people of determination journey",
     "F&B: catering scaled to reconfirmed numbers, staged release, live cooking and pass-around",
-    "Networking activations and side activities running across the venue",
     "Support: translation, photography, videography, cleaning, H&S, medical and security",
-    "Post-event: attendee survey and post-event report",
+    "Post-event: personal network cards, attendee survey and post-event report",
 ], tmpls=(1,))
 
 budget = b1[14].table
 for row in (2, 3, 4):
     set_text(budget.cell(row, 1), "[Cost centre TBC]")
     set_text(budget.cell(row, 2), "SAR TBC")
+    set_run_color(budget.cell(row, 2), "737373")
 set_text(budget.cell(2, 3), "SAR TBC")
 
 timeline = b1[16].table
 set_text(timeline.cell(1, 1), "06/09/2026")
-set_lines(timeline.cell(1, 3), ["21/11/2026", "16:00 - 21:30"])
+set_lines(timeline.cell(1, 3), ["21/11/2026", "14:30 - 21:00"])
 set_text(timeline.cell(1, 5), "17/12/2026")
 set_text(timeline.cell(2, 1), "18/11/2026")
 set_text(timeline.cell(2, 4), "23/11/2026")
@@ -155,17 +170,17 @@ proj = b2[2].table
 set_text(proj.cell(2, 2), "Approved event charter and PO issued")
 set_text(proj.cell(2, 3), "06/09/2026")
 set_text(proj.cell(2, 4), "01/10/2026")
-set_text(proj.cell(3, 2), "Venue contract, agency award and event schedule")
+set_text(proj.cell(3, 2), "Venue contract, agency award, event schedule and graph data plan")
 set_text(proj.cell(3, 3), "04/10/2026")
 set_text(proj.cell(3, 4), "05/11/2026")
 set_lines(proj.cell(4, 2), [
-    "Registration open and digital badges issued",
-    "Build, load-in and full technical rehearsal",
+    "Registration, member profiles and digital badges",
+    "Build, load-in, graph integration and rehearsal",
     "Event day delivery and dismantle",
 ])
 set_lines(proj.cell(4, 3), ["08/11/2026", "18/11/2026", "21/11/2026"])
 set_lines(proj.cell(4, 4), ["19/11/2026", "20/11/2026", "23/11/2026"])
-set_text(proj.cell(5, 2), "Post-event report, survey results and vendor closeout")
+set_text(proj.cell(5, 2), "Post-event report, network metrics and vendor closeout")
 set_text(proj.cell(5, 3), "24/11/2026")
 set_text(proj.cell(5, 4), "17/12/2026")
 
@@ -193,8 +208,8 @@ risks = b2[3].table
 set_text(risks.cell(2, 1), "Attendance gap: 320 of 468 attended in 2024.")
 set_text(risks.cell(2, 3), "Catering and seating built to a 48-hour reconfirmed headcount.")
 set_text(risks.cell(2, 4), "Track / EMU")
-set_text(risks.cell(3, 1), "New venue load-in window and power continuity.")
-set_text(risks.cell(3, 3), "Site survey, three-day exclusive build access, standby generator in RFP.")
+set_text(risks.cell(3, 1), "New venue build, power and network for the graph wall.")
+set_text(risks.cell(3, 3), "Site survey, exclusive build, standby generator, bonded internet with failover.")
 set_text(risks.cell(3, 4), "EMU / Production")
 
 # Severity: both entries are risks, so replace the second row's issue icon with a
