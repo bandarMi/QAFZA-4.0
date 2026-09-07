@@ -7,6 +7,7 @@ graduation. Two deliverables live here.
 | File | What it is |
 |---|---|
 | `SLS_Annual_Assembly_2026_Event_Charter.pptx` (`.pdf`) | The Misk **New Event Charter** template, filled in. The approval document: scope of work, project timeline, stakeholders, budget lines, risk register. |
+| `experience/SLS_Annual_Assembly_2026_Concept_Note.pdf` | The concept note as an 8-page A4 PDF, for circulation. |
 | `experience/concept-note.html` | The concept note — objective, theme, format, programme segments, recognition approach. The short document to circulate. Published at <https://claude.ai/code/artifact/1c8a87d9-148c-4a9f-bd24-f8b01c478bcd>. |
 | `experience/assembly.html` | The experience design. Full run of show, the network graph as the spine of the day, the five pillars placed into formats, and the recommendations. Published at <https://claude.ai/code/artifact/fbc3f063-f7d9-4cc1-92a3-542080a25590>. |
 
