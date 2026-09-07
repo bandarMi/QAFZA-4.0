@@ -7,11 +7,29 @@ graduation. Two deliverables live here.
 | File | What it is |
 |---|---|
 | `SLS_Annual_Assembly_2026_Event_Charter.pptx` (`.pdf`) | The Misk **New Event Charter** template, filled in. The approval document: scope of work, project timeline, stakeholders, budget lines, risk register. |
-| `experience/assembly.html` | The experience design. Run of show, the network graph as the spine of the day, the five pillars placed into formats, and the recommendations. Published at <https://claude.ai/code/artifact/fbc3f063-f7d9-4cc1-92a3-542080a25590>. |
+| `experience/concept-note.html` | The concept note — objective, theme, format, programme segments, recognition approach. The short document to circulate. Published at <https://claude.ai/code/artifact/1c8a87d9-148c-4a9f-bd24-f8b01c478bcd>. |
+| `experience/assembly.html` | The experience design. Full run of show, the network graph as the spine of the day, the five pillars placed into formats, and the recommendations. Published at <https://claude.ai/code/artifact/fbc3f063-f7d9-4cc1-92a3-542080a25590>. |
 
 Both are built from the same two inputs: the 2026 brief (Hena Experience Center, all SLS
 members invited, around 400 confirming, an interactive network graph the Track already has)
 and the **SLS 2030 Leaders Graduation 2024 post-event report**.
+
+## Recognition is the centre of gravity
+
+The Assembly is SLS's moment to recognise the partners, Council members, Chapter teams and
+contributors who carried the year. That is the concept note's organising idea, and it drives
+one structural decision worth stating here: **recognition is designed at three volumes rather
+than run as an awards block.** Four groups is likely sixty-plus names, and sixty walks to a stage
+is forty minutes of applause fatigue against a survey item that already scored 69.8%.
+
+| Tier | Who | Mechanism |
+|---|---|---|
+| 1 | Everyone, ~60+ names | The Wall of the Year at the entrance, grouped by contribution rather than rank |
+| 2 | Four groups | Recognised inside the segment they belong to — partners at the impact segment, Chapter teams as teams, Council at the roadmap handover, contributors on screen through dinner |
+| 3 | One | A peer-nominated honour, nominated by members four weeks out through the attendance-confirmation flow |
+
+Plus **the letter home** — a letter from SLS leadership to the board or CEO of each honoured
+contributor's organisation. It costs a signature and outlives anything that goes on a shelf.
 
 ## The read on 2024
 

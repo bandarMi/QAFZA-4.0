@@ -1,0 +1,460 @@
+<title>Built by the Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F2F6F3; --surface:#FFFFFF; --ink:#0C1F19; --ink-2:#3B534B;
+  --muted:#6B837A; --rule:#D9E4DE; --rule-soft:#E8EFEB;
+  --accent:#12876A; --warm:#C25E00;
+  --hero-bg:#00291F; --hero-ink:#EAF3EE; --hero-2:#9DBAAE; --hero-rule:#1B4335;
+  --display:"Newsreader",Georgia,"Times New Roman",serif;
+  --body:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#08120F; --surface:#0C1C17; --ink:#E8F0EC; --ink-2:#B4C7BE;
+    --muted:#7F958C; --rule:#1D3129; --rule-soft:#152621;
+    --accent:#3FBF97; --warm:#DD8C3A;
+    --hero-bg:#04211A; --hero-ink:#E8F0EC; --hero-2:#93AFA4; --hero-rule:#183B2F;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#08120F; --surface:#0C1C17; --ink:#E8F0EC; --ink-2:#B4C7BE;
+  --muted:#7F958C; --rule:#1D3129; --rule-soft:#152621;
+  --accent:#3FBF97; --warm:#DD8C3A;
+  --hero-bg:#04211A; --hero-ink:#E8F0EC; --hero-2:#93AFA4; --hero-rule:#183B2F;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);
+  font-size:16.5px;line-height:1.66;-webkit-font-smoothing:antialiased}
+.wrap{max-width:940px;margin:0 auto;padding:0 30px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;font-weight:500}
+h1{font-size:clamp(2.4rem,6vw,4rem);line-height:1.02;letter-spacing:-.012em}
+h2{font-size:clamp(1.5rem,3vw,2rem);line-height:1.18;letter-spacing:-.008em}
+h3{font-size:1.15rem;font-weight:600;letter-spacing:-.004em}
+p{margin:0 0 1rem}
+strong{font-weight:600}
+.eyebrow{font-family:var(--mono);font-size:.67rem;text-transform:uppercase;
+  letter-spacing:.18em;color:var(--muted);margin:0;font-weight:500}
+
+/* hero */
+.hero{background:var(--hero-bg);color:var(--hero-ink);padding:clamp(48px,7vw,86px) 0 clamp(38px,5vw,54px)}
+.hero .eyebrow{color:var(--hero-2);margin-bottom:1rem}
+.hero h1{max-width:11ch;font-style:italic}
+.hero .lede{font-size:1.14rem;max-width:58ch;margin-top:1.5rem;opacity:.93;line-height:1.6}
+.facts{display:flex;flex-wrap:wrap;margin:2.4rem 0 0;padding:0;
+  border-top:1px solid var(--hero-rule)}
+.facts div{flex:1 1 160px;padding:1rem 1.1rem 0 0;border-right:1px solid var(--hero-rule)}
+.facts div:last-child{border-right:0}
+.facts dt{font-family:var(--mono);font-size:.63rem;text-transform:uppercase;
+  letter-spacing:.15em;color:var(--hero-2);margin-bottom:.32rem}
+.facts dd{margin:0;font-size:.94rem;font-weight:500;line-height:1.35}
+
+/* memo layout: marginal rail + column */
+.sec{display:grid;grid-template-columns:150px minmax(0,1fr);gap:2.6rem;
+  padding:clamp(38px,5vw,58px) 0;border-top:1px solid var(--rule)}
+.rail{padding-top:.35rem}
+.rail .n{font-family:var(--mono);font-size:.67rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.5rem}
+.rail .hint{font-size:.82rem;color:var(--muted);line-height:1.5}
+.col{max-width:62ch}
+.col > h2{margin-bottom:1.1rem}
+.col > p{color:var(--ink-2)}
+.col > p.first{font-size:1.08rem;color:var(--ink)}
+
+/* pieces */
+.kv{width:100%;border-collapse:collapse;margin:1.4rem 0 0}
+.kv th{text-align:left;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);font-weight:500;
+  padding:.6rem 1.2rem .6rem 0;vertical-align:baseline;white-space:nowrap;width:9.5rem;
+  border-bottom:1px solid var(--rule-soft)}
+.kv td{padding:.6rem 0;border-bottom:1px solid var(--rule-soft);font-size:.96rem;
+  color:var(--ink-2);vertical-align:baseline}
+.kv tr:last-child th,.kv tr:last-child td{border-bottom:0}
+
+.aims{list-style:none;padding:0;margin:1.5rem 0 0}
+.aims li{padding:.62rem 0 .62rem 1.5rem;border-bottom:1px solid var(--rule-soft);
+  font-size:.95rem;color:var(--ink-2);position:relative}
+.aims li:last-child{border-bottom:0}
+.aims li::before{content:"";position:absolute;left:0;top:1.18rem;width:7px;height:7px;
+  border-radius:50%;background:var(--accent)}
+.aims b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+
+.pull{margin:1.7rem 0;padding:1.25rem 1.4rem;background:var(--surface);
+  border-left:3px solid var(--accent);border-radius:0 5px 5px 0}
+.pull p{margin:0;font-family:var(--display);font-size:1.13rem;line-height:1.5;color:var(--ink)}
+.pull.alt{border-left-color:var(--warm)}
+
+.alts{margin:1.5rem 0 0;padding:0;list-style:none;border-top:1px solid var(--rule-soft)}
+.alts li{padding:.75rem 0;border-bottom:1px solid var(--rule-soft);font-size:.93rem;color:var(--ink-2)}
+.alts b{font-family:var(--display);font-style:italic;font-weight:500;font-size:1.02rem;color:var(--ink)}
+
+.movements{width:100%;border-collapse:collapse;margin-top:1.5rem}
+.movements caption{text-align:left;font-family:var(--mono);font-size:.66rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-bottom:.9rem}
+.movements th{text-align:left;font-family:var(--mono);font-size:.63rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--muted);font-weight:500;padding:0 .9rem .6rem 0;
+  border-bottom:1px solid var(--rule)}
+.movements td{padding:.72rem .9rem .72rem 0;border-bottom:1px solid var(--rule-soft);
+  font-size:.93rem;vertical-align:baseline}
+.movements td.t{font-family:var(--mono);font-size:.82rem;font-variant-numeric:tabular-nums;
+  white-space:nowrap;color:var(--ink);width:6.6rem}
+.movements td.m{color:var(--ink-2)}
+.movements td.m b{color:var(--ink);font-weight:600;display:block;
+  font-family:var(--display);font-size:1.02rem}
+.movements td.r{width:5.4rem;text-align:right}
+.tag{display:inline-block;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;
+  text-transform:uppercase;padding:.2rem .45rem;border-radius:3px;
+  border:1px solid var(--rule);color:var(--muted);white-space:nowrap}
+.tag.rec{border-color:var(--warm);color:var(--warm)}
+.wrapx{overflow-x:auto}
+.movements{min-width:560px}
+
+figure.tiers{margin:1.8rem 0 0}
+figure.tiers svg{width:100%;height:auto;display:block;color:var(--ink)}
+.tlane{fill:currentColor;fill-opacity:.13}
+.tmark{fill:currentColor;fill-opacity:.5}
+.tpeak{fill:var(--warm)}
+.tlabel{font-family:var(--mono);font-size:12px;fill:currentColor;fill-opacity:.86;letter-spacing:.03em}
+.trow{font-family:var(--mono);font-size:12.5px;fill:currentColor;fill-opacity:.95;
+  letter-spacing:.1em;text-transform:uppercase}
+.taxis{stroke:currentColor;stroke-opacity:.22;stroke-width:1}
+.ttick{font-family:var(--mono);font-size:11px;fill:currentColor;fill-opacity:.6}
+figure.tiers figcaption{font-size:.86rem;color:var(--muted);margin-top:1rem;max-width:62ch}
+
+.tier{margin-top:1.7rem;padding-top:1.3rem;border-top:1px solid var(--rule-soft)}
+.tier:first-of-type{border-top:1px solid var(--rule)}
+.tier h3{margin-bottom:.15rem}
+.tier .who{font-family:var(--mono);font-size:.66rem;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:.55rem}
+.tier p{margin:0;color:var(--ink-2);font-size:.96rem}
+
+.diff{list-style:none;padding:0;margin:1.5rem 0 0}
+.diff li{padding:.9rem 0;border-bottom:1px solid var(--rule-soft);font-size:.96rem;color:var(--ink-2)}
+.diff li:first-child{border-top:1px solid var(--rule)}
+.diff b{font-family:var(--display);font-weight:600;font-size:1.04rem;color:var(--ink)}
+
+.asks{list-style:none;padding:0;margin:1.4rem 0 0}
+.asks li{padding:.6rem 0 .6rem 1.4rem;border-bottom:1px solid var(--rule-soft);
+  font-size:.94rem;color:var(--ink-2);position:relative}
+.asks li::before{content:"□";position:absolute;left:0;color:var(--muted);font-size:.9rem}
+.asks li:last-child{border-bottom:0}
+code{font-family:var(--mono);font-size:.86em;color:var(--ink)}
+
+footer{border-top:1px solid var(--rule);padding:2.4rem 0 3.4rem;color:var(--muted);font-size:.87rem}
+footer p{max-width:66ch;margin:0}
+footer a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+@media (max-width:760px){
+  .sec{grid-template-columns:1fr;gap:1rem}
+  .rail{display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap}
+  .rail .n{margin-bottom:0}
+  .facts div{border-right:0;border-bottom:1px solid var(--hero-rule);flex-basis:100%;padding-bottom:1rem}
+  .facts div:last-child{border-bottom:0}
+}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">SLS Annual Assembly 2026 &middot; Concept note</p>
+    <h1>Built by the room</h1>
+    <p class="lede">The Assembly is the one day of the year the whole society is in a single place.
+      That makes it the only occasion on which SLS can properly do what it cannot do anywhere else:
+      name the partners, Council members, Chapter teams and contributors who carried the year, in
+      front of everyone whose year they carried. Everything else the day does follows from that.</p>
+    <dl class="facts">
+      <div><dt>Proposed date</dt><dd>Saturday 21 November 2026</dd></div>
+      <div><dt>Venue</dt><dd>Hena Experience Center, Riyadh</dd></div>
+      <div><dt>Shape</dt><dd>One day, 14:30&ndash;21:00</dd></div>
+      <div><dt>Room</dt><dd>~400 members, all invited</dd></div>
+      <div><dt>Not this year</dt><dd>No graduation segment</dd></div>
+    </dl>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section class="sec">
+  <div class="rail"><span class="n">01</span><span class="hint">Objective</span></div>
+  <div class="col">
+    <h2>Recognise. Show. Launch.</h2>
+    <p class="first">To close the SLS year by recognising the people who carried it &mdash; partners,
+      Council members, Chapter teams and key contributors &mdash; in front of the full membership;
+      to show what their work produced; and to open 2027 with members committed to it before they
+      leave the room.</p>
+    <p>Three verbs, in that order. Recognition comes first because it is the only thing on the agenda
+      that cannot be done at any other SLS event, and because a society that shows its impact without
+      naming who delivered it has told only half the story.</p>
+    <ul class="aims">
+      <li>Every contributor group named publicly, each with <b>one specific line</b> on what they did
+        and what it produced &mdash; never a category thanked in the abstract.</li>
+      <li><b>&ge;85%</b> of confirmed guests actually attend. In 2024, 320 of 468 registrants came &mdash; 68%.</li>
+      <li>Overall satisfaction <b>&ge;85%</b> (2024: 76.8%) and agenda flow <b>&ge;85%</b> (2024: 69.8%,
+        the lowest-scoring item on the survey).</li>
+      <li><b>&ge;60</b> members leave with a named 2027 commitment &mdash; a visit hosted, a circle chaired,
+        a chapter opened, a member mentored.</li>
+      <li><b>&ge;3</b> introductions logged per member on the network graph.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="rail"><span class="n">02</span><span class="hint">Theme</span></div>
+  <div class="col">
+    <h2>Built by the room</h2>
+    <div class="pull"><p>Everything on the screen tonight traces back to someone sitting in this room.
+      Next year&rsquo;s will too.</p></div>
+    <p>The line does three jobs at once. It makes the recognition argument without a speech &mdash; every
+      milestone shown has a person attached, and they are present. It reads backwards as a statement about
+      the year that closed and forwards as an instruction for the one opening. And it survives compression:
+      it works as a stage graphic, an invitation subject line, and four words on a badge.</p>
+    <p>It also sets an editorial test for the agenda, which is where themes usually stop being useful and
+      this one keeps earning: if a segment does not connect to somebody in the room, it does not belong
+      on the programme.</p>
+    <ul class="alts">
+      <li><b>Everything here has a name on it</b> &mdash; more literal, excellent as the headline over the
+        recognition wall, weaker as a stage line and too long for an invitation.</li>
+      <li><b>The year, in names</b> &mdash; quieter and more formal. Better if the Council wants the tone
+        closer to an honours evening than a community night.</li>
+    </ul>
+    <p style="margin-top:1.3rem"><strong>One dependency to book in week one:</strong> the Arabic line.
+      It has to carry the meaning rather than translate the words, and the theme drives the invitation,
+      the wall and the stage design &mdash; so it cannot be a late decision. Brief comms before anything
+      else is commissioned.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="rail"><span class="n">03</span><span class="hint">Format</span></div>
+  <div class="col">
+    <h2>One day, one room, five movements</h2>
+    <table class="kv">
+      <tr><th>Date</th><td>Saturday 21 November 2026, 14:30&ndash;21:00 &mdash; a single day, ending with dinner</td></tr>
+      <tr><th>Venue</th><td>Hena Experience Center, Riyadh (proposed, pending site survey)</td></tr>
+      <tr><th>Scale</th><td>All SLS members invited; around 400 expected</td></tr>
+      <tr><th>Access</th><td>Private, invitation only, guest-list filtration</td></tr>
+      <tr><th>Balance</th><td>Roughly two hours seated out of six and a half; the seated block runs once,
+        unbroken, at the end</td></tr>
+      <tr><th>Register</th><td>Formal enough to honour people properly, informal enough that they talk to
+        each other afterwards</td></tr>
+      <tr><th>Language</th><td>Bilingual throughout; simultaneous translation in scope</td></tr>
+    </table>
+    <div class="pull alt"><p>The rule that protects the agenda: <strong>if a segment would work at a
+      Chapter event, it does not belong on the Assembly.</strong></p></div>
+    <p>The Assembly&rsquo;s only structural advantage over everything else SLS runs is that everyone is
+      there at once. So it should spend itself on the four things that need full scale to mean anything:
+      recognition in front of the whole society, the complete network in one view, cross-chapter and
+      cross-sector mixing that a chapter meeting structurally cannot produce, and decisions that are only
+      legitimate when the whole membership is present.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="rail"><span class="n">04</span><span class="hint">Programme segments</span></div>
+  <div class="col">
+    <h2>The arc of the day</h2>
+    <p class="first">Recognition is threaded through the programme rather than parked in an awards block,
+      so nobody is asked to sit through sixty names in a row. Segments marked <span class="tag rec">Recognition</span>
+      carry a named moment.</p>
+    <div class="wrapx">
+    <table class="movements">
+      <caption>Five movements &middot; 390 minutes &middot; ~125 seated</caption>
+      <thead><tr><th>Time</th><th>Movement</th><th></th></tr></thead>
+      <tbody>
+        <tr><td class="t">14:30 &middot; 60&prime;</td>
+          <td class="m"><b>I. Arrive into the year</b>The venue is the exhibition, not a holding pen.
+            Badge scan lights your node on the network wall; the Wall of the Year names every contributor;
+            the year&rsquo;s milestones laid out as something you walk through.</td>
+          <td class="r"><span class="tag rec">Recognition</span></td></tr>
+        <tr><td class="t">15:30 &middot; 10&prime;</td>
+          <td class="m"><b>II. Opening</b>The Council chair against the network wall &mdash; the society
+            tonight, who is here, and how it grew.</td><td class="r"></td></tr>
+        <tr><td class="t">15:40 &middot; 25&prime;</td>
+          <td class="m"><b>The year, told by three members</b>Impact and milestones through three people
+            it happened to, not a slide review. Partners are recognised at the top of this segment,
+            because the impact is what they enabled.</td>
+          <td class="r"><span class="tag rec">Recognition</span></td></tr>
+        <tr><td class="t">16:05 &middot; 10&prime;</td>
+          <td class="m"><b>Chapters</b>Chapter teams on stage as teams, not as a queue of individuals.</td>
+          <td class="r"><span class="tag rec">Recognition</span></td></tr>
+        <tr><td class="t">16:15 &middot; 50&prime;</td>
+          <td class="m"><b>III. Peer advisory circles</b>Eight to ten a table, one member&rsquo;s live
+            challenge, Chatham House. Tables mixed by sector from the network graph.</td><td class="r"></td></tr>
+        <tr><td class="t">17:05 &middot; 70&prime;</td>
+          <td class="m"><b>Impact Market</b>Member-led stands, each carrying one ask. Commitments logged
+            as they are made. Maghrib sits inside this block, not against it.</td><td class="r"></td></tr>
+        <tr><td class="t">18:15 &middot; 30&prime;</td>
+          <td class="m"><b>IV. Keynote dialogue</b>Two chairs, a member moderating, questions collected
+            from members beforehand.</td><td class="r"></td></tr>
+        <tr><td class="t">18:45 &middot; 15&prime;</td>
+          <td class="m"><b>Isha</b></td><td class="r"></td></tr>
+        <tr><td class="t">19:00 &middot; 25&prime;</td>
+          <td class="m"><b>The Council</b>Outgoing Council members recognised at the handover, then three
+            decisions put to the room and voted live: which chapter opens next, which visit the society
+            funds, one change to member engagement.</td>
+          <td class="r"><span class="tag rec">Recognition</span></td></tr>
+        <tr><td class="t">19:25 &middot; 15&prime;</td>
+          <td class="m"><b>The honour, and the welcome</b>The peer-nominated recognition of the year,
+            followed by new members inducted into the society &mdash; named, paired with a sponsor member,
+            the room stands once.</td>
+          <td class="r"><span class="tag rec">Recognition</span></td></tr>
+        <tr><td class="t">19:40 &middot; 10&prime;</td>
+          <td class="m"><b>V. The replay and the board</b>Ninety seconds of the network graph replaying
+            from doors to close, lights down. Then the 2027 board opens.</td><td class="r"></td></tr>
+        <tr><td class="t">19:50 &middot; 70&prime;</td>
+          <td class="m"><b>Dinner</b>Contributor names on screen throughout. Seating drawn from the graph.
+            2027 commitments made and photographed on the way out.</td>
+          <td class="r"><span class="tag rec">Recognition</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="margin-top:1.3rem">Compared with a standard convening this trades a second keynote for the
+      recognition moments &mdash; the right trade for a year-closing assembly, and one worth stating out
+      loud so it is not quietly reversed during planning.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="rail"><span class="n">05</span><span class="hint">Recognition approach</span></div>
+  <div class="col">
+    <h2>Three volumes, because sixty names is not a ceremony</h2>
+    <p class="first">Four groups deserve recognition &mdash; partners, Council, Chapter teams, contributors
+      &mdash; and together they are likely sixty-plus names. Sixty walks to a stage is forty minutes of
+      applause fatigue, and it lands precisely on the thing the 2024 survey scored lowest. Recognition has
+      to be designed at three different volumes.</p>
+
+    <figure class="tiers">
+      <svg viewBox="0 0 600 212" role="img" aria-label="Three tiers of recognition mapped across the day: the Wall of the Year runs the whole day for every name; four in-context stage moments fire at 15:40, 16:05, 19:00 and through dinner; the single peer-nominated honour falls at 19:25.">
+        <text class="trow" x="104" y="52" text-anchor="end">The Wall</text>
+        <rect class="tlane" x="116" y="40" width="472" height="16" rx="3"/>
+        <text class="tlabel" x="125" y="52">Every name &middot; door to last guest out</text>
+
+        <text class="trow" x="104" y="112" text-anchor="end">On stage</text>
+        <rect class="tmark" x="198" y="100" width="11" height="16" rx="2"/>
+        <rect class="tmark" x="228" y="100" width="11" height="16" rx="2"/>
+        <rect class="tmark" x="440" y="100" width="11" height="16" rx="2"/>
+        <rect class="tmark" x="503" y="100" width="85" height="16" rx="2"/>
+        <text class="tlabel" x="203" y="94" text-anchor="middle">Partners</text>
+        <text class="tlabel" x="233" y="130" text-anchor="middle">Chapter teams</text>
+        <text class="tlabel" x="445" y="94" text-anchor="middle">Council</text>
+        <text class="tlabel" x="588" y="130" text-anchor="end">Contributors</text>
+
+        <text class="trow" x="104" y="168" text-anchor="end">The peak</text>
+        <rect class="tpeak" x="470" y="156" width="11" height="16" rx="2"/>
+        <text class="tlabel" x="475" y="150" text-anchor="middle">One peer-nominated honour</text>
+
+        <line class="taxis" x1="116" y1="186" x2="588" y2="186"/>
+        <line class="taxis" x1="116" y1="186" x2="116" y2="191"/>
+        <line class="taxis" x1="189" y1="186" x2="189" y2="191"/>
+        <line class="taxis" x1="304" y1="186" x2="304" y2="191"/>
+        <line class="taxis" x1="443" y1="186" x2="443" y2="191"/>
+        <line class="taxis" x1="588" y1="186" x2="588" y2="191"/>
+        <text class="ttick" x="116" y="203">14:30</text>
+        <text class="ttick" x="189" y="203" text-anchor="middle">15:30</text>
+        <text class="ttick" x="304" y="203" text-anchor="middle">17:05</text>
+        <text class="ttick" x="443" y="203" text-anchor="middle">19:00</text>
+        <text class="ttick" x="588" y="203" text-anchor="end">21:00</text>
+      </svg>
+      <figcaption>Recognition fires at three volumes across the day: everyone on the Wall, four groups in
+        context on stage, and one honour at the peak. No group is thanked twice in the same register, and
+        no seated block carries more than ninety seconds of names.</figcaption>
+    </figure>
+
+    <div class="tier">
+      <h3>The Wall of the Year</h3>
+      <p class="who">Tier 1 &middot; everyone &middot; on arrival</p>
+      <p>A physical installation at the entrance carrying every partner, Council member, Chapter team and
+        contributor, grouped by <em>what they did</em> rather than by rank. Sixty names honoured in the time
+        it takes to walk in &mdash; and, done properly, the most photographed object of the night. Guests
+        find their own name before anyone says a word from a stage.</p>
+    </div>
+
+    <div class="tier">
+      <h3>In context, on stage</h3>
+      <p class="who">Tier 2 &middot; four groups &middot; ninety seconds each</p>
+      <p>Each group is recognised inside the segment it belongs to, not queued in an awards block: partners
+        as the impact segment opens, because the impact is what they enabled; Chapter teams during the
+        Chapters segment, called up as teams; the Council at the roadmap handover, which is their work;
+        contributors named on screen through dinner. Every named recognition carries <strong>one specific
+        line</strong> &mdash; what they did and what it produced. &ldquo;Thank you for your support&rdquo;
+        is worth nothing to an executive.</p>
+    </div>
+
+    <div class="tier">
+      <h3>The peer-nominated honour</h3>
+      <p class="who">Tier 3 &middot; one &middot; 19:25</p>
+      <p>One honour, nominated by members four weeks out through the same flow that confirms their
+        attendance. In a peer society a committee&rsquo;s choice carries less weight than the room&rsquo;s,
+        and the nominations are useful twice: they decide the honour, and they hand the Track the specific
+        evidence every Tier&nbsp;2 line needs.</p>
+    </div>
+
+    <div class="pull" style="margin-top:1.9rem"><p><strong>The letter home.</strong> A letter from SLS
+      leadership to the board or CEO of each honoured contributor&rsquo;s organisation. Recognition that
+      reaches an executive&rsquo;s employer outlives anything they can put on a shelf. It costs a signature
+      and it is still remembered a year later.</p></div>
+
+    <p style="margin-top:1.3rem"><strong>The workstream this creates:</strong> evidence. Every named
+      recognition needs one verified sentence, and those sentences do not exist yet. Chapters and the
+      Council should be asked for them during the planning phase &mdash; not in the final week, which is
+      how recognition segments end up generic.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="rail"><span class="n">06</span><span class="hint">What makes it different</span></div>
+  <div class="col">
+    <h2>Six things a regular SLS event cannot do</h2>
+    <ul class="diff">
+      <li><b>The venue is the exhibition on arrival.</b> The first hour is not queueing and coffee. The Wall,
+        the live network graph and the year&rsquo;s milestones are all walkable before anything starts, so
+        arriving early is rewarded rather than endured.</li>
+      <li><b>The year is told by three members, not reviewed from a deck.</b> Impact lands when it comes
+        from the person it happened to. It also puts three more names in front of the room without adding
+        a recognition segment.</li>
+      <li><b>Chapter teams go up as teams.</b> Six people on stage together for ninety seconds beats six
+        separate walks, and it is a truer picture of how chapter work actually gets done.</li>
+      <li><b>Ninety seconds with the lights down.</b> The network graph replays from doors to close, showing
+        every connection made during the day. One image, chosen deliberately, that people photograph.</li>
+      <li><b>The 2027 board.</b> Before dinner, members commit publicly to one thing for next year &mdash;
+        host a visit, chair a circle, open a chapter, mentor a member. Photographed on the night; it becomes
+        the Council&rsquo;s pipeline in January rather than a follow-up email nobody answers.</li>
+      <li><b>The takeaway is personal, not a gift bag.</b> A card carrying your own node, your new
+        connections and your commitment &mdash; which keeps the society in front of members through the
+        eleven months when there is no Assembly.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="rail"><span class="n">07</span><span class="hint">Decisions needed</span></div>
+  <div class="col">
+    <h2>What this note is waiting on</h2>
+    <ul class="asks">
+      <li>Confirm 21 November and the 14:30&ndash;21:00 window against the Council diary and venue availability.</li>
+      <li>Does SLS already have named recognition categories or awards? This note assumes not and proposes
+        the structure from scratch &mdash; if categories exist, they replace Tier&nbsp;2 wholesale.</li>
+      <li>Approve the theme, and brief comms on the Arabic line in week one.</li>
+      <li>Confirm the Council will put three decisions to a live vote. The segment does not work as a presentation.</li>
+      <li>Agree who signs the letter home, and to whom it goes.</li>
+      <li>Open the peer nomination window four weeks out &mdash; needs the member list and the profile flow ready.</li>
+      <li>Confirm whether the new-member induction runs at all this year, given there is no graduation.</li>
+      <li>Budget lines, cost-centre codes and named owners &mdash; still <code>TBC</code> on the event charter.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Companion to the <strong>SLS Annual Assembly 2026 event charter</strong>, which carries the approved
+      scope of work, project timeline, stakeholder map, budget lines and risk register, and to the
+      <a href="https://claude.ai/code/artifact/fbc3f063-f7d9-4cc1-92a3-542080a25590">experience design</a>,
+      which holds the full run of show. Benchmarks are taken from the 2024 post-event report: 468 registrants,
+      320 attendees, 76.8% overall satisfaction, 27 April 2024 at Misk Schools. Prayer times for 21 November
+      2026 are approximate and should be confirmed before the run of show is locked.</p>
+  </div>
+</footer>
