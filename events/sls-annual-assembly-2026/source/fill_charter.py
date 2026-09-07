@@ -7,6 +7,7 @@ from pptx.oxml.ns import qn
 SRC = "charter_template.pptx"
 OUT = "SLS_Annual_Assembly_2026_Event_Charter.pptx"
 EVENT = "SLS Annual Assembly 2026"
+TITLE = f"DRAFT: {EVENT} - Event Info"
 
 
 def _strip_err(p):
@@ -102,7 +103,7 @@ s1, s2 = prs.slides[0], prs.slides[1]
 b1, b2 = by_id(s1), by_id(s2)
 
 # ------------------------------------------------------------------ slide 1
-set_title(b1[19], f"{EVENT} - Event Information (1/2)")
+set_title(b1[19], f"{TITLE} (1/2)")
 
 main = b1[5].table
 set_text(main.cell(1, 1), EVENT)
@@ -120,31 +121,30 @@ set_text(main.cell(6, 3), "400 SLS members")
 set_text(main.cell(7, 3), "Yes")
 
 set_lines(b1[12].table.cell(1, 0), [
-    "One-day annual assembly for the full SLS membership. No graduation segment in 2026.",
-    "Members convene at the Hena Experience Center, Riyadh, for impact showcases, peer advisory "
-    "circles, keynote dialogues, the Council roadmap and the induction of new members, with an "
-    "interactive network graph running as the spine of the day.",
+    "One-evening annual assembly for the full SLS membership. No graduation segment in 2026.",
+    "Members convene at the Hena Experience Center in Misk City for four hours: recognition of the "
+    "partners, Council members, Chapter teams and contributors who carried the year, the impact "
+    "their work produced, and the 2027 agenda. Around 400 of the membership are expected.",
 ], tmpls=(0, 1))
 
 set_lines(b1[2].table.cell(1, 0), [
-    "Convene the full SLS membership for one day and turn the society's network into something "
-    "members actively use.",
-    "Make connection the measurable outcome: three or more new introductions logged per member on "
-    "the network graph, satisfaction of 85% or better (2024: 77%) and 85% of confirmed guests "
-    "attending (2024: 320 of 468).",
+    "Close the SLS year by recognizing the people who carried it, in front of the full membership.",
+    "Show what their work produced, open 2027 with members committed to it, and beat the 2024 "
+    "benchmarks: satisfaction of 85% or better (2024: 77%), 85% of confirmed guests attending "
+    "(2024: 320 of 468) and three or more introductions logged per member.",
 ], tmpls=(0, 1))
 
 set_lines(b1[3].table.cell(1, 0), [
-    "Venue: Hena Experience Center, Riyadh - site survey before contract, exclusive access from 18/11",
+    "Venue: Hena Experience Center, Misk City - site survey before contract, access from 18/11",
     "Agency: full pre-production, on-site delivery, dismantle and closeout",
-    "Digital: network graph wall, member app, badge scan to node, live voting, introduction ledger",
-    "Connectivity: bonded internet with failover, touch screens, on-site technical support",
-    "Production: stage, LED, sound, lighting, show-calling, standby generator and UPS on critical AV",
-    "Programme: impact market, peer circles, keynote dialogues, Council vote, induction, prayer breaks",
+    "Stage and set: built stage, seating for 400, sightlines planned around the permanent exhibition",
+    "Production: LED, sound, lighting, screen content, show-calling, standby generator and UPS",
+    "Digital: network graph wall, member app, badge scan, live voting, bonded internet with failover",
+    "Program: run of show, speaker briefing, Isha prayer inside the arrival window",
     "Registration: online sign-up, digital badge, profile and consent capture, 48-hour reconfirmation",
-    "Branding: internal and outer signage, wayfinding, photo drop",
-    "Guest experience: protocol, seating, valet, traffic and parking, people of determination journey",
-    "F&B: catering scaled to reconfirmed numbers, staged release, live cooking and pass-around",
+    "Recognition: Wall of the Year, peer nomination flow, honoree evidence, photo drop, letters",
+    "Guest experience: protocol, seating, signage and wayfinding, valet, parking, accessibility",
+    "F&B: dinner scaled to reconfirmed numbers, staged release, live cooking and pass-around",
     "Support: translation, photography, videography, cleaning, H&S, medical and security",
     "Post-event: personal network cards, attendee survey and post-event report",
 ], tmpls=(1,))
@@ -158,24 +158,24 @@ set_text(budget.cell(2, 3), "SAR TBC")
 
 timeline = b1[16].table
 set_text(timeline.cell(1, 1), "06/09/2026")
-set_lines(timeline.cell(1, 3), ["21/11/2026", "14:30 - 21:00"])
+set_lines(timeline.cell(1, 3), ["21/11/2026", "6:30 - 10:30 PM"])
 set_text(timeline.cell(1, 5), "17/12/2026")
 set_text(timeline.cell(2, 1), "18/11/2026")
 set_text(timeline.cell(2, 4), "23/11/2026")
 
 # ------------------------------------------------------------------ slide 2
-set_title(b2[25], f"{EVENT} - Event Information (2/2)")
+set_title(b2[25], f"{TITLE} (2/2)")
 
 proj = b2[2].table
 set_text(proj.cell(2, 2), "Approved event charter and PO issued")
 set_text(proj.cell(2, 3), "06/09/2026")
 set_text(proj.cell(2, 4), "01/10/2026")
-set_text(proj.cell(3, 2), "Venue contract, agency award, event schedule and graph data plan")
+set_text(proj.cell(3, 2), "Venue contract, agency award, run of show, graph and recognition data")
 set_text(proj.cell(3, 3), "04/10/2026")
 set_text(proj.cell(3, 4), "05/11/2026")
 set_lines(proj.cell(4, 2), [
     "Registration, member profiles and digital badges",
-    "Build, load-in, graph integration and rehearsal",
+    "Build, stage, graph integration and rehearsal",
     "Event day delivery and dismantle",
 ])
 set_lines(proj.cell(4, 3), ["08/11/2026", "18/11/2026", "21/11/2026"])
@@ -208,8 +208,8 @@ risks = b2[3].table
 set_text(risks.cell(2, 1), "Attendance gap: 320 of 468 attended in 2024.")
 set_text(risks.cell(2, 3), "Catering and seating built to a 48-hour reconfirmed headcount.")
 set_text(risks.cell(2, 4), "Track / EMU")
-set_text(risks.cell(3, 1), "New venue build, power and network for the graph wall.")
-set_text(risks.cell(3, 3), "Site survey, exclusive build, standby generator, bonded internet with failover.")
+set_text(risks.cell(3, 1), "Building a stage for 400 inside a live exhibition space.")
+set_text(risks.cell(3, 3), "Site survey before signature; exclusive build access; standby power and network.")
 set_text(risks.cell(3, 4), "EMU / Production")
 
 # Severity: both entries are risks, so replace the second row's issue icon with a

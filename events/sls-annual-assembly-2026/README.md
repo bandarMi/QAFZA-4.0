@@ -1,15 +1,16 @@
 # SLS Annual Assembly 2026
 
-The 2026 assembly is a **one-day event for the whole SLS membership, with no graduation
-segment** — a change from 2024, when the assembly was combined with the 2030 Leaders
-graduation. Two deliverables live here.
+The 2026 assembly is a **four-hour evening for the whole SLS membership, with no graduation
+segment** — a change from 2024, when the assembly ran long and was combined with the 2030
+Leaders graduation. Saturday, November 21, 2026, 6:30–10:30 p.m., at the Hena Experience
+Center in Misk City. Deliverables live here.
 
 | File | What it is |
 |---|---|
 | `SLS_Annual_Assembly_2026_Event_Charter.pptx` (`.pdf`) | The Misk **New Event Charter** template, filled in. The approval document: scope of work, project timeline, stakeholders, budget lines, risk register. |
 | `experience/SLS_Annual_Assembly_2026_Concept_Note.pdf` | The concept note as an 8-page A4 PDF, for circulation. |
 | `experience/concept-note.html` | The concept note — objective, theme, format, programme segments, recognition approach. The short document to circulate. Published at <https://claude.ai/code/artifact/1c8a87d9-148c-4a9f-bd24-f8b01c478bcd>. |
-| `experience/assembly.html` | The experience design. Full run of show, the network graph as the spine of the day, the five pillars placed into formats, and the recommendations. Published at <https://claude.ai/code/artifact/fbc3f063-f7d9-4cc1-92a3-542080a25590>. |
+| `experience/assembly.html` | **Superseded.** The earlier experience design, written for a 6.5-hour afternoon-to-evening format in British English. Its analysis of the 2024 survey and the network-graph concept still hold; its timings do not. Published at <https://claude.ai/code/artifact/fbc3f063-f7d9-4cc1-92a3-542080a25590>. |
 
 Both are built from the same two inputs: the 2026 brief (Hena Experience Center, all SLS
 members invited, around 400 confirming, an interactive network graph the Track already has)
@@ -68,8 +69,9 @@ and the connections.
 
 Not in the brief. Each is a single-cell edit if the Track sees it differently.
 
-- **Date — Saturday 21/11/2026, 14:30–21:00.** 2024 ran on a Saturday. November gives Riyadh
-  weather that suits outdoor networking and keeps production clear of Ramadan.
+- **Date — Saturday 21/11/2026, 6:30–10:30 p.m.** 2024 ran on a Saturday. November keeps
+  production clear of Ramadan. Isha (≈6:44 p.m.) falls inside the arrival window, so the program
+  never stops for prayer.
 - **New-member induction, not graduation.** The brief rules out a graduation, but the pillar list
   asks for the latest Misk Fellowship and 2030 Leaders cohorts to be welcomed. This is scoped as a
   fifteen-minute induction into the society — named, paired with a sponsor member, no procession
@@ -91,6 +93,16 @@ Not in the brief. Each is a single-cell edit if the Track sees it differently.
 - **Graph data.** Member profiles, sectors and contact consent need to be current before
   invitations go out — the whole digital spine depends on it.
 - **Events Comments** is left at `N/A` — that box belongs to EMU.
+
+## The venue
+
+Hena is not a neutral ballroom. It is **Misk City's own experience center** — an interactive
+exhibition designed by Saudi Diyar for Misk City Company, telling the story of the Kingdom's
+first nonprofit city, with a gross floor area of 5,208 m². Two consequences shape the design:
+members arrive inside the story of what the Foundation is building next, which does much of the
+showcase work before anyone reaches the stage; and a built stage with seating for 400 has to be
+laid out around permanent installations, which makes the site survey a gating item rather than a
+formality. Capacity, stage position and access windows all need confirming on site.
 
 ## Rebuilding the charter
 
