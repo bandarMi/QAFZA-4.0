@@ -1,0 +1,25 @@
+{
+  "name": "sls-data-center",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Saudi Leadership Society (SLS) Data Center & AI Dashboard",
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "setup": "npm install && npm run db:reset",
+    "db:reset": "npm run -w server db:reset",
+    "dev": "concurrently -n server,web -c cyan,magenta \"npm:dev:server\" \"npm:dev:web\"",
+    "dev:server": "npm run -w server dev",
+    "dev:web": "npm run -w web dev",
+    "build": "npm run -w server build && npm run -w web build",
+    "start": "npm run -w server start",
+    "typecheck": "npm run -w server typecheck && npm run -w web typecheck",
+    "set-key": "npm run -w server set-key",
+    "test": "npm run -w server test"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

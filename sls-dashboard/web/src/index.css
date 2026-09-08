@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root { color-scheme: light; }
+  html, body, #root { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--sls-surface-canvas, #F5F8F7);
+    color: var(--sls-ink-primary, #10201C);
+    font-family: var(--sls-font-sans, system-ui, sans-serif);
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+  }
+  [dir='rtl'] body { font-family: var(--sls-font-sansAr, system-ui, sans-serif); }
+  *:focus-visible { outline: none; box-shadow: var(--sls-shadow-focus); border-radius: 6px; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: var(--sls-border-strong); border-radius: 999px; border: 3px solid transparent; background-clip: content-box; }
+}
+
+@layer components {
+  .card { @apply bg-surface-raised border border-line-subtle rounded-lg shadow-xs; }
+  .btn { @apply inline-flex items-center justify-center gap-2 px-3.5 h-9 rounded-md text-[13px] font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap; }
+  .btn-primary { @apply btn bg-brand text-brand-on hover:bg-brand-hover; }
+  .btn-accent { @apply btn bg-brand-accent text-white hover:bg-brand-accentHover; }
+  .btn-ghost { @apply btn bg-transparent text-ink-secondary hover:bg-surface-sunken border border-line; }
+  .btn-quiet { @apply btn bg-transparent text-ink-secondary hover:bg-surface-sunken h-8 px-2.5; }
+  .btn-danger { @apply btn bg-state-criticalSoft text-state-critical hover:brightness-95 border border-transparent; }
+  .input { @apply h-9 px-3 rounded-md border border-line bg-surface-raised text-[13px] text-ink-primary placeholder:text-ink-disabled w-full; }
+  .label { @apply block text-[11px] font-semibold uppercase tracking-wide text-ink-muted mb-1.5; }
+  .chip { @apply inline-flex items-center gap-1.5 h-7 px-2.5 rounded-pill text-[12px] font-medium border; }
+  .th { @apply text-[11px] font-semibold uppercase tracking-wide text-ink-muted px-3 py-2 text-start whitespace-nowrap; }
+  .td { @apply px-3 py-2 text-[13px] text-ink-secondary border-t border-line-subtle whitespace-nowrap; }
+  .skeleton { @apply animate-pulse bg-surface-sunken rounded-md; }
+}
+
+/* Charts must scroll inside their own container, never the page body. */
+.scroll-x { overflow-x: auto; overscroll-behavior-x: contain; }
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; }
+}

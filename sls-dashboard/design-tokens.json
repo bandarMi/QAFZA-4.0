@@ -1,0 +1,150 @@
+{
+  "$meta": {
+    "name": "Saudi Leadership Society — Design Tokens",
+    "version": "1.0.0",
+    "owner": "SLS Program / Misk Foundation",
+    "provenance": {
+      "status": "INFERRED — NOT EXTRACTED FROM THE LIVE SITE",
+      "reason": "The build environment's network egress policy blocked every misk.org.sa host (hub.misk.org.sa, brand.misk.org.sa, content.cdnhub.misk.org.sa) with HTTP 403 at the proxy, so the live page's computed CSS and the Impact Report PDF could not be read.",
+      "howToFix": "See docs/DESIGN_TOKENS_REPORT.md. Replace the hex values in `color` below with the real ones; every colour in the app and in PDF exports reads from this file at runtime, so no rebuild is required.",
+      "verified": [],
+      "inferred": ["color.*", "font.*", "radius.*", "shadow.*", "space.*"]
+    },
+    "chartPaletteValidation": {
+      "tool": "dataviz/scripts/validate_palette.js",
+      "categorical6_light_adjacent": "PASS lightness, PASS chroma, PASS CVD (worst adjacent dE 11.3 protan), PASS normal-vision (worst dE 20.5), WARN contrast for gold #C98500 (2.99:1) and magenta #E87BA4 (2.62:1)",
+      "pillars3_light_allPairs": "PASS lightness, PASS chroma, PASS CVD (worst dE 11.3 protan), PASS normal-vision (worst dE 19.3), WARN contrast for gold #C98500",
+      "reliefApplied": "Charts ship a legend for >=2 series, selective direct labels, a 2px surface gap between adjacent/stacked fills, and a 'Table' toggle on every chart — which is the relief the contrast WARN requires.",
+      "seriesCap": 6,
+      "overflowRule": "A 7th series folds into 'Other' (color.chart.other) or the view facets. Hues are assigned in fixed slot order and are never cycled or regenerated."
+    }
+  },
+
+  "color": {
+    "brand": {
+      "primary": "#0F5C4D",
+      "primaryHover": "#0B4A3E",
+      "primaryActive": "#083A31",
+      "primarySoft": "#E6F2EF",
+      "primarySofter": "#F2F8F6",
+      "onPrimary": "#FFFFFF",
+      "accent": "#C98500",
+      "accentHover": "#A86E00",
+      "accentSoft": "#FBF1DC",
+      "onAccent": "#FFFFFF",
+      "secondary": "#12A085",
+      "secondarySoft": "#E3F5F0"
+    },
+    "surface": {
+      "canvas": "#F5F8F7",
+      "raised": "#FFFFFF",
+      "sunken": "#EDF2F0",
+      "inverse": "#0F5C4D",
+      "overlay": "rgba(8, 32, 27, 0.45)"
+    },
+    "ink": {
+      "primary": "#10201C",
+      "secondary": "#4A5C57",
+      "muted": "#6B7C77",
+      "disabled": "#9AA8A4",
+      "onInverse": "#FFFFFF",
+      "onInverseMuted": "#BBD6CF"
+    },
+    "border": {
+      "subtle": "#E4EBE9",
+      "default": "#D2DDDA",
+      "strong": "#B4C4C0",
+      "focus": "#12A085"
+    },
+    "status": {
+      "good": "#197A4B",
+      "goodSoft": "#E4F3EA",
+      "warning": "#B26A00",
+      "warningSoft": "#FCF0DC",
+      "serious": "#C2410C",
+      "seriousSoft": "#FDEBE2",
+      "critical": "#B3261E",
+      "criticalSoft": "#FBE9E7",
+      "info": "#2A78D6",
+      "infoSoft": "#E7F0FC",
+      "neutral": "#6B7C77",
+      "neutralSoft": "#EDF2F0"
+    },
+    "chart": {
+      "categorical": [
+        "#12A085",
+        "#C98500",
+        "#2A78D6",
+        "#EB6834",
+        "#4A3AA7",
+        "#E87BA4"
+      ],
+      "categoricalNames": ["teal", "gold", "blue", "orange", "violet", "magenta"],
+      "other": "#6B7C77",
+      "sequential": ["#E3F5F0", "#B9E3D8", "#7FCBB9", "#40B29A", "#12A085", "#0B7361"],
+      "diverging": {
+        "negative": "#B3261E",
+        "negativeMid": "#E9A6A1",
+        "neutral": "#E8ECEA",
+        "positiveMid": "#7FCBB9",
+        "positive": "#0B7361"
+      },
+      "grid": "#E4EBE9",
+      "axis": "#9AA8A4",
+      "axisLabel": "#6B7C77",
+      "surfaceGap": "#FFFFFF",
+      "reference": "#B4C4C0"
+    },
+    "pillar": {
+      "Grow to Great": "#12A085",
+      "Connect to Create": "#C98500",
+      "Lead with Impact": "#2A78D6"
+    },
+    "cohort": {
+      "2030 Leader": "#12A085",
+      "Misk Fellow": "#C98500"
+    }
+  },
+
+  "font": {
+    "sansEn": "'Inter', 'Segoe UI', 'Helvetica Neue', Arial, system-ui, sans-serif",
+    "sansAr": "'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif",
+    "mono": "'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace",
+    "weight": { "regular": 400, "medium": 500, "semibold": 600, "bold": 700 },
+    "size": {
+      "xs": "0.75rem", "sm": "0.8125rem", "base": "0.875rem", "md": "1rem",
+      "lg": "1.125rem", "xl": "1.375rem", "2xl": "1.75rem", "3xl": "2.25rem", "hero": "3rem"
+    },
+    "lineHeight": { "tight": "1.2", "snug": "1.35", "normal": "1.55", "relaxed": "1.7" },
+    "tracking": { "tight": "-0.015em", "normal": "0", "wide": "0.06em" }
+  },
+
+  "radius": { "xs": "4px", "sm": "6px", "md": "10px", "lg": "14px", "xl": "20px", "pill": "999px" },
+
+  "shadow": {
+    "xs": "0 1px 2px rgba(16, 32, 28, 0.05)",
+    "sm": "0 1px 3px rgba(16, 32, 28, 0.07), 0 1px 2px rgba(16, 32, 28, 0.04)",
+    "md": "0 4px 12px rgba(16, 32, 28, 0.08)",
+    "lg": "0 12px 32px rgba(16, 32, 28, 0.12)",
+    "focus": "0 0 0 3px rgba(18, 160, 133, 0.35)"
+  },
+
+  "space": {
+    "0": "0", "1": "4px", "2": "8px", "3": "12px", "4": "16px",
+    "5": "20px", "6": "24px", "8": "32px", "10": "40px", "12": "48px", "16": "64px"
+  },
+
+  "layout": {
+    "sidebarWidth": "248px",
+    "sidebarCollapsedWidth": "68px",
+    "topbarHeight": "60px",
+    "contentMaxWidth": "1560px",
+    "chatDrawerWidth": "420px"
+  },
+
+  "motion": {
+    "fast": "120ms cubic-bezier(0.4, 0, 0.2, 1)",
+    "base": "180ms cubic-bezier(0.4, 0, 0.2, 1)",
+    "slow": "280ms cubic-bezier(0.4, 0, 0.2, 1)"
+  }
+}
