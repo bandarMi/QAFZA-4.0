@@ -11,16 +11,58 @@ automatically, and surfaces member activity on LinkedIn.
 
 ## Quick start
 
+**Requires Node.js 20 or newer** (`node -v` to check; get it from <https://nodejs.org>).
+Nothing else — no database server, no Docker, no Python.
+
 ```bash
-cd sls-dashboard
-npm install          # installs both workspaces
+git clone https://github.com/bandarMi/QAFZA-4.0.git
+cd QAFZA-4.0/sls-dashboard
+
+npm install          # installs both workspaces (~30s)
 npm run db:reset     # creates and seeds the SQLite database
 npm run dev          # API on :4317, UI on :5317
 ```
 
-Open **<http://localhost:5317>**.
+Then open **<http://localhost:5317>**.
 
-Then, to switch on the AI features, do the one thing below.
+The same commands work in PowerShell, Command Prompt, macOS Terminal and Linux.
+Leave `npm run dev` running while you use the app; `Ctrl+C` stops it.
+
+You should see:
+
+```
+[web]     ➜  Local:   http://localhost:5317/
+[server]  SLS Data Center — API on http://localhost:4317
+[server]  Database: 974 members loaded
+[server]  AI: OFF — add an Anthropic API key in Settings → AI, or run `npm run set-key`.
+```
+
+Everything works immediately with the seeded demo data. To switch on the AI features,
+do the one thing below.
+
+### A five-minute tour
+
+1. **Overview** — the KPI band, the anomaly alerts, and the charts. Try the *This year / Last year /
+   All time* chips; everything re-queries, exports included.
+2. **Engagement Hours → Rules & automation** — change *topic club* from 1.5h to 2h, then
+   **Recalculate all closed events**, and watch the totals move. That is the whole "no manual logging"
+   claim, testable in two clicks.
+3. **Initiatives & Events → Events → open one → QR check-in** — scan it with your phone's normal camera
+   (both devices on the same Wi-Fi; see the note below), or just click the check-in link.
+4. **Members → click anyone** — their journey timeline and engagement ledger.
+5. **Exports → Generate the PDF** — a branded report of exactly what your filters are showing.
+6. **Settings → AI** — paste a key and the analyst comes alive.
+
+### Troubleshooting
+
+| Symptom | Fix |
+|---|---|
+| `EADDRINUSE ... 4317` or `5317` | Something else has the port. Set `PORT` (API) and/or `WEB_PORT` (UI) — the dev proxy follows `PORT` automatically. macOS/Linux: `PORT=4318 npm run dev`. PowerShell: `$env:PORT=4318; npm run dev`. |
+| `npm install` fails building `better-sqlite3` | It normally installs a prebuilt binary. If yours has to compile: on Windows run `npm install --global windows-build-tools` or install the "Desktop development with C++" workload in Visual Studio Build Tools; on macOS run `xcode-select --install`. |
+| The page loads but every panel errors | The API isn't up. Check the `[server]` lines in the terminal running `npm run dev`. |
+| "No data yet" | Run `npm run db:reset`. |
+| QR code opens but the phone can't connect | The QR encodes `localhost`, which means *the phone itself*. Start the server with your machine's LAN address: `SLS_PUBLIC_URL=http://192.168.1.50:4317 npm run dev` (use your own IP from `ipconfig` / `ifconfig`), and make sure your firewall allows the port. |
+| You want to reset everything | `npm run db:reset` rebuilds the demo dataset from scratch. |
 
 ---
 
