@@ -107,6 +107,11 @@ MODEL_PARAS_4 = [
      "Vendor. A core requirement of this RFP is to review the model and calibrate it across the full Leadership "
      "Track, so that the same competency architecture is expressed at proficiency levels appropriate to each "
      "leadership level, from early leaders through to executives."),
+    ("The model above is the Foundation’s current model and is the starting point for this engagement, not a fixed "
+     "constraint. It is subject to review under Scope 1, and the Vendor may recommend revisions to it on the "
+     "evidence. The final competency set will be confirmed with the Foundation before assessment design begins, so "
+     "proposals shall allow for competencies being added, merged, renamed, or redefined, and shall state how such "
+     "changes would be absorbed without re-pricing the engagement."),
 ]
 
 # --- Project Objectives --------------------------------------------------------
@@ -129,7 +134,7 @@ NEED_INTRO = ("The Foundation currently relies on generic, off-the-shelf psychom
               "aggregated meaningfully across the Leadership Track. The Foundation therefore requires an assessment "
               "that is purpose-built for Misk. The assessment shall:")
 NEED_BULLETS = [
-    (0, "Measure the Misk competency model directly – items, scales, scoring, and reports mapped one-to-one to the seven competencies and their behavioural indicators, rather than mapped indirectly onto a Vendor’s proprietary framework."),
+    (0, "Measure the Misk competency model directly – items, scales, scoring, and reports mapped one-to-one to the competencies and behavioural indicators of the approved model, rather than mapped indirectly onto a Vendor’s proprietary framework."),
     (0, "Be valid in the Saudi context – developed, piloted, and normed on Saudi and regional leader populations, with culturally appropriate scenarios, content, and language."),
     (0, "Be fully bilingual – Arabic and English versions of equal psychometric quality, developed and validated in parallel rather than translated from a single source version."),
     (0, "Be calibrated across leadership levels – one architecture, expressed at proficiency levels appropriate to early leaders, young professionals, first-level leaders, senior leaders, and executives."),
@@ -144,7 +149,7 @@ USES_INTRO = ("The Foundation intends to use the assessment across the leadershi
 USES_BULLETS = [
     (0, "Selection and admissions – screening, shortlisting, and final selection of candidates across Leadership Track programs, including inputs to competency-based interviews and to the admission committee’s decision."),
     (0, "Candidate feedback – providing evaluation and feedback reports to candidates who reach advanced selection stages, whether or not they are accepted, consistent with the Foundation’s commitment to make selection itself a learning experience."),
-    (0, "Individual development planning – establishing an entry baseline for every beneficiary and generating a personal development plan against the seven competencies."),
+    (0, "Individual development planning – establishing an entry baseline for every beneficiary and generating a personal development plan against the competency model."),
     (0, "Development feedback and debriefs – giving the Foundation’s certified debriefers and program teams a common, evidence-based basis for one-to-one feedback conversations and for tracking a beneficiary’s progress against the model."),
     (0, "Program and curriculum design – using aggregated cohort data to shape module content, electives, capstone challenges, and the design of new interventions across the Leadership Track."),
     (0, "Impact measurement – pre-program, post-program, and follow-up measurement to evidence competency growth and demonstrate the return on the Foundation’s investment to internal and external stakeholders."),
@@ -182,24 +187,25 @@ SCOPE_ROWS = [
       ("b", "Review existing materials, including the current seven-competency model and its behavioural indicators, program curricula, selection criteria, and any existing assessment data made available by the Foundation."),
       ("b", "Conduct stakeholder engagement through interviews and focus groups with Foundation leadership, program owners, faculty, alumni, and a sample of beneficiaries and their sponsoring organisations."),
       ("b", "Conduct role and behavioural analysis appropriate to each leadership level represented in the Leadership Track."),
-      ("b", "Define, for each of the seven competencies, observable behavioural indicators and proficiency levels for early leaders, young professionals, first-level leaders, senior leaders, and executives."),
+      ("b", "Confirm the competency set or recommend revisions to it – whether competencies should be added, merged, renamed, or redefined – with the evidence for each recommendation and the implications of any change for selection, program design, and data already held."),
+      ("b", "Define, for each competency in the approved model, observable behavioural indicators and proficiency levels for early leaders, young professionals, first-level leaders, senior leaders, and executives."),
       ("b", "Benchmark the model against recognised leadership frameworks and against the Saudi and regional leadership context, and recommend revisions to the competencies, their definitions, and their behavioural indicators."),
       ("b", "Produce a bilingual competency dictionary and present the calibrated model to the Foundation for approval before assessment design begins.")],
      [("b", "The Foundation shall provide the current competency model documentation, program materials, and access to stakeholders."),
-      ("b", "The Vendor shall retain the seven Misk competencies and shall not substitute a proprietary framework."),
+      ("b", "The Foundation’s current model is the starting point for this scope. The Vendor may recommend revisions to it, with supporting evidence, for the Foundation’s approval. A standard vendor framework relabelled for Misk shall not be acceptable."),
       ("b", "All outputs shall be delivered in both Arabic and English."),
       ("b", "The calibrated model shall be signed off by the Foundation as a stage gate before Scope 2 commences.")],
      [("b", "Competency model review report with findings and recommendations."),
-      ("b", "Calibrated competency framework with behavioural indicators and proficiency levels by leadership level."),
+      ("b", "Confirmed or revised competency framework, with behavioural indicators and proficiency levels by leadership level, and the evidence behind any recommended change."),
       ("b", "Bilingual competency dictionary."),
       ("b", "Stakeholder validation workshop and approved sign-off document.")]),
 
     ("2.", "Assessment Design",
-     [("p", "The objective of this scope is to design and build an assessment that is customized to the Misk competency model and to the Saudi leadership context, and that serves the uses set out in this RFP."),
+     [("p", "The objective of this scope is to design and build an assessment that is customized to the competency model approved under Scope 1 and to the Saudi leadership context, and that serves the uses set out in this RFP."),
       ("p", "The Vendor shall:"),
       ("b", "Propose and agree an assessment blueprint setting out the methods to be used and the rationale for each. Methods may include, but are not limited to, competency-based self and multi-rater (360°) instruments, situational judgement tests using Saudi-contextualised scenarios, psychometric and personality measures, cognitive and critical-thinking measures where appropriate to level, virtual assessment-centre exercises, and structured competency-based interview guides."),
       ("b", "Design differentiated versions appropriate to each leadership level and to each use case, distinguishing clearly between selection use and developmental use."),
-      ("b", "Author all items, scenarios, rating scales, and scoring rules specifically against the Misk competency model."),
+      ("b", "Author all items, scenarios, rating scales, and scoring rules specifically against the approved competency model."),
       ("b", "Develop the Arabic and English versions in parallel, with linguistic and cultural equivalence review. Translation of an existing instrument shall not be acceptable."),
       ("b", "Define the scoring model, including weighting and the rules by which results roll up to competency, cluster, and overall level."),
       ("b", "Design the report suite, including individual, facilitator, program owner, and executive or cohort reports, with visualisation, narrative interpretation, and development suggestions linked to the Foundation’s development offerings."),
@@ -329,7 +335,7 @@ APPENDIX2_INTRO = ("The following annexures form part of this RFP and shall be m
                    "through the e-mail stated at the beginning of this document:")
 APPENDIX2_ITEMS = [
     "Annexure A: Misk Leadership Track – program profiles, objectives, target audiences, and annual beneficiary volumes.",
-    "Annexure B: Misk Leadership Competency Model – the seven competencies, current definitions, and behavioural indicators.",
+    "Annexure B: Misk Leadership Competency Model – the competencies, their current definitions, and behavioural indicators.",
     "Annexure C: Leadership Track selection processes and current assessment practice.",
     "Annexure D: The Foundation’s information security and personal data protection requirements.",
     "Annexure E: Rate card template.",

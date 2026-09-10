@@ -170,7 +170,7 @@ APPENDIX2_ITEMS_B = [
 # =============================================================================
 VARIANTS = {
     'A': dict(
-        out_name='Misk_Leadership_Competency_RFP_Option_A_Existing_Model_v1.0.docx',
+        out_name='Misk_Leadership_Competency_Model_and_Assessment_RFP_v1.0.docx',
         track_closing=C.TRACK_CLOSING_2,
         model_section=True,
         goals_paras=C.GOALS_PARAS,
