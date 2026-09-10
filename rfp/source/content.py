@@ -25,7 +25,7 @@ TRACK_BULLETS = [
     (2, "100 beneficiaries will be enrolled in this program every year."),
     (1, "10X Saudi Leaders"),
     (2, "Designed for professionals with 4-8 years of experience. It emphasizes leadership agility, strategic planning, and innovation. This hybrid program, with both virtual and in-person sessions, is aligned with Vision 2030 priorities and prepares young leaders to take on greater responsibilities within sectors like Human Capital Development, Small-to-Medium Enterprises (SMEs), and Non-Profit Organizations (NPOs)."),
-    (2, "250 beneficiaries will be enrolled in this program every year."),
+    (2, "200 beneficiaries will be enrolled in this program every year."),
     (0, "Senior Leadership Development focused on cultivating high-level strategic leaders who can directly support Saudi Arabia’s Vision 2030. This highly selective program prepares senior leaders to take on transformative roles within the Kingdom."),
     (1, "2030 Leaders"),
     (2, "Targets high-potential senior leaders and executives, providing them with advanced skills in strategic leadership and innovation. It is highly selective and is designed to prepare senior leaders for pivotal roles in driving Saudi Arabia’s transformation goals."),
@@ -33,7 +33,7 @@ TRACK_BULLETS = [
     (0, "Alumni and Continued Development sustains the growth of the Track’s graduates and keeps them connected to one another and to the Kingdom’s leadership agenda."),
     (1, "Saudi Leaders Society (SLS)"),
     (2, "An exclusive network for Misk’s leadership programs’ graduates supporting continued professional growth, cross-sectorial networking, and opportunities to give back and amplify their impact. This community program fosters collaboration and lifelong learning through events, mentorship opportunities, and curated talks with local and global speakers."),
-    (2, "670 members currently in this community, which continues to expand."),
+    (2, "974 members currently in this community, which continues to expand."),
 ]
 
 TRACK_CLOSING = ("This RFP addresses the Leadership Track in its entirety. While the competency model described "
@@ -168,9 +168,9 @@ POP_TABLE = [
     ("Distinct College Preparatory Program (early leadership – pre-university)", "460 beneficiaries currently enrolled"),
     ("Misk Fellowship (early leadership – university)", "70 beneficiaries per year"),
     ("Ignited Voices (young professionals)", "100 beneficiaries per year"),
-    ("10X Saudi Leaders (first-level leaders)", "250 beneficiaries per year"),
+    ("10X Saudi Leaders (first-level leaders)", "200 beneficiaries per year"),
     ("2030 Leaders (senior leaders and executives)", "90 beneficiaries per year"),
-    ("Saudi Leaders Society (mixed – first-level leaders and executives)", "670+ members; assessed on a call-off basis"),
+    ("Saudi Leaders Society (mixed – first-level leaders and executives)", "974 members; assessed on a call-off basis"),
     ("Selection and admission screening across all programs (all levels)", "To be confirmed; to be priced per assessment"),
 ]
 
@@ -358,11 +358,11 @@ TRACK_LIST = [
     (1, "Misk Fellowship – aimed at Saudi students attending leading universities, providing comprehensive leadership training, mentorship, and global exposure. 70 beneficiaries are enrolled every year."),
     (0, "Young Leadership Programs equip young professionals with the skills to grow as influential leaders within key sectors."),
     (1, "Ignited Voices – an 8-week program focused on media and ambassadorial skills, equipping young talents with public speaking, media engagement, and storytelling skills. 100 beneficiaries are enrolled every year."),
-    (1, "10X Saudi Leaders – designed for professionals with 4-8 years of experience, emphasising leadership agility, strategic planning, and innovation, and aligned with Vision 2030 priorities. 250 beneficiaries are enrolled every year."),
+    (1, "10X Saudi Leaders – designed for professionals with 4-8 years of experience, emphasising leadership agility, strategic planning, and innovation, and aligned with Vision 2030 priorities. 200 beneficiaries are enrolled every year."),
     (0, "Senior Leadership Development cultivates high-level strategic leaders who can directly support Saudi Arabia’s Vision 2030 and take on transformative roles within the Kingdom."),
     (1, "2030 Leaders – targets high-potential senior leaders and executives, providing advanced skills in strategic leadership and innovation. It is highly selective. 90 executive beneficiaries are enrolled every year."),
     (0, "Alumni and Continued Development sustains the growth of the Track’s graduates and keeps them connected to one another and to the Kingdom’s leadership agenda."),
-    (1, "Saudi Leaders Society (SLS) – an exclusive network for graduates of Misk’s leadership programs, supporting continued professional growth, cross-sectorial networking, and opportunities to give back. 670 members are currently in this community, which continues to expand."),
+    (1, "Saudi Leaders Society (SLS) – an exclusive network for graduates of Misk’s leadership programs, supporting continued professional growth, cross-sectorial networking, and opportunities to give back. 974 members are currently in this community, which continues to expand."),
 ]
 
 TRACK_CLOSING_2 = ("This RFP addresses the Leadership Track in its entirety. The competency model described below "

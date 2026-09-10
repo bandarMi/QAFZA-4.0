@@ -21,7 +21,10 @@ table of contents picks up the current page numbers.
 
 ## Still to fill in before release
 
-- Beneficiary volumes (programs section and the volumes table) need confirming
+- Beneficiary volumes: 10X Saudi Leaders (200/year), 2030 Leaders (90/year) and the
+  Saudi Leaders Society (974 members) are confirmed. Distinct College Preparatory
+  Program (460 enrolled), Misk Fellowship (70/year) and Ignited Voices (100/year)
+  are carried over from earlier material and still need confirming.
 - The seven competency descriptions are indicative and need the official definitions
 - RFP dates, and the annexure pack referenced in Appendix 2
 
