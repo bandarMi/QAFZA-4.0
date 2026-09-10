@@ -11,8 +11,13 @@ automatically, and surfaces member activity on LinkedIn.
 
 ## Quick start
 
-**Requires Node.js 20 or newer** (`node -v` to check; get it from <https://nodejs.org>).
-Nothing else — no database server, no Docker, no Python.
+**Requires Node.js 24 or newer** (`node -v` to check; get it from <https://nodejs.org>).
+Nothing else — no database server, no Docker, no Python, and no native build step:
+SQLite comes from inside Node itself, so the project has zero native dependencies.
+
+> Not allowed to install Node on your machine? Use the **portable Windows build**
+> instead — one folder, one `.exe`, no installer and no admin rights. See
+> [Portable Windows build](#portable-windows-build-no-install-no-admin) below.
 
 ```bash
 git clone https://github.com/bandarMi/QAFZA-4.0.git
@@ -40,6 +45,46 @@ You should see:
 Everything works immediately with the seeded demo data. To switch on the AI features,
 do the one thing below.
 
+## Portable Windows build (no install, no admin)
+
+For a locked-down machine where you cannot install Node.js or clear a UAC prompt,
+`packaging/build-windows-bundle.sh` produces a folder that runs the whole dashboard
+by double-clicking one file:
+
+```
+SLS-Dashboard/
+├── SLS Dashboard.exe     ← double-click this
+├── START HERE.txt
+├── runtime/node.exe      ← its own Node 24; nothing is installed
+├── app/                  ← compiled server, built UI, brand tokens, assets
+└── docs/
+```
+
+Nothing is written to Program Files or the registry, nothing touches `PATH`, and no
+administrator rights are needed. Data lives in `app/server/data/` inside the folder;
+to uninstall, delete the folder.
+
+The first launch seeds the demo database (about 20 seconds) and then opens the browser.
+If port 4317 is taken it steps to 4318 and opens whichever it got.
+
+**Building it** (from Linux or macOS — it cross-compiles):
+
+```bash
+sudo apt-get install -y gcc-mingw-w64-x86-64 zip unzip   # once
+packaging/build-windows-bundle.sh
+# -> packaging/out/SLS-Dashboard-Windows.zip
+```
+
+This is only possible because the project has no native dependencies: the Node runtime
+is an official prebuilt binary, the app is pure JavaScript, and the launcher is a small
+C program cross-compiled with mingw-w64. Its source is `packaging/launcher.c`.
+
+One caveat worth stating plainly: the `.exe` is **not code-signed**, so Windows
+SmartScreen shows "Windows protected your PC" on first run — click *More info* →
+*Run anyway*. Signing needs a certificate purchased from a certificate authority.
+`START HERE.txt` also documents a no-exe fallback (`.\runtime\node.exe .\app\server\dist\index.js`)
+for environments that block unsigned executables outright.
+
 ### A five-minute tour
 
 1. **Overview** — the KPI band, the anomaly alerts, and the charts. Try the *This year / Last year /
@@ -58,7 +103,7 @@ do the one thing below.
 | Symptom | Fix |
 |---|---|
 | `EADDRINUSE ... 4317` or `5317` | Something else has the port. Set `PORT` (API) and/or `WEB_PORT` (UI) — the dev proxy follows `PORT` automatically. macOS/Linux: `PORT=4318 npm run dev`. PowerShell: `$env:PORT=4318; npm run dev`. |
-| `npm install` fails building `better-sqlite3` | It normally installs a prebuilt binary. If yours has to compile: on Windows run `npm install --global windows-build-tools` or install the "Desktop development with C++" workload in Visual Studio Build Tools; on macOS run `xcode-select --install`. |
+| `Cannot find module 'node:sqlite'` | You are on Node 22 or older. This build needs Node 24+, where SQLite ships inside Node. Install Node 24 LTS, or use the portable Windows build. |
 | The page loads but every panel errors | The API isn't up. Check the `[server]` lines in the terminal running `npm run dev`. |
 | "No data yet" | Run `npm run db:reset`. |
 | QR code opens but the phone can't connect | The QR encodes `localhost`, which means *the phone itself*. Start the server with your machine's LAN address: `SLS_PUBLIC_URL=http://192.168.1.50:4317 npm run dev` (use your own IP from `ipconfig` / `ifconfig`), and make sure your firewall allows the port. |

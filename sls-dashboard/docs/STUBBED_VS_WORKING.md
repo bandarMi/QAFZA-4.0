@@ -29,6 +29,7 @@ Three honest categories.
 | **Social listening layer 2** | Paste a post URL → captured, keyword-scored, tagged to a member. |
 | **Bilingual EN/AR with RTL** | The full interface, including layout direction. |
 | **Runtime-swappable brand tokens** | Edit in the UI; the app, charts and PDFs follow with no rebuild. |
+| **Portable Windows build** | One folder, one `.exe`, its own Node runtime. No installer, no admin rights, nothing written outside the folder. Verified end-to-end: the real `node.exe` and the real launcher were run against the real bundle, cold, with no database. |
 
 ---
 
@@ -71,7 +72,19 @@ and the keyword list, and calls the existing `capturePost()` for each hit.
 requests. The capture dialog reports whether the fetch succeeded or exactly why it didn't, and falls back
 to the text you paste. It never claims to have read a post it couldn't.
 
-### 2. QR check-in — software complete, one physical caveat
+### 2. The Windows `.exe` is not code-signed
+
+**Status:** the launcher is a real, working Windows executable. It is **unsigned**.
+
+**Why:** code signing requires a certificate bought from a certificate authority — a
+purchasing decision, not something that can be produced in a build.
+
+**What it means in practice:** on first run Windows SmartScreen shows
+"Windows protected your PC". *More info* → *Run anyway* proceeds. If your environment
+blocks unsigned executables outright, `START HERE.txt` documents a fallback that needs
+no `.exe` at all: `.\runtime\node.exe .\app\server\dist\index.js` from PowerShell.
+
+### 3. QR check-in — software complete, one physical caveat
 
 **Status:** fully working end-to-end. Verified in a browser: a scan created the attendance row, a second
 scan stamped the check-out, and the engine recomputed the hours.
@@ -82,7 +95,7 @@ practice: members need a phone and a network connection at the venue, and they i
 their member code. If you want a *staffed* kiosk that scans member badges instead, that needs a scanner
 device and a different flow — not built.
 
-### 3. Power BI: a Power Query script, not a binary `.pbit`
+### 4. Power BI: a Power Query script, not a binary `.pbit`
 
 **Status:** dataset export and Power Query script fully working. A binary `.pbit` template is **not** generated.
 
@@ -91,7 +104,7 @@ no Power BI to open it — could not be verified, and shipping a template that m
 than shipping a script that provably works. `docs/POWERBI_SETUP.md` walks through pasting the generated script
 and saving it as a `.pbit` yourself; it takes about two minutes and you get a template you know opens.
 
-### 4. Power BI live push-dataset refresh
+### 5. Power BI live push-dataset refresh
 
 **Status:** the dataset definition and row shaping are implemented (`pushDatasetDefinition()`, `buildTable()`).
 The OAuth token exchange and the row-push calls are not.
@@ -100,7 +113,7 @@ The OAuth token exchange and the row-push calls are not.
 tested without them. The UI reports precisely which credentials are missing. Setup steps are in
 `docs/POWERBI_SETUP.md`.
 
-### 5. Scheduled imports (CRM / Airtable / Google Sheets sync)
+### 6. Scheduled imports (CRM / Airtable / Google Sheets sync)
 
 **Status:** the contract exists and is documented in the UI (Data Ingestion → *Scheduled imports*); no source is wired.
 
@@ -108,7 +121,7 @@ tested without them. The UI reports precisely which credentials are missing. Set
 (`/api/ingest/import`) is live and is the same one the CSV uploader uses — so a cron job with a fetch script
 is a small piece of work, not a rebuild.
 
-### 6. Arabic **PDF** rendering
+### 7. Arabic **PDF** rendering
 
 **Status:** the in-app Arabic interface is fully working, including RTL layout. Arabic **PDF export** is not.
 

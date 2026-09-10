@@ -1,4 +1,4 @@
-import Database from 'better-sqlite3';
+import Database from './sqlite.js';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -12,7 +12,22 @@ if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
 const DB_PATH = path.join(DATA_DIR, 'sls.db');
 
-export const db = new Database(DB_PATH);
+function openDatabase(): Database {
+  try {
+    return new Database(DB_PATH);
+  } catch (err: any) {
+    if (String(err?.message ?? err).includes('node:sqlite')) {
+      throw new Error(
+        'This build needs Node 24 or newer, where SQLite is built into Node itself.\n' +
+        `You are running ${process.version}. Install Node 24 LTS from https://nodejs.org, ` +
+        'or use the portable Windows bundle, which carries its own Node runtime.',
+      );
+    }
+    throw err;
+  }
+}
+
+export const db = openDatabase();
 db.pragma('journal_mode = WAL');
 db.pragma('foreign_keys = ON');
 

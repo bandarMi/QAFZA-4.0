@@ -8,3 +8,6 @@ server/data/
 design-tokens.backup.json
 .env
 .env.local
+# Build artifacts — packaging/build-windows-bundle.sh regenerates these.
+packaging/out/
+packaging/*.exe

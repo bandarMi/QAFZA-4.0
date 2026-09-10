@@ -1,0 +1,115 @@
+=====================================================================
+  SAUDI LEADERSHIP SOCIETY - DATA CENTER
+  Portable edition for Windows
+=====================================================================
+
+HOW TO RUN IT
+
+  1. Extract this whole ZIP somewhere you can write to, such as
+     your Desktop or Documents folder.
+
+     IMPORTANT: extract it properly (right-click the ZIP > "Extract
+     All..."). Do not double-click the .exe from inside the ZIP
+     preview window - Windows runs it from a temporary folder and it
+     will not find the rest of its files.
+
+  2. Double-click  "SLS Dashboard.exe"
+
+  3. A black window opens and says it is starting. Your browser
+     opens the dashboard automatically after a few seconds.
+
+     The very first run takes about 20 seconds longer, because it
+     builds the demo database. Later runs are immediate.
+
+  4. Leave the black window open while you use the dashboard.
+     Closing it stops the server.
+
+
+NO INSTALLATION IS NEEDED
+
+  There is no installer and no admin password prompt. Nothing is
+  written to Program Files or to the Windows registry, and nothing
+  is added to your PATH. Node.js does NOT need to be installed -
+  this folder carries its own copy in "runtime\node.exe".
+
+  Everything, including your data, stays inside this folder. To
+  uninstall, delete the folder.
+
+
+IF WINDOWS SHOWS A SECURITY WARNING
+
+  "Windows protected your PC" appears because this .exe is not
+  code-signed - a certificate has to be bought from a certificate
+  authority. The app is not doing anything unusual; it starts a
+  local web server on your own machine.
+
+  Click "More info", then "Run anyway".
+
+  If your workplace blocks unsigned executables entirely, use the
+  no-exe route instead - see "IF THE .EXE IS BLOCKED" below.
+
+
+IF THE .EXE IS BLOCKED
+
+  You can start the same app without the launcher:
+
+    1. Open this folder
+    2. Hold Shift, right-click in an empty area
+    3. Choose "Open PowerShell window here"
+    4. Paste this and press Enter:
+
+         .\runtime\node.exe .\app\server\dist\index.js
+
+    5. Open http://localhost:4317 in your browser
+
+
+YOUR DATA
+
+  The database lives in:
+
+    app\server\data\sls.db
+
+  Everything shipped in it is SYNTHETIC DEMO DATA - realistic
+  looking, sized to match the real programme totals, but no real
+  person's details are in it. Load your own via "Data Ingestion"
+  in the dashboard.
+
+  To start over from the demo data, delete the whole
+  "app\server\data" folder and run the app again.
+
+
+TURNING ON THE AI FEATURES
+
+  The dashboard works fully without this. Four features need an
+  Anthropic API key: the AI analyst chat, AI-drafted report text,
+  LinkedIn reshare captions, and recap-card quote lines.
+
+  In the dashboard, go to:  Settings > AI (Anthropic API key)
+
+  Paste your key and click "Save & activate". The key is checked
+  against the API before it is saved, so a mistyped key cannot
+  silently leave the AI switched off. It is stored encrypted in
+  app\server\data\secrets.local.json and never leaves your machine
+  except to call the Anthropic API.
+
+  Get a key at:  https://console.anthropic.com
+
+
+IF THE PORT IS BUSY
+
+  The app uses port 4317. If something else already has it, it
+  automatically moves to 4318, 4319, and so on, and opens whichever
+  one it got. No action needed.
+
+
+DOCUMENTATION
+
+  docs\README.md                  - full guide
+  docs\DATA_DICTIONARY.md         - every table and field
+  docs\STUBBED_VS_WORKING.md      - what works, what needs a key,
+                                    what is deliberately stubbed
+  docs\DESIGN_TOKENS_REPORT.md    - brand colours and how to swap
+                                    in the real ones
+  docs\POWERBI_SETUP.md           - connecting Power BI
+
+=====================================================================

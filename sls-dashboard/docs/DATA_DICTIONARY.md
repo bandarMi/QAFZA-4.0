@@ -205,6 +205,13 @@ Annual Impact Challenge. Scores are per criterion with a weight; the leaderboard
 | `import_jobs` | One row per CSV import, with its mapping and row-level errors |
 | `alerts` | Anomaly/momentum detections. `UNIQUE (kind, entity_type, entity_id, status)` — re-detection updates rather than duplicates, which is why `entity_id` uses `0` as its "no entity" sentinel (SQLite treats NULLs as distinct in a unique index). |
 
+### The SQLite driver
+The app talks to SQLite through `node:sqlite`, which ships inside Node 24, via a thin
+better-sqlite3-shaped adapter at `server/src/db/sqlite.ts`. That removes the project's
+only native dependency, which is what makes a no-install, no-admin Windows build possible.
+The adapter covers three real API differences (extra named parameters, `undefined` binding,
+and `transaction()`/`pragma()`); each is pinned by a test in `sqlite.test.ts`.
+
 ### Secrets are not in the database
 API keys live in `server/data/secrets.local.json`, encrypted with AES-256-GCM under a locally
 generated master key (`server/data/.masterkey`, mode 0600). Both paths are gitignored. A stored secret

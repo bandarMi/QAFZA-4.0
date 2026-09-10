@@ -4,7 +4,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { api } from './routes/index.js';
-import { db } from './db/index.js';
+import { db, DATA_DIR } from './db/index.js';
 import { runAnomalyDetection } from './lib/alerts.js';
 import { evaluateRecognition } from './lib/recognition.js';
 import { aiReady } from './lib/ai.js';
@@ -37,19 +37,48 @@ if (fs.existsSync(webDist)) {
   });
 }
 
-const members = (db.prepare('SELECT COUNT(*) c FROM members').get() as any).c;
+// First run — including a double-clicked portable build — should land on a
+// working dashboard, not an empty one with instructions to run another command.
+let members = (db.prepare('SELECT COUNT(*) c FROM members').get() as any).c;
 if (members === 0) {
-  console.warn('\n⚠  The database is empty. Run `npm run db:reset` to load the seed dataset.\n');
-} else {
-  try { evaluateRecognition(); runAnomalyDetection(); } catch (err) { console.warn('[startup] background pass failed:', err); }
+  console.log('  First run: loading the demo dataset…');
+  const { seed } = await import('./db/seed.js');
+  seed();
+  members = (db.prepare('SELECT COUNT(*) c FROM members').get() as any).c;
+  console.log(`  Loaded ${members.toLocaleString()} members of synthetic demo data.`);
+}
+try { evaluateRecognition(); runAnomalyDetection(); } catch (err) { console.warn('[startup] background pass failed:', err); }
+
+/**
+ * Bind PORT, stepping to the next free one if it is taken — a portable build is
+ * launched by double-click, where "port already in use" is a dead end rather
+ * than something the user can fix. The chosen port is written next to the
+ * database so the launcher knows which URL to open.
+ */
+function listen(port: number, attemptsLeft = 10) {
+  const server = app.listen(port);
+
+  server.on('listening', () => {
+    const url = `http://localhost:${port}`;
+    try { fs.writeFileSync(path.join(DATA_DIR, '.port'), String(port)); } catch { /* read-only dir; the log still shows it */ }
+    const key = secretStatus('ANTHROPIC_API_KEY');
+    console.log(`\n  SLS Data Center — ${url}`);
+    console.log(`  Database: ${members.toLocaleString()} members loaded`);
+    console.log(aiReady()
+      ? `  AI: ready (key from ${key.source}, ${key.masked})`
+      : `  AI: OFF — add an Anthropic API key in Settings → AI, or run \`npm run set-key\`.`);
+    console.log('');
+  });
+
+  server.on('error', (err: NodeJS.ErrnoException) => {
+    if (err.code === 'EADDRINUSE' && attemptsLeft > 0) {
+      console.log(`  Port ${port} is busy, trying ${port + 1}…`);
+      listen(port + 1, attemptsLeft - 1);
+      return;
+    }
+    console.error(`\n  Could not start the server: ${err.message}\n`);
+    process.exit(1);
+  });
 }
 
-app.listen(PORT, () => {
-  const key = secretStatus('ANTHROPIC_API_KEY');
-  console.log(`\n  SLS Data Center — API on http://localhost:${PORT}`);
-  console.log(`  Database: ${members.toLocaleString()} members loaded`);
-  console.log(aiReady()
-    ? `  AI: ready (key from ${key.source}, ${key.masked})`
-    : `  AI: OFF — add an Anthropic API key in Settings → AI, or run \`npm run set-key\`.`);
-  console.log('');
-});
+listen(PORT);
