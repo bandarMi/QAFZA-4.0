@@ -7,28 +7,26 @@ Deliverables live here.
 | File | What it is |
 |---|---|
 | `SLS_Annual_Assembly_2026_Event_Charter.pptx` (`.pdf`) | The Misk **New Event Charter** template, filled in. Marked DRAFT while it awaits approval. |
-| `experience/SLS_Annual_Assembly_2026_Concept_Note.pdf` | The concept note (v2), 7 pages A4, for circulation. |
+| `experience/SLS_Annual_Assembly_2026_Concept_Note.pdf` | The concept note, 5 pages A4, for circulation. |
 | `experience/concept-note.html` | Source for the note. Published at <https://claude.ai/code/artifact/1c8a87d9-148c-4a9f-bd24-f8b01c478bcd>. |
 | `experience/assembly.html` | **Superseded.** The first experience design, written for a 6.5-hour afternoon format in British English. Its read of the 2024 survey still holds; nothing else does. |
 
-## v2: what the sponsor's review changed
+## Where the concept stands
 
-Abdulrahman's feedback was that the concept was over-engineered and thin on content. The
-rewrite moves the center of gravity from the experience to the year itself.
+The sponsor's review was that the first draft was over-engineered and thin on content, so the
+center of gravity moved from the experience to the year itself. The note leads with what members
+should leave thinking, feeling and doing, then three key messages, then the achievements
+structure, then recognition, then format.
 
-| Raised | Changed |
-|---|---|
-| Could Hena hold 400 comfortably? | Venue moved to **City Hub**, sized for 300 |
-| Why 400? | **300** — venue ceiling, and a realistic turnout on a full-membership invitation (2024: 320 of 468, a 68% show rate) |
-| Is 140 minutes of floor time enough? | Fewer activities, not more time — the Impact Market, peer tables and commitment board are cut |
-| Why November? | **December 12** — a year-end assembly belongs at the year's end |
-| Which 2026 achievements? | Now the spine of the evening, with a collection request that gates everything on stage |
-| Over-engineered | Network graph, live voting, introduction ledger and personal cards all cut. One screen remains in the arrival gallery, as a tool |
+Cut along the way: the network graph as spine, live voting, the Impact Market, peer tables, the
+introduction ledger, personal network cards and the commitment board. One screen remains in the
+arrival gallery as a tool. Floor time is arrival, one break and dinner.
 
-The note now leads with **what members should leave thinking, feeling and doing**, three key
-messages, and the achievements structure — then recognition, then format. It carries an
-indicative budget range (SAR 600k–1.0M for 300 guests) explicitly marked as a planning figure
-to be replaced with EMU's 2024 actuals.
+Sizing is 300, which is both the City Hub ceiling and a realistic turnout on a full-membership
+invitation given 2024's 68% show rate. Budget lines read `xxx` in both documents until EMU
+supplies the 2024 actuals.
+
+House style: American English, and no em dashes anywhere in these documents.
 
 ## Recognition approach
 
