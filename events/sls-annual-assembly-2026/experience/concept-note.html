@@ -149,6 +149,38 @@ footer{border-top:1px solid var(--rule);padding:2.4rem 0 3.4rem;color:var(--mute
 footer p{max-width:66ch;margin:0}
 footer a{color:var(--accent)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+.changed{width:100%;border-collapse:collapse;margin:1.6rem 0 0}
+.changed th{text-align:left;font-family:var(--mono);font-size:.62rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--muted);font-weight:500;padding:0 1rem .55rem 0;
+  border-bottom:1px solid var(--rule)}
+.changed td{padding:.6rem 1rem .6rem 0;border-bottom:1px solid var(--rule-soft);
+  font-size:.92rem;vertical-align:baseline;color:var(--ink-2)}
+.changed td.was{width:36%;color:var(--muted)}
+.changed td.now b{color:var(--ink);font-weight:600}
+.leave{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.6rem;margin-top:1.6rem}
+.leave h3{font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;margin-bottom:.7rem}
+.leave ul{list-style:none;padding:0;margin:0}
+.leave li{padding:.45rem 0;font-size:.93rem;color:var(--ink-2);border-top:1px solid var(--rule-soft)}
+.leave li:first-child{border-top:0;padding-top:0}
+.msg{list-style:none;padding:0;margin:1.5rem 0 0;counter-reset:m}
+.msg li{counter-increment:m;padding:.9rem 0 .9rem 2.2rem;position:relative;
+  border-top:1px solid var(--rule-soft);font-size:.95rem;color:var(--ink-2)}
+.msg li:first-child{border-top:1px solid var(--rule)}
+.msg li::before{content:counter(m);position:absolute;left:0;top:.95rem;
+  font-family:var(--mono);font-size:.76rem;color:var(--accent)}
+.msg b{font-family:var(--display);font-weight:600;font-size:1.03rem;color:var(--ink);display:block;margin-bottom:.15rem}
+.budget{width:100%;border-collapse:collapse;margin-top:1.4rem}
+.budget th{text-align:left;font-family:var(--mono);font-size:.62rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--muted);font-weight:500;padding:0 1rem .55rem 0;
+  border-bottom:1px solid var(--rule)}
+.budget th.n,.budget td.n{text-align:right;padding-right:0;font-family:var(--mono);
+  font-variant-numeric:tabular-nums;font-size:.86rem;white-space:nowrap}
+.budget td{padding:.6rem 1rem .6rem 0;border-bottom:1px solid var(--rule-soft);font-size:.93rem;color:var(--ink-2)}
+.budget tr.total td{border-bottom:0;border-top:1px solid var(--rule);font-weight:600;color:var(--ink);padding-top:.7rem}
+.budget tr.total td.n{color:var(--ink)}
+
 @media print{
   :root,:root[data-theme="dark"],:root:not([data-theme="light"]){
     --ground:#FFFFFF; --surface:#F6FAF8; --ink:#0C1F19; --ink-2:#33473F;
@@ -185,7 +217,7 @@ footer a{color:var(--accent)}
   .movements{min-width:0}
   .movements td,.movements th{padding-right:.7rem}
   .movements td{padding-top:.58rem;padding-bottom:.58rem}
-  .movements tr,.pull,.alts li,.aims li,.asks li,.diff li{break-inside:avoid}
+  .movements tr,.pull,.alts li,.aims li,.asks li,.diff li,.leave,.msg li,.changed tr,.budget tr{break-inside:avoid}
   .tier h3,.tier .who{break-after:avoid}
   figure.tiers{break-inside:avoid;margin-top:1.2rem}
   figure.tiers svg{max-width:124mm}
@@ -207,17 +239,16 @@ footer a{color:var(--accent)}
 
 <header class="hero">
   <div class="wrap">
-    <p class="eyebrow">SLS Annual Assembly 2026 &middot; Concept note</p>
+    <p class="eyebrow">SLS Annual Assembly 2026 &middot; Concept note &middot; v2</p>
     <h1>Built by the room</h1>
-    <p class="lede">The Assembly is the one evening of the year the whole society is in a single place.
-      That makes it the only occasion on which SLS can do what it cannot do anywhere else: name the
-      partners, Council members, Chapter teams and contributors who carried the year, in front of
-      everyone whose year they carried. Everything else the evening does follows from that.</p>
+    <p class="lede">This version puts the content first. What SLS actually achieved in 2026, told by the
+      members who achieved it, and the people who made it possible named in front of everyone. The
+      experience exists to carry that &mdash; not the other way around.</p>
     <dl class="facts">
-      <div><dt>Proposed date</dt><dd>Saturday, November 21, 2026</dd></div>
+      <div><dt>Proposed date</dt><dd>Saturday, December 12, 2026</dd></div>
       <div><dt>Time</dt><dd>6:30&ndash;10:30 p.m., four hours</dd></div>
-      <div><dt>Venue</dt><dd>Hena Experience Center, Misk City</dd></div>
-      <div><dt>Room</dt><dd>~400 members, all invited</dd></div>
+      <div><dt>Venue</dt><dd>City Hub</dd></div>
+      <div><dt>Room</dt><dd>300 &mdash; venue capacity</dd></div>
       <div><dt>Not this year</dt><dd>No graduation segment</dd></div>
     </dl>
   </div>
@@ -226,243 +257,274 @@ footer a{color:var(--accent)}
 <main class="wrap">
 
 <section class="sec">
-  <div class="rail"><span class="n">01</span><span class="hint">Objective</span></div>
+  <div class="rail"><span class="n">01</span><span class="hint">Purpose</span></div>
   <div class="col">
-    <h2>Recognize. Show. Launch.</h2>
-    <p class="first">Close the SLS year by recognizing the people who carried it &mdash; partners, Council
-      members, Chapter teams and key contributors &mdash; in front of the full membership; show what
-      their work produced; and open 2027 with members committed to it before they leave the room.</p>
-    <p>Recognition comes first because it is the only thing on the agenda that cannot be done at any
-      other SLS event, and because a society that shows its impact without naming who delivered it has
-      told half the story.</p>
-    <ul class="aims">
-      <li>Every contributor group named publicly, each with <b>one specific line</b> on what they did
-        and what it produced &mdash; never a category thanked in the abstract.</li>
-      <li><b>&ge;85%</b> of confirmed guests attend. In 2024, 320 of 468 registrants came &mdash; 68%.</li>
-      <li>Overall satisfaction <b>&ge;85%</b> (2024: 76.8%) and agenda flow <b>&ge;85%</b> (2024: 69.8%,
-        the lowest-scoring item on the survey).</li>
-      <li><b>&ge;60</b> members leave with a named 2027 commitment, and <b>&ge;3</b> introductions logged
-        each on the network graph.</li>
-    </ul>
-  </div>
-</section>
+    <h2>Show the year. Name the people who made it.</h2>
+    <p class="first">The Assembly is the one evening the whole society is in a single room. Two things
+      need that room: the year&rsquo;s achievements, set out properly, and the partners, Council members,
+      Chapter teams and contributors who delivered them, recognized in front of everyone. Everything else
+      is in service of those two.</p>
+    <p>The organizing line is <strong>built by the room</strong> &mdash; every achievement shown traces
+      back to someone sitting in it, and next year&rsquo;s will too. It doubles as the test for the
+      agenda: if a segment doesn&rsquo;t connect to somebody present, it comes out.</p>
 
-<section class="sec">
-  <div class="rail"><span class="n">02</span><span class="hint">Theme</span></div>
-  <div class="col">
-    <h2>Built by the room</h2>
-    <div class="pull"><p>Everything on the screen tonight traces back to someone sitting in this room.
-      Next year&rsquo;s will too.</p></div>
-    <p>The line makes the recognition argument without a speech &mdash; every milestone shown has a person
-      attached, and they are present. It reads backward as a statement about the year that closed and
-      forward as an instruction for the one opening. And it survives compression: it works as a stage
-      graphic, an invitation subject line, and four words on a badge.</p>
-    <ul class="alts">
-      <li><b>Everything here has a name on it</b> &mdash; more literal, strong over the recognition wall,
-        weaker as a stage line.</li>
-      <li><b>The year, in names</b> &mdash; quieter and more formal, if the Council wants an honors evening
-        rather than a community night.</li>
-    </ul>
-    <p style="margin-top:1.3rem"><strong>One dependency for week one:</strong> the Arabic line, which has
-      to carry the meaning rather than translate the words. The theme drives the invitation, the wall and
-      the stage design, so it cannot be a late decision.</p>
-  </div>
-</section>
-
-<section class="sec">
-  <div class="rail"><span class="n">03</span><span class="hint">Format</span></div>
-  <div class="col">
-    <h2>Four hours, one room, a stage</h2>
-    <table class="kv">
-      <tr><th>When</th><td>Saturday, November 21, 2026, 6:30&ndash;10:30 p.m., ending with dinner</td></tr>
-      <tr><th>Where</th><td>Hena Experience Center, Misk City (proposed, pending site survey)</td></tr>
-      <tr><th>Scale</th><td>All SLS members invited; around 400 expected. Private, invitation only</td></tr>
-      <tr><th>Balance</th><td>About 100 minutes on stage, 140 on the floor, in two alternating blocks</td></tr>
-      <tr><th>Prayer</th><td>Isha (&asymp;6:44 p.m.) falls inside the arrival window, so the program never stops for it</td></tr>
-      <tr><th>Language</th><td>Bilingual throughout; simultaneous translation in scope</td></tr>
+    <table class="changed">
+      <thead><tr><th>Raised</th><th>Changed</th></tr></thead>
+      <tbody>
+        <tr><td class="was">Could Hena hold 400 comfortably?</td>
+          <td class="now"><b>Venue moved to City Hub</b>, sized for 300 across stage, seating and
+            networking areas.</td></tr>
+        <tr><td class="was">Why 400?</td>
+          <td class="now"><b>300</b>, set by the venue and by a realistic turnout on a full-membership
+            invitation &mdash; see Format.</td></tr>
+        <tr><td class="was">Is 140 minutes of floor time enough?</td>
+          <td class="now"><b>Fewer activities, not more time.</b> The market, peer tables and the
+            commitment board are cut. Floor time is now arrival, one break and dinner.</td></tr>
+        <tr><td class="was">Why November?</td>
+          <td class="now"><b>Moved to December 12</b> &mdash; a year-end assembly should sit at the year&rsquo;s end.</td></tr>
+        <tr><td class="was">Which 2026 achievements?</td>
+          <td class="now"><b>Now the spine of the evening</b>, with a collection request that has to start
+            this month &mdash; see Content.</td></tr>
+        <tr><td class="was">Over-engineered</td>
+          <td class="now"><b>The network graph, live voting, the introduction ledger and the personal
+            cards are out.</b> One screen in the arrival gallery remains, as a tool, not a concept.</td></tr>
+      </tbody>
     </table>
-    <p style="margin-top:1.5rem">Hena is not a neutral ballroom. It is Misk City&rsquo;s own experience
-      center &mdash; an interactive exhibition, designed by Saudi Diyar for Misk City Company, telling the
-      story of the Kingdom&rsquo;s first nonprofit city. Members arrive inside the story of what the
-      Foundation is building next, which does much of the showcase work before anyone reaches the stage.
-      It also constrains: a built stage and seating for 400 has to be laid out around permanent
-      installations, which makes the site survey a gating item rather than a formality.</p>
-    <div class="pull alt"><p>With four hours and a real stage, <strong>stage time is the scarce
-      resource.</strong> The test for every segment: does this need the stage, or is it better on the floor?</p></div>
   </div>
 </section>
 
 <section class="sec">
-  <div class="rail"><span class="n">04</span><span class="hint">Program segments</span></div>
+  <div class="rail"><span class="n">02</span><span class="hint">What members leave with</span></div>
   <div class="col">
-    <h2>The arc of the evening</h2>
-    <p class="first">Recognition is threaded through the program rather than parked in an awards block,
-      so nobody sits through sixty names in a row.</p>
+    <h2>The brief every segment is tested against</h2>
+    <p class="first">Before deciding what happens on stage, it is worth being exact about what we want in
+      a member&rsquo;s head on the drive home. This is the design brief; anything that doesn&rsquo;t serve
+      it comes off the agenda.</p>
+    <div class="leave">
+      <div><h3>Thinking</h3><ul>
+        <li>I can name three things this society delivered in 2026.</li>
+        <li>What I contributed was seen &mdash; by name, in front of everyone.</li>
+        <li>I know what 2027 asks of me, and it is specific.</li>
+      </ul></div>
+      <div><h3>Feeling</h3><ul>
+        <li>Proud of the company I am in. Not flattered &mdash; proud.</li>
+        <li>Known. Someone in that room knows my name and what I worked on.</li>
+        <li>Impatient to start. Next year sounds worth being part of.</li>
+      </ul></div>
+      <div><h3>Doing, within a week</h3><ul>
+        <li>Repeats one SLS achievement to someone outside the room.</li>
+        <li>Says yes to one named thing for 2027.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="rail"><span class="n">03</span><span class="hint">Key messages</span></div>
+  <div class="col">
+    <h2>Three things the evening has to land</h2>
+    <ol class="msg">
+      <li><b>SLS is a working network, not a membership list.</b> The proof is the year&rsquo;s
+        achievements, and every one of them has a member&rsquo;s name on it.</li>
+      <li><b>The society sees who does the work.</b> Contribution is recognized publicly and
+        specifically, not thanked in the abstract.</li>
+      <li><b>2027 asks something of you by name.</b> Not &ldquo;get involved&rdquo; &mdash; a defined
+        commitment, made before members leave.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="rail"><span class="n">04</span><span class="hint">The content</span></div>
+  <div class="col">
+    <h2>The year&rsquo;s achievements, at two depths</h2>
+    <p class="first">This is the part that has to be strongest, and the part that does not exist yet.
+      No one has assembled what SLS delivered in 2026 in one place. Doing that is the first task, and
+      everything on stage depends on it.</p>
+    <p><strong>The gallery, at the entrance.</strong> The full year laid out to walk through during the
+      first fifty minutes &mdash; every chapter, every initiative, every number. Members browse at their
+      own pace and find their own work. This is where volume lives.</p>
+    <p><strong>Three stories, on stage.</strong> Twenty-five minutes, three members telling what happened
+      to them rather than a milestone review read from a deck. The test for choosing them:</p>
+    <ul class="aims">
+      <li>A <b>member</b> did it, not the Foundation on their behalf.</li>
+      <li>The outcome fits in <b>one sentence with a number in it</b>.</li>
+      <li>It <b>would not have happened</b> without the society.</li>
+    </ul>
+    <p style="margin-top:1.4rem"><strong>What we collect, and from whom.</strong> One request, one
+      deadline, four categories &mdash; and the same request produces the recognition citations, so
+      Chapters and the Council are asked once rather than twice:</p>
+    <ul class="alts">
+      <li><b>What members built</b> &mdash; initiatives and cross-sector projects launched this year.</li>
+      <li><b>What Chapters delivered</b> &mdash; sessions held, members engaged, what came out of them.</li>
+      <li><b>How the society grew</b> &mdash; new members from the Fellowship and 2030 Leaders cohorts,
+        new chapters, international reach.</li>
+      <li><b>Where SLS showed up</b> &mdash; partnerships, visits, contributions to national programs.</li>
+    </ul>
+    <div class="pull alt"><p><strong>This is the critical path.</strong> Nothing on stage can be written
+      until the achievements are in. The request goes to Chapter leads and the Council this month, due with
+      the planning phase on <strong>November 19</strong>.</p></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="rail"><span class="n">05</span><span class="hint">Recognition</span></div>
+  <div class="col">
+    <h2>Three volumes, because sixty names is not a ceremony</h2>
+    <p class="first">Partners, Council, Chapter teams and contributors together are likely sixty-plus
+      names. A queue of sixty walks to a stage would consume most of the evening and land on the item the
+      2024 survey scored lowest. So recognition runs at three volumes instead.</p>
+
+    <div class="tier">
+      <h3>The Wall of the Year</h3>
+      <p class="who">Everyone &middot; at the entrance, all evening</p>
+      <p>Every partner, Council member, Chapter team and contributor named, grouped by what they did
+        rather than by rank, alongside the gallery. Sixty names honored in the time it takes to walk in,
+        and members find their own before anyone speaks.</p>
+    </div>
+
+    <div class="tier">
+      <h3>Two moments on stage</h3>
+      <p class="who">Four groups &middot; 8:05 and 9:25</p>
+      <p>Partners and Chapter teams before the break; the Council and the honor after the keynote.
+        Chapter teams go up <em>as teams</em> &mdash; six people together for ninety seconds beats six
+        separate walks. Each named recognition carries <strong>one specific line</strong>: what they did
+        and what it produced. &ldquo;Thank you for your support&rdquo; is worth nothing to an executive.</p>
+    </div>
+
+    <div class="tier">
+      <h3>One honor, nominated by members</h3>
+      <p class="who">One &middot; 9:25</p>
+      <p>Nominations collected on the RSVP form four weeks out. In a peer society the room&rsquo;s choice
+        carries more weight than a committee&rsquo;s, and it costs one extra field on a form we are
+        already sending.</p>
+    </div>
+
+    <div class="pull" style="margin-top:1.7rem"><p><strong>The letter home.</strong> A letter from SLS
+      leadership to the board or CEO of each honored contributor&rsquo;s organization. Recognition that
+      reaches an executive&rsquo;s employer outlives anything they can put on a shelf. It costs a
+      signature.</p></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="rail"><span class="n">06</span><span class="hint">Format and program</span></div>
+  <div class="col">
+    <h2>Four hours, five things</h2>
+    <table class="kv">
+      <tr><th>When</th><td>Saturday, December 12, 2026, 6:30&ndash;10:30 p.m. December puts the assembly
+        at the year&rsquo;s end, which is what a year in review needs, and leaves the production window
+        clear of Ramadan</td></tr>
+      <tr><th>Where</th><td>City Hub &mdash; site survey still needed to confirm the layout works for a
+        stage, seated audience, gallery and dinner in one evening</td></tr>
+      <tr><th>How many</th><td><strong>300.</strong> The venue sets the ceiling. It also matches a
+        realistic turnout: in 2024, 320 of 468 registrants attended, a 68% show rate. Inviting the full
+        membership and planning for 300 in the room is the honest version of that arithmetic &mdash;
+        with an RSVP cap and a waitlist rather than a number we hope to hit</td></tr>
+      <tr><th>Balance</th><td>120 minutes on stage, 120 on the floor. The longest seated stretch is 70
+        minutes, because in 2024 half the audience left after a long one</td></tr>
+      <tr><th>Prayer</th><td>Isha (&asymp;6:40 p.m.) falls inside the arrival window, so the program never
+        stops for it</td></tr>
+    </table>
+
     <div class="wrapx">
     <table class="movements">
-      <caption>240 minutes &middot; ~100 on stage</caption>
+      <caption>240 minutes &middot; 120 on stage</caption>
       <thead><tr><th>Time</th><th>Segment</th><th></th></tr></thead>
       <tbody>
-        <tr><td class="t">6:30 p.m. &middot; 45&prime;</td>
-          <td class="m"><b>Arrival on the Misk City floor</b>The badge scan lights your node on the network
-            wall; the Wall of the Year names every contributor; members walk the exhibition. Isha
-            (&asymp;6:44) sits inside this window.</td>
+        <tr><td class="t">6:30 p.m. &middot; 50&prime;</td>
+          <td class="m"><b>Arrival, the gallery and the Wall</b>The year laid out to walk through, every
+            contributor named on the Wall, and one screen showing the shape of the society. Isha sits
+            inside this window.</td>
           <td class="r"><div class="chips"><span class="tag">Floor</span><span class="tag rec">Recognition</span></div></td></tr>
-        <tr><td class="t">7:15 &middot; 30&prime;</td>
-          <td class="m"><b>Opening, and the year</b>Council welcome, then the year told by three members it
-            happened to rather than reviewed from a deck. Partners are recognized at the top, because the
-            impact is what they enabled.</td>
+        <tr><td class="t">7:20 &middot; 20&prime;</td>
+          <td class="m"><b>Opening: the year, and what it means</b>The Council chair sets out the three
+            key messages and the headline of the year.</td>
+          <td class="r"><div class="chips"><span class="tag stage">Stage</span></div></td></tr>
+        <tr><td class="t">7:40 &middot; 25&prime;</td>
+          <td class="m"><b>Three stories from the year</b>Three members, told first-hand.</td>
+          <td class="r"><div class="chips"><span class="tag stage">Stage</span></div></td></tr>
+        <tr><td class="t">8:05 &middot; 25&prime;</td>
+          <td class="m"><b>Recognition: partners and Chapter teams</b>Named with citations; Chapter teams
+            called up as teams.</td>
           <td class="r"><div class="chips"><span class="tag stage">Stage</span><span class="tag rec">Recognition</span></div></td></tr>
-        <tr><td class="t">7:45 &middot; 10&prime;</td>
-          <td class="m"><b>Chapters</b>Chapter teams on stage as teams, not as a queue of individuals.</td>
-          <td class="r"><div class="chips"><span class="tag stage">Stage</span><span class="tag rec">Recognition</span></div></td></tr>
-        <tr><td class="t">7:55 &middot; 50&prime;</td>
-          <td class="m"><b>The floor</b>Impact Market and peer tables. Member-led stands, each carrying one
-            ask &mdash; a partner, a pilot site, a regulator conversation. Commitments logged as they are made.</td>
+        <tr><td class="t">8:30 &middot; 25&prime;</td>
+          <td class="m"><b>Break on the floor</b>Coffee, the gallery again, conversations. The one thing
+            2024 asked for most.</td>
           <td class="r"><div class="chips"><span class="tag">Floor</span></div></td></tr>
-        <tr><td class="t">8:45 &middot; 25&prime;</td>
-          <td class="m"><b>Keynote dialogue</b>Two chairs, a member moderating, questions collected from
+        <tr><td class="t">8:55 &middot; 30&prime;</td>
+          <td class="m"><b>Keynote dialogue</b>Two chairs, a member moderating, questions gathered from
             members beforehand.</td>
           <td class="r"><div class="chips"><span class="tag stage">Stage</span></div></td></tr>
-        <tr><td class="t">9:10 &middot; 20&prime;</td>
-          <td class="m"><b>The Council</b>Outgoing members recognized at the handover, then three decisions
-            put to the room and voted live: which chapter opens next, which visit the society funds, one
-            change to member engagement.</td>
-          <td class="r"><div class="chips"><span class="tag stage">Stage</span><span class="tag rec">Recognition</span></div></td></tr>
-        <tr><td class="t">9:30 &middot; 15&prime;</td>
-          <td class="m"><b>The honor, the welcome, the replay</b>The peer-nominated honor of the year, new
-            members welcomed into the society, then ninety seconds of the network graph replaying with the
-            lights down.</td>
+        <tr><td class="t">9:25 &middot; 20&prime;</td>
+          <td class="m"><b>The Council: recognition, the honor, and 2027</b>Outgoing members recognized,
+            the peer-nominated honor, then the direction for next year and the one commitment being asked
+            of members.</td>
           <td class="r"><div class="chips"><span class="tag stage">Stage</span><span class="tag rec">Recognition</span></div></td></tr>
         <tr><td class="t">9:45 &middot; 45&prime;</td>
-          <td class="m"><b>Dinner and open networking</b>Contributor names on screen throughout. Seating
-            drawn from the graph. 2027 commitments made on the way out, and everyone leaves with a personal
-            network card.</td>
-          <td class="r"><div class="chips"><span class="tag">Floor</span><span class="tag rec">Recognition</span></div></td></tr>
+          <td class="m"><b>Dinner and open networking</b>Contributor names on screen throughout.</td>
+          <td class="r"><div class="chips"><span class="tag">Floor</span></div></td></tr>
         <tr><td class="t">10:30 p.m.</td><td class="m"><b>Ends</b></td><td class="r"></td></tr>
       </tbody>
     </table>
     </div>
-  </div>
-</section>
 
-<section class="sec">
-  <div class="rail"><span class="n">05</span><span class="hint">Recognition approach</span></div>
-  <div class="col">
-    <h2>Three volumes, because sixty names is not a ceremony</h2>
-    <p class="first">Four groups deserve recognition &mdash; partners, Council, Chapter teams, contributors
-      &mdash; and together they are likely sixty-plus names. Sixty walks to a stage would consume most of
-      the stage time available and land precisely on the item the 2024 survey scored lowest. Recognition
-      has to be designed at three volumes.</p>
-
-    <figure class="tiers">
-      <svg viewBox="0 0 600 212" role="img" aria-label="Three tiers of recognition mapped across the evening: the Wall of the Year runs the whole event for every name; four in-context stage moments fire at 7:25, 7:45, 9:10 and through dinner; the single peer-nominated honor falls at 9:30.">
-        <text class="trow" x="104" y="52" text-anchor="end">The Wall</text>
-        <rect class="tlane" x="116" y="40" width="472" height="16" rx="3"/>
-        <text class="tlabel" x="125" y="52">Every name &middot; door to last guest out</text>
-
-        <text class="trow" x="104" y="112" text-anchor="end">On stage</text>
-        <rect class="tmark" x="219" y="100" width="11" height="16" rx="2"/>
-        <rect class="tmark" x="258" y="100" width="11" height="16" rx="2"/>
-        <rect class="tmark" x="425" y="100" width="11" height="16" rx="2"/>
-        <rect class="tmark" x="500" y="100" width="88" height="16" rx="2"/>
-        <text class="tlabel" x="224" y="94" text-anchor="middle">Partners</text>
-        <text class="tlabel" x="264" y="130" text-anchor="middle">Chapter teams</text>
-        <text class="tlabel" x="431" y="94" text-anchor="middle">Council</text>
-        <text class="tlabel" x="588" y="130" text-anchor="end">Contributors</text>
-
-        <text class="trow" x="104" y="168" text-anchor="end">The peak</text>
-        <rect class="tpeak" x="464" y="156" width="11" height="16" rx="2"/>
-        <text class="tlabel" x="470" y="150" text-anchor="middle">One peer-nominated honor</text>
-
-        <line class="taxis" x1="116" y1="186" x2="588" y2="186"/>
-        <line class="taxis" x1="116" y1="186" x2="116" y2="191"/>
-        <line class="taxis" x1="204" y1="186" x2="204" y2="191"/>
-        <line class="taxis" x1="283" y1="186" x2="283" y2="191"/>
-        <line class="taxis" x1="431" y1="186" x2="431" y2="191"/>
-        <line class="taxis" x1="588" y1="186" x2="588" y2="191"/>
-        <text class="ttick" x="116" y="203">6:30</text>
-        <text class="ttick" x="204" y="203" text-anchor="middle">7:15</text>
-        <text class="ttick" x="283" y="203" text-anchor="middle">7:55</text>
-        <text class="ttick" x="431" y="203" text-anchor="middle">9:10</text>
-        <text class="ttick" x="588" y="203" text-anchor="end">10:30</text>
-      </svg>
-      <figcaption>No group is thanked twice in the same register, and no stage block carries more than
-        ninety seconds of names.</figcaption>
-    </figure>
-
-    <div class="tier">
-      <h3>The Wall of the Year</h3>
-      <p class="who">Tier 1 &middot; everyone &middot; on arrival</p>
-      <p>A physical installation at the entrance carrying every partner, Council member, Chapter team and
-        contributor, grouped by <em>what they did</em> rather than by rank. Sixty names honored in the time
-        it takes to walk in &mdash; and, done properly, the most photographed object of the night.</p>
-    </div>
-
-    <div class="tier">
-      <h3>In context, on stage</h3>
-      <p class="who">Tier 2 &middot; four groups &middot; ninety seconds each</p>
-      <p>Each group is recognized inside the segment it belongs to: partners as the opening block turns to
-        impact; Chapter teams during the Chapters segment, called up as teams; the Council at the handover;
-        contributors named on screen through dinner. Every named recognition carries <strong>one specific
-        line</strong> &mdash; what they did and what it produced. &ldquo;Thank you for your support&rdquo;
-        is worth nothing to an executive.</p>
-    </div>
-
-    <div class="tier">
-      <h3>The peer-nominated honor</h3>
-      <p class="who">Tier 3 &middot; one &middot; 9:30 p.m.</p>
-      <p>One honor, nominated by members four weeks out through the same flow that confirms their
-        attendance. In a peer society the room&rsquo;s choice carries more weight than a committee&rsquo;s,
-        and the nominations are useful twice: they decide the honor, and they hand the Track the specific
-        evidence every Tier&nbsp;2 line needs.</p>
-    </div>
-
-    <div class="pull" style="margin-top:1.9rem"><p><strong>The letter home.</strong> A letter from SLS
-      leadership to the board or CEO of each honored contributor&rsquo;s organization. Recognition that
-      reaches an executive&rsquo;s employer outlives anything they can put on a shelf. It costs a signature
-      and it is still remembered a year later.</p></div>
-
-    <p style="margin-top:1.3rem"><strong>The workstream this creates:</strong> evidence. Every named
-      recognition needs one verified sentence, and those sentences do not exist yet. Ask Chapters and the
-      Council for them during planning, not in the final week.</p>
-  </div>
-</section>
-
-<section class="sec">
-  <div class="rail"><span class="n">06</span><span class="hint">What makes it different</span></div>
-  <div class="col">
-    <h2>Four things a regular SLS event cannot do</h2>
-    <ul class="diff">
-      <li><b>The venue is the showcase.</b> Members arrive through Misk City&rsquo;s own exhibition &mdash;
-        the Foundation&rsquo;s next chapter as the backdrop to the society&rsquo;s last one. No other SLS
-        event gets that room, and it means the first forty-five minutes are worth arriving for.</li>
-      <li><b>Chapter teams go up as teams.</b> Six people on stage together for ninety seconds beats six
-        separate walks, and it is a truer picture of how chapter work actually gets done.</li>
-      <li><b>Ninety seconds with the lights down.</b> The network graph replays from doors to close, showing
-        every connection made that evening. One deliberate image that people photograph &mdash; and everyone
-        leaves with their own version of it on a card.</li>
-      <li><b>The 2027 board.</b> Before dinner ends, members commit publicly to one thing for next year:
-        host a visit, chair a circle, open a chapter, mentor a member. Photographed on the night, and it
-        becomes the Council&rsquo;s pipeline in January rather than a follow-up email nobody answers.</li>
+    <h3 style="margin-top:1.8rem">The keynote</h3>
+    <p style="margin-top:.6rem">No name yet &mdash; that is the Council&rsquo;s to nominate. The criteria
+      matter more than the shortlist: someone whose work members already follow, who can speak to what a
+      network like SLS makes possible rather than to their own career, and who will be
+      <em>interviewed</em> rather than deliver a speech. In 2024 members asked specifically for shorter,
+      more inspiring speaking and for leaders sharing experience over general advice.</p>
+    <ul class="alts">
+      <li><b>A Vision 2030 delivery leader</b> &mdash; someone who has actually shipped a national program,
+        interviewed by a member working on something adjacent. Closest to the theme; my recommendation.</li>
+      <li><b>A global voice</b> on a subject the membership is already discussing. Strongest draw, weakest
+        link to the society.</li>
+      <li><b>A member of the society</b> whose year stands out. Cheapest and most on-theme, least external pull.</li>
     </ul>
+    <p style="margin-top:1rem">Booking at this level needs eight to ten weeks, so the shortlist should
+      close with the planning phase on November 19.</p>
   </div>
 </section>
 
 <section class="sec">
-  <div class="rail"><span class="n">07</span><span class="hint">Decisions needed</span></div>
+  <div class="rail"><span class="n">07</span><span class="hint">Budget</span></div>
   <div class="col">
-    <h2>What this note is waiting on</h2>
+    <h2>Indicative range</h2>
+    <p class="first">Built bottom-up for a 300-guest evening with a stage, a gallery build and dinner.
+      This is a planning range, not a quote.</p>
+    <table class="budget">
+      <thead><tr><th>Charter sub-category</th><th class="n">Pre-VAT range</th></tr></thead>
+      <tbody>
+        <tr><td>Logistics &mdash; venue, build, stage, AV, F&amp;B, signage</td><td class="n">SAR 380,000 &ndash; 620,000</td></tr>
+        <tr><td>Events management &mdash; agency fee</td><td class="n">SAR 80,000 &ndash; 130,000</td></tr>
+        <tr><td>Program delivery and content &mdash; stories, scripts, speakers, translation, recognition</td><td class="n">SAR 140,000 &ndash; 250,000</td></tr>
+        <tr class="total"><td>Indicative total &mdash; roughly SAR 2,000&ndash;3,300 a guest</td><td class="n">SAR 600,000 &ndash; 1,000,000</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:1.2rem">The right anchor is the 2024 actuals, which EMU holds. Those should
+      replace this range before the charter goes for approval &mdash; the charter still reads
+      <code>TBC</code> deliberately.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="rail"><span class="n">08</span><span class="hint">What we need</span></div>
+  <div class="col">
+    <h2>And by when</h2>
     <ul class="asks">
-      <li>Confirm November 21 and the 6:30&ndash;10:30 p.m. window against the Council diary and Hena&rsquo;s availability.</li>
-      <li>Site survey at Hena before anything is contracted &mdash; a stage and seating for 400 inside a
-        working exhibition is a layout question, not a logistics one.</li>
-      <li>Does SLS already have named recognition categories? This note assumes not; if they exist, they
-        replace Tier&nbsp;2 wholesale.</li>
-      <li>Approve the theme, and brief comms on the Arabic line in week one.</li>
-      <li>Confirm the Council will put three decisions to a live vote. The segment does not work as a presentation.</li>
-      <li>Agree who signs the letter home, and to whom it goes.</li>
-      <li>Open peer nominations four weeks out &mdash; needs the member list and the profile flow ready.</li>
+      <li><strong>This month.</strong> Collection request out to Chapter leads and the Council &mdash;
+        achievements and recognition citations, one form. Nothing on stage can be written until this lands.</li>
+      <li><strong>This month.</strong> Site survey at City Hub: does a stage, a seated 300, a gallery and
+        dinner work in one evening there?</li>
+      <li><strong>Confirm</strong> December 12 against the Council diary and the venue.</li>
+      <li><strong>Tell me</strong> whether SLS already has named recognition categories. This note assumes
+        not and proposes the structure from scratch.</li>
+      <li><strong>Council to nominate</strong> the keynote shortlist, and to confirm it will state a
+        specific 2027 ask from the stage.</li>
+      <li><strong>Agree</strong> who signs the letter home, and to whom it goes.</li>
+      <li><strong>By November 19:</strong> achievements in, keynote confirmed, budget replaced with EMU&rsquo;s
+        benchmark.</li>
     </ul>
   </div>
 </section>
@@ -473,7 +535,7 @@ footer a{color:var(--accent)}
   <div class="wrap">
     <p>Companion to the <strong>SLS Annual Assembly 2026 event charter</strong>, in draft and pending
       approval. Benchmarks are from the 2024 post-event report (468 registrants, 320 attendees, 76.8%
-      satisfaction). Venue notes are from published project information for the Hena Experience Center;
-      capacity, stage position and prayer times to be confirmed on site.</p>
+      overall satisfaction, agenda flow 69.8%). Venue capacity, layout and prayer times to be confirmed
+      on site.</p>
   </div>
 </footer>

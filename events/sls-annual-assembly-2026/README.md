@@ -1,24 +1,38 @@
 # SLS Annual Assembly 2026
 
 The 2026 assembly is a **four-hour evening for the whole SLS membership, with no graduation
-segment** — a change from 2024, when the assembly ran long and was combined with the 2030
-Leaders graduation. Saturday, November 21, 2026, 6:30–10:30 p.m., at the Hena Experience
-Center in Misk City. Deliverables live here.
+segment**. **Saturday, December 12, 2026, 6:30–10:30 p.m., at City Hub, capacity 300.**
+Deliverables live here.
 
 | File | What it is |
 |---|---|
-| `SLS_Annual_Assembly_2026_Event_Charter.pptx` (`.pdf`) | The Misk **New Event Charter** template, filled in. The approval document: scope of work, project timeline, stakeholders, budget lines, risk register. |
-| `experience/SLS_Annual_Assembly_2026_Concept_Note.pdf` | The concept note as an 8-page A4 PDF, for circulation. |
-| `experience/concept-note.html` | The concept note — objective, theme, format, programme segments, recognition approach. The short document to circulate. Published at <https://claude.ai/code/artifact/1c8a87d9-148c-4a9f-bd24-f8b01c478bcd>. |
-| `experience/assembly.html` | **Superseded.** The earlier experience design, written for a 6.5-hour afternoon-to-evening format in British English. Its analysis of the 2024 survey and the network-graph concept still hold; its timings do not. Published at <https://claude.ai/code/artifact/fbc3f063-f7d9-4cc1-92a3-542080a25590>. |
+| `SLS_Annual_Assembly_2026_Event_Charter.pptx` (`.pdf`) | The Misk **New Event Charter** template, filled in. Marked DRAFT while it awaits approval. |
+| `experience/SLS_Annual_Assembly_2026_Concept_Note.pdf` | The concept note (v2), 7 pages A4, for circulation. |
+| `experience/concept-note.html` | Source for the note. Published at <https://claude.ai/code/artifact/1c8a87d9-148c-4a9f-bd24-f8b01c478bcd>. |
+| `experience/assembly.html` | **Superseded.** The first experience design, written for a 6.5-hour afternoon format in British English. Its read of the 2024 survey still holds; nothing else does. |
 
-Both are built from the same two inputs: the 2026 brief (Hena Experience Center, all SLS
-members invited, around 400 confirming, an interactive network graph the Track already has)
-and the **SLS 2030 Leaders Graduation 2024 post-event report**.
+## v2: what the sponsor's review changed
 
-## Recognition is the centre of gravity
+Abdulrahman's feedback was that the concept was over-engineered and thin on content. The
+rewrite moves the center of gravity from the experience to the year itself.
 
-The Assembly is SLS's moment to recognise the partners, Council members, Chapter teams and
+| Raised | Changed |
+|---|---|
+| Could Hena hold 400 comfortably? | Venue moved to **City Hub**, sized for 300 |
+| Why 400? | **300** — venue ceiling, and a realistic turnout on a full-membership invitation (2024: 320 of 468, a 68% show rate) |
+| Is 140 minutes of floor time enough? | Fewer activities, not more time — the Impact Market, peer tables and commitment board are cut |
+| Why November? | **December 12** — a year-end assembly belongs at the year's end |
+| Which 2026 achievements? | Now the spine of the evening, with a collection request that gates everything on stage |
+| Over-engineered | Network graph, live voting, introduction ledger and personal cards all cut. One screen remains in the arrival gallery, as a tool |
+
+The note now leads with **what members should leave thinking, feeling and doing**, three key
+messages, and the achievements structure — then recognition, then format. It carries an
+indicative budget range (SAR 600k–1.0M for 300 guests) explicitly marked as a planning figure
+to be replaced with EMU's 2024 actuals.
+
+## Recognition approach
+
+The Assembly is SLS's moment to recognize the partners, Council members, Chapter teams and
 contributors who carried the year. That is the concept note's organising idea, and it drives
 one structural decision worth stating here: **recognition is designed at three volumes rather
 than run as an awards block.** Four groups is likely sixty-plus names, and sixty walks to a stage
@@ -27,10 +41,10 @@ is forty minutes of applause fatigue against a survey item that already scored 6
 | Tier | Who | Mechanism |
 |---|---|---|
 | 1 | Everyone, ~60+ names | The Wall of the Year at the entrance, grouped by contribution rather than rank |
-| 2 | Four groups | Recognised inside the segment they belong to — partners at the impact segment, Chapter teams as teams, Council at the roadmap handover, contributors on screen through dinner |
-| 3 | One | A peer-nominated honour, nominated by members four weeks out through the attendance-confirmation flow |
+| 2 | Four groups, two stage moments | Partners and Chapter teams before the break; Council and the honor after the keynote. Chapter teams go up as teams |
+| 3 | One | A peer-nominated honor, collected on the RSVP form four weeks out |
 
-Plus **the letter home** — a letter from SLS leadership to the board or CEO of each honoured
+Plus **the letter home** — a letter from SLS leadership to the board or CEO of each honored
 contributor's organisation. It costs a signature and outlives anything that goes on a shelf.
 
 ## The read on 2024
@@ -69,15 +83,17 @@ and the connections.
 
 Not in the brief. Each is a single-cell edit if the Track sees it differently.
 
-- **Date — Saturday 21/11/2026, 6:30–10:30 p.m.** 2024 ran on a Saturday. November keeps
-  production clear of Ramadan. Isha (≈6:44 p.m.) falls inside the arrival window, so the program
-  never stops for prayer.
+- **Date — Saturday 12/12/2026, 6:30–10:30 p.m.** 2024 ran on a Saturday. December puts the
+  assembly at the year's end, which is what a year in review needs, and leaves the production
+  window clear of Ramadan. Isha (≈6:40 p.m.) falls inside the arrival window, so the program never
+  stops for prayer.
 - **New-member induction, not graduation.** The brief rules out a graduation, but the pillar list
   asks for the latest Misk Fellowship and 2030 Leaders cohorts to be welcomed. This is scoped as a
   fifteen-minute induction into the society — named, paired with a sponsor member, no procession
   and no certificates. Nothing else in the day depends on it, so it can be cut outright.
-- **Headcount split.** "# of Attendees" and "Participant Numbers" both read 400, on the reading
-  that every attendee is a member. If guests, speakers or crew sit on top, the first should rise.
+- **Headcount.** Both "# of Attendees" and "Participant Numbers" read 300 — the City Hub ceiling,
+  which also matches a realistic turnout on a full-membership invitation. Managed with an RSVP cap
+  and a waitlist rather than as a target.
 - **Level of attendees.** Key CEOs, Partners and Beneficiaries ticked; Royal Highnesses and Public
   left blank on a private, invitation-only event.
 - **CEO required, DCEO not.**
@@ -89,20 +105,23 @@ Not in the brief. Each is a single-cell edit if the Track sees it differently.
   event without correct budgets in the correct cost centre will not be approved on the event
   system, so these need the Track's real figures before submission.
 - **Names.** Event Sponsor, Event Manager and every stakeholder role read `[TBC]`.
-- **Venue.** Hena Experience Center is marked *(proposed)* pending the site survey.
-- **Graph data.** Member profiles, sectors and contact consent need to be current before
-  invitations go out — the whole digital spine depends on it.
+- **Venue.** City Hub is marked *(proposed)* pending the site survey — a stage, a seated 300, a
+  gallery and dinner in one evening is a layout question that needs walking.
+- **Achievements.** The 2026 achievements and the recognition citations do not exist in one place
+  yet. One collection request to Chapter leads and the Council, due 19/11 — this gates every piece
+  of stage content and is the top risk on the register.
 - **Events Comments** is left at `N/A` — that box belongs to EMU.
 
 ## The venue
 
-Hena is not a neutral ballroom. It is **Misk City's own experience center** — an interactive
-exhibition designed by Saudi Diyar for Misk City Company, telling the story of the Kingdom's
-first nonprofit city, with a gross floor area of 5,208 m². Two consequences shape the design:
-members arrive inside the story of what the Foundation is building next, which does much of the
-showcase work before anyone reaches the stage; and a built stage with seating for 400 has to be
-laid out around permanent installations, which makes the site survey a gating item rather than a
-formality. Capacity, stage position and access windows all need confirming on site.
+City Hub, capacity around 300. It is one of the standard options on the Misk charter template, so
+it is a known quantity operationally — but the layout still needs walking: a stage, a seated 300,
+the Year in Review gallery and dinner all have to work in one evening, in one building.
+
+An earlier draft proposed the Hena Experience Center, Misk City's own interactive exhibition
+(client Misk City Company, architect Saudi Diyar, 5,208 m²). It was dropped because 400 could not
+sit comfortably around a stage there, and because a temporary build inside a permanent exhibition
+is a harder problem than it is worth for one evening.
 
 ## Rebuilding the charter
 
