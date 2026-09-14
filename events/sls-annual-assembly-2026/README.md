@@ -26,6 +26,13 @@ Sizing is 300, which is both the City Hub ceiling and a realistic turnout on a f
 invitation given 2024's 68% show rate. Budget lines read `xxx` in both documents until EMU
 supplies the 2024 actuals.
 
+**The room is chief executives, VIPs and senior Saudi leaders.** Two consequences run through
+both documents: Royal Highnesses and Excellencies is ticked on the charter's attendee level, which
+raises the protocol standard and EMU's engagement; and the SLS team does the work rather than the
+members. The team compiles the year from its own records and goes to Chapter leads only for gaps,
+prepares the honor shortlist and citations for Council approval, writes the keynote questions, and
+confirms the headcount directly. No nomination forms go to members.
+
 There is currently **no theme line**. An earlier draft carried one and it was cut for being
 opaque. The slot Abdulrahman asked for is therefore open; the documents work without it, since
 the event is simply the SLS Annual Assembly 2026.
@@ -79,16 +86,14 @@ and the connections.
 | Catering built for 400; 150–200 were there by the end | Catering and seating to a headcount reconfirmed 48 hours out — the top risk on the register |
 | Theatre over-ran; half the audience left; hard to regather after a break | 120 minutes seated out of 390, run once and unbroken at the end |
 | Networking rated second-lowest | The graph, the Impact Market and the peer circles; introductions delivered with a place and a time |
-| Production ran through Ramadan and Eid | November date, production window clear of Ramadan 2027 |
 
 ## Assumptions
 
 Not in the brief. Each is a single-cell edit if the Track sees it differently.
 
-- **Date — Saturday 12/12/2026, 6:30–10:30 p.m.** 2024 ran on a Saturday. December puts the
-  assembly at the year's end, which is what a year in review needs, and leaves the production
-  window clear of Ramadan. Isha (≈6:40 p.m.) falls inside the arrival window, so the program never
-  stops for prayer.
+- **Date: Saturday 12/12/2026, 6:30 to 10:30 p.m.** 2024 ran on a Saturday. December puts the
+  assembly at the year's end, which is what a year in review needs. Isha (about 6:40 p.m.) falls
+  inside the arrival window, so the program never stops for prayer.
 - **New-member induction, not graduation.** The brief rules out a graduation, but the pillar list
   asks for the latest Misk Fellowship and 2030 Leaders cohorts to be welcomed. This is scoped as a
   fifteen-minute induction into the society — named, paired with a sponsor member, no procession

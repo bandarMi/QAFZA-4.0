@@ -139,11 +139,11 @@ set_lines(b1[3].table.cell(1, 0), [
     "Agency: full pre-production, on-site delivery, dismantle and closeout",
     "Stage and set: stage and seating for 300, Year in Review gallery at the entrance",
     "Production: LED, sound, lighting, screen content, show-calling, standby power",
-    "Content: three member stories, key messages, scripts, speaker and moderator briefing",
-    "Recognition: Wall of the Year, nominations with the RSVP, citations, letters to employers",
+    "Content: the 2026 year compiled by the SLS team, three member stories, scripts, briefings",
+    "Recognition: Wall of the Year, shortlist and citations prepared by the SLS team, letters",
     "Program: run of show, Isha inside the arrival window, one floor break mid-evening",
-    "Registration: online sign-up, digital badge, RSVP cap and waitlist, 48-hour reconfirmation",
-    "Guest experience: protocol, seating, signage and wayfinding, valet, parking, accessibility",
+    "Registration: managed invitations, digital badge, RSVP cap and waitlist, team-confirmed count",
+    "Guest experience: VIP protocol, meet and greet, seating, wayfinding, valet, parking, access",
     "F&B: dinner scaled to reconfirmed numbers, staged release",
     "Support: translation, photography, videography, cleaning, H&S, medical and security",
     "Post-event: attendee survey and post-event report",
@@ -170,7 +170,7 @@ proj = b2[2].table
 set_text(proj.cell(2, 2), "Approved event charter and PO issued")
 set_text(proj.cell(2, 3), "20/09/2026")
 set_text(proj.cell(2, 4), "15/10/2026")
-set_text(proj.cell(3, 2), "Venue contract, agency award, run of show, achievements and citations")
+set_text(proj.cell(3, 2), "Venue contract, agency award, run of show, 2026 year compiled, citations")
 set_text(proj.cell(3, 3), "18/10/2026")
 set_text(proj.cell(3, 4), "19/11/2026")
 set_lines(proj.cell(4, 2), [
@@ -206,10 +206,10 @@ set_lines(stake.cell(3, 3), [
 
 risks = b2[3].table
 set_text(risks.cell(2, 1), "300 seats against a full-membership invitation.")
-set_text(risks.cell(2, 3), "Phased RSVP with a waitlist; seating and dinner to a 48-hour reconfirmed count.")
+set_text(risks.cell(2, 3), "Phased invitations with a waitlist; seating and dinner to a team-confirmed count.")
 set_text(risks.cell(2, 4), "Track / EMU")
-set_text(risks.cell(3, 1), "Achievements and citations not collected in time to build content.")
-set_text(risks.cell(3, 3), "One collection request to Chapter leads and the Council, due 19/11 with planning.")
+set_text(risks.cell(3, 1), "The 2026 year is not compiled in time to build the content.")
+set_text(risks.cell(3, 3), "SLS team compiles from its own records by 19/11; Chapters asked only for gaps.")
 set_text(risks.cell(3, 4), "Leadership Track")
 
 # Severity: both entries are risks, so replace the second row's issue icon with a
@@ -228,7 +228,6 @@ drop(b2[7])                                     # the "!" issue icon
 b2[6]._element.getparent().append(risk_icon)
 
 # Level of attendees: keep Key CEOs, Partners, Beneficiaries.
-drop(b2[30])    # Royal Highness, Highnesses and Excellencies
 drop(b2[33])    # Public
 # CEO / DCEO required: CEO only.
 drop(b2[10])    # DCEO
