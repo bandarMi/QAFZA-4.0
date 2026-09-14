@@ -26,6 +26,10 @@ Sizing is 300, which is both the City Hub ceiling and a realistic turnout on a f
 invitation given 2024's 68% show rate. Budget lines read `xxx` in both documents until EMU
 supplies the 2024 actuals.
 
+There is currently **no theme line**. An earlier draft carried one and it was cut for being
+opaque. The slot Abdulrahman asked for is therefore open; the documents work without it, since
+the event is simply the SLS Annual Assembly 2026.
+
 House style: American English, and no em dashes anywhere in these documents.
 
 ## Recognition approach
