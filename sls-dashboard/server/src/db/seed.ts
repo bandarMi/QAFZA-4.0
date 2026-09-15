@@ -109,7 +109,7 @@ const RULES: Array<[string,number,Record<string,number>,number,string]> = [
 ];
 
 export function seed() {
-  const tables = ['newsletter_issues','newsletter_templates','member_milestones','engagement_audit','engagement_logs','event_attendance','events','challenge_scores','challenge_submissions','recognition_flags','recognition_rules','engagement_rules','linkedin_mentions','startups','impact_metrics','council','initiatives','members','chapters','pillars','values_ref','alerts','pinned_widgets','ai_messages','ai_conversations','import_jobs'];
+  const tables = ['newsletter_issues','member_milestones','engagement_audit','engagement_logs','event_attendance','events','challenge_scores','challenge_submissions','recognition_flags','recognition_rules','engagement_rules','linkedin_mentions','startups','impact_metrics','council','initiatives','members','chapters','pillars','values_ref','alerts','pinned_widgets','ai_messages','ai_conversations','import_jobs'];
   db.exec('PRAGMA foreign_keys = OFF');
   for (const t of tables) db.exec(`DELETE FROM ${t}; DELETE FROM sqlite_sequence WHERE name='${t}';`);
   db.exec('PRAGMA foreign_keys = ON');

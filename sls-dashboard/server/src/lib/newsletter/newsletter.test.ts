@@ -7,6 +7,17 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+
+// This file seeds a database, so it gets its own. `db/index.ts` reads SLS_DATA_DIR
+// once at import time, and node:test gives each file its own process — so setting
+// it here, before any import of the db module, fully isolates these tests from the
+// shared development database and from the other test files.
+const TMP_DATA = fs.mkdtempSync(path.join(os.tmpdir(), 'sls-newsletter-test-'));
+process.env.SLS_DATA_DIR = TMP_DATA;
+process.on('exit', () => { try { fs.rmSync(TMP_DATA, { recursive: true, force: true }); } catch { /* best effort */ } });
 import { clamp } from './enrich.js';
 import { DEFAULT_TEMPLATE, pillarOf, THEME } from './template.js';
 import { renderIssueHtml } from './render.js';
@@ -113,4 +124,31 @@ test('a story with a photo renders the image instead of the placeholder', () => 
   };
   const html = renderIssueHtml(doc);
   assert.ok(html.includes("background-image:url('/assets/newsletter/2026-08/photo-abc.jpg')"));
+});
+
+// ------------------------------------------------------------ cold start ----
+
+test('a freshly seeded database can still save an issue', async () => {
+  // Runs against this file's own database (see SLS_DATA_DIR above), never the
+  // shared one — seeding is destructive.
+  // Regression: the seed used to clear newsletter_templates after they were
+  // registered at boot, so newsletter_issues.template_key had no row to point at
+  // and the first generation on a new install failed with a foreign-key error.
+  // Only a cold start reproduced it, which is exactly the portable build's path.
+  const { db } = await import('../../db/index.js');
+  const { ensureTemplates } = await import('./store.js');
+  const { DEFAULT_TEMPLATE_KEY } = await import('./template.js');
+
+  ensureTemplates();
+  const { seed } = await import('../../db/seed.js');
+  seed();
+  ensureTemplates();
+
+  const row = db.prepare('SELECT key FROM newsletter_templates WHERE key=?').get(DEFAULT_TEMPLATE_KEY);
+  assert.ok(row, 'the default template must survive seeding');
+
+  db.prepare(`INSERT INTO newsletter_issues (period, issue_number, template_key, status, doc, generated_with)
+              VALUES ('1999-01', 1, ?, 'draft', '{}', 'rules')`).run(DEFAULT_TEMPLATE_KEY);
+  assert.ok(db.prepare("SELECT id FROM newsletter_issues WHERE period='1999-01'").get());
+  db.prepare("DELETE FROM newsletter_issues WHERE period='1999-01'").run();
 });

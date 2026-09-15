@@ -44,6 +44,9 @@ if (members === 0) {
   console.log('  First run: loading the demo dataset…');
   const { seed } = await import('./db/seed.js');
   seed();
+  // Re-assert the built-in templates after a seed, so nothing the seed clears can
+  // leave newsletter_issues pointing at a template row that is not there.
+  (await import('./lib/newsletter/store.js')).ensureTemplates();
   members = (db.prepare('SELECT COUNT(*) c FROM members').get() as any).c;
   console.log(`  Loaded ${members.toLocaleString()} members of synthetic demo data.`);
 }

@@ -28,12 +28,16 @@ function openDatabase(): Database {
 }
 
 export const db = openDatabase();
+// Wait rather than fail if another process holds the write lock. Two things can
+// hit the same file at once — a second app instance, or the parallel test runner
+// — and without this the loser gets SQLITE_BUSY instead of simply queueing.
+db.pragma('busy_timeout = 10000');
 db.pragma('journal_mode = WAL');
 db.pragma('foreign_keys = ON');
 
 export function applySchema() {
   const sql = fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf8');
-  db.exec(sql);
+  db.exec(`BEGIN IMMEDIATE;\n${sql}\nCOMMIT;`);
 }
 
 /** Tables the AI's read-only SQL tool is allowed to touch. */
