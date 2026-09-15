@@ -14,6 +14,11 @@ export function Overview() {
   if (error) return <ErrorBox message={error} onRetry={reload} />;
 
   const k = data?.kpis;
+  const tr = data?.trends ?? null;
+  // Label the comparison window so a badge is never an unexplained percentage.
+  const comparedTo = data?.comparedTo ? `${data.comparedTo.dateFrom} → ${data.comparedTo.dateTo}` : undefined;
+  // A shape for the headline number, drawn from the same series as the trend chart.
+  const hoursSpark = (data?.hoursByMonth?.rows ?? []).map((r: any) => r.hours);
   const tone = (sev: string) => (sev === 'critical' ? 'critical' : sev === 'serious' ? 'serious' : sev === 'warning' ? 'warning' : 'info') as any;
 
   return (
@@ -23,15 +28,25 @@ export function Overview() {
       {loading && !data ? <Skeleton rows={4} height="h-24" /> : (
         <>
           {/* KPI band ------------------------------------------------------- */}
+          {comparedTo && (
+            <p className="text-[12px] text-ink-muted mb-2">
+              Change shown against the preceding period of the same length ({comparedTo}).
+            </p>
+          )}
           <div className="grid gap-3 grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 mb-5">
             <Stat label={t.kpi.totalMembers} value={nf(k?.totalMembers)}
                   sub={`${nf(k?.leaders2030)} ${t.kpi.leaders2030} · ${nf(k?.miskFellows)} ${t.kpi.miskFellows}`} />
-            <Stat label={t.kpi.onboarded} value={nf(k?.membersOnboarded)} sub={t.overview.inPeriod} tone="accent" />
-            <Stat label={t.kpi.totalHours} value={hours(k?.totalHours)} sub={`${pct(k?.autoHoursShare)} ${t.kpi.autoShare}`} />
+            <Stat label={t.kpi.onboarded} value={nf(k?.membersOnboarded)} sub={t.overview.inPeriod} tone="accent"
+                  trend={tr?.membersOnboarded} compared={comparedTo} />
+            <Stat label={t.kpi.totalHours} value={hours(k?.totalHours)} sub={`${pct(k?.autoHoursShare)} ${t.kpi.autoShare}`}
+                  trend={tr?.totalHours} compared={comparedTo} spark={hoursSpark} />
             <Stat label={t.kpi.avgHours} value={nf(k?.avgHoursPerMember, 1)} sub={`${nf(k?.avgHoursPerEngagedMember, 1)}h ${t.overview.perEngaged}`} tone="neutral" />
-            <Stat label={t.kpi.engagedMembers} value={nf(k?.engagedMembers)} sub={`${pct(k?.totalMembers ? (k.engagedMembers / k.totalMembers) * 100 : 0)} ${t.overview.ofMembers}`} tone="neutral" />
-            <Stat label={t.kpi.events} value={nf(k?.events)} sub={`${nf(k?.eventAttendees)} ${t.kpi.attendees}`} tone="neutral" />
-            <Stat label={t.kpi.satisfaction} value={k?.avgSatisfaction != null ? `${nf(k.avgSatisfaction, 2)}/5` : '—'} tone="neutral" />
+            <Stat label={t.kpi.engagedMembers} value={nf(k?.engagedMembers)} sub={`${pct(k?.totalMembers ? (k.engagedMembers / k.totalMembers) * 100 : 0)} ${t.overview.ofMembers}`} tone="neutral"
+                  trend={tr?.engagedMembers} compared={comparedTo} />
+            <Stat label={t.kpi.events} value={nf(k?.events)} sub={`${nf(k?.eventAttendees)} ${t.kpi.attendees}`} tone="neutral"
+                  trend={tr?.events} compared={comparedTo} />
+            <Stat label={t.kpi.satisfaction} value={k?.avgSatisfaction != null ? `${nf(k.avgSatisfaction, 2)}/5` : '—'} tone="neutral"
+                  trend={tr?.avgSatisfaction} compared={comparedTo} />
             <Stat label={t.kpi.startups} value={nf(k?.startupsSupported)} tone="neutral" />
             <Stat label={t.kpi.recognised} value={nf(k?.membersRecognised)} sub={t.overview.metThreshold} tone="accent" />
             <Stat label={t.kpi.verified} value={pct(k?.verifiedHoursShare)}
@@ -86,8 +101,8 @@ export function Overview() {
               <div className="scroll-x max-h-80 overflow-y-auto">
                 <table className="w-full border-collapse">
                   <thead className="sticky top-0 bg-surface-raised"><tr>
-                    <th className="th">{t.overview.colInitiative}</th><th className="th">{t.overview.colPillar}</th>
-                    <th className="th text-end">{t.overview.colHours}</th><th className="th text-end">{t.overview.colEvents}</th><th className="th text-end">{t.overview.colReach}</th>
+                    <th scope="col" className="th">{t.overview.colInitiative}</th><th scope="col" className="th">{t.overview.colPillar}</th>
+                    <th scope="col" className="th text-end">{t.overview.colHours}</th><th scope="col" className="th text-end">{t.overview.colEvents}</th><th scope="col" className="th text-end">{t.overview.colReach}</th>
                   </tr></thead>
                   <tbody>
                     {(data?.initiatives?.rows ?? []).map((r: any) => (
@@ -114,7 +129,7 @@ export function Overview() {
               <div className="scroll-x max-h-80 overflow-y-auto">
                 <table className="w-full border-collapse">
                   <thead className="sticky top-0 bg-surface-raised"><tr>
-                    <th className="th">#</th><th className="th">{t.overview.colMember}</th><th className="th">{t.overview.colCohort}</th><th className="th text-end">{t.overview.colHours}</th>
+                    <th scope="col" className="th">#</th><th scope="col" className="th">{t.overview.colMember}</th><th scope="col" className="th">{t.overview.colCohort}</th><th scope="col" className="th text-end">{t.overview.colHours}</th>
                   </tr></thead>
                   <tbody>
                     {(data?.leaderboard?.rows ?? []).map((r: any, i: number) => (

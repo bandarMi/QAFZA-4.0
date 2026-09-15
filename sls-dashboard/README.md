@@ -171,6 +171,19 @@ LinkedIn reshare captions, and recap-card quote lines.
 | **Council Cockpit** | A per-role slice for each of the six council leads |
 | **Settings** | API keys, brand tokens, social-listening config, anomaly thresholds, language |
 
+**Getting around:** press <kbd>⌘K</kbd> / <kbd>Ctrl-K</kbd> (or `/`) anywhere for a command palette that
+searches members, events, initiatives and chapters and jumps to any page. Name matches rank above
+incidental ones, so typing a person's name finds the person, not their employer.
+
+**Reading the numbers:** when a date range is set, each headline KPI shows its change against the
+period of the same length immediately before it, with the comparison window stated above the band.
+The comparison is computed server-side, so the dashboard, the exports and the AI all cite the same figures.
+
+**Getting data out:** the member list and the engagement ledger have sortable columns and a **↓ CSV**
+button that exports exactly the rows and columns on screen, UTF-8 with a BOM so Excel reads Arabic
+names correctly. Any dashboard page also prints cleanly — the chrome drops away and scroll panes
+expand so nothing is cut off.
+
 Every page shares one **global filter bar** — date range, pillar, initiative, cohort, sector, council owner,
 engagement-hours range — and that same filter drives the exports, so what you see is what you export.
 

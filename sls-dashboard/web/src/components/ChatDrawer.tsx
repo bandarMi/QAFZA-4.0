@@ -168,7 +168,7 @@ export function ChatDrawer({ open, onClose }: { open: boolean; onClose: () => vo
           <form className="p-3 border-t border-line-subtle shrink-0 flex gap-2"
                 onSubmit={e => { e.preventDefault(); send(input); }}>
             <input className="input" placeholder={t.ai.ask} value={input} onChange={e => setInput(e.target.value)} disabled={busy} />
-            <button className="btn-primary" type="submit" disabled={!input.trim() || busy}>→</button>
+            <button className="btn-primary" type="submit" aria-label="Send" disabled={!input.trim() || busy}>→</button>
           </form>
         )}
         {!aiReady && (

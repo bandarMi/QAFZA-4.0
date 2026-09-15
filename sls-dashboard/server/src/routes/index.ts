@@ -80,6 +80,57 @@ api.get('/overview', h((req) => {
   };
 }));
 
+/**
+ * Cross-entity search behind the command palette. With 974 members, paging a table
+ * is the slowest possible route to one person.
+ */
+api.get('/search', h((req) => {
+  const raw = String(req.query.q ?? '').trim();
+  if (raw.length < 2) return { query: raw, groups: [] };
+  const q = `%${raw}%`;
+  const limit = Math.min(Number(req.query.limit) || 6, 20);
+
+  const groups = [
+    {
+      kind: 'member', label: 'Members',
+      // Rank by where the match landed: someone typing a name wants people with
+      // that name before people who merely work somewhere with that word in it.
+      rows: db.prepare(`SELECT id, name title, member_code subtitle, cohort_type meta
+                        FROM members
+                        WHERE name LIKE @q OR member_code LIKE @q OR company LIKE @q OR email LIKE @q
+                        ORDER BY CASE
+                          WHEN name LIKE @starts THEN 0
+                          WHEN name LIKE @q THEN 1
+                          WHEN member_code LIKE @q THEN 2
+                          ELSE 3 END, name
+                        LIMIT @limit`).all({ q, starts: `${raw}%`, limit }),
+    },
+    {
+      kind: 'event', label: 'Events',
+      rows: db.prepare(`SELECT e.id, e.name title, e.date subtitle, i.name meta
+                        FROM events e LEFT JOIN initiatives i ON i.id=e.initiative_id
+                        WHERE e.name LIKE @q OR e.location LIKE @q
+                        ORDER BY e.date DESC LIMIT @limit`).all({ q, limit }),
+    },
+    {
+      kind: 'initiative', label: 'Initiatives',
+      rows: db.prepare(`SELECT id, name title, pillar subtitle, owner_council_role meta
+                        FROM initiatives WHERE name LIKE @q OR name_ar LIKE @q OR pillar LIKE @q
+                        ORDER BY CASE WHEN name LIKE @starts THEN 0 ELSE 1 END, name
+                        LIMIT @limit`).all({ q, starts: `${raw}%`, limit }),
+    },
+    {
+      kind: 'chapter', label: 'Chapters',
+      rows: db.prepare(`SELECT c.id, c.name title, c.kind subtitle, m.name meta
+                        FROM chapters c LEFT JOIN members m ON m.id=c.lead_member_id
+                        WHERE c.name LIKE @q OR c.country LIKE @q OR c.region LIKE @q
+                        ORDER BY c.sort_order LIMIT @limit`).all({ q, limit }),
+    },
+  ].filter(g => (g.rows as any[]).length);
+
+  return { query: raw, groups };
+}));
+
 api.get('/alerts', h((req) => listAlerts(String(req.query.status ?? 'open'))));
 api.post('/alerts/run', h(() => runAnomalyDetection()));
 api.post('/alerts/:id/status', h((req) => {

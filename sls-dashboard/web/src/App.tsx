@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useApp } from './state';
 import { Shell } from './components/Shell';
 import { ChatDrawer } from './components/ChatDrawer';
+import { CommandPalette } from './components/CommandPalette';
 import { ErrorBox, Skeleton } from './components/ui';
 import { Overview } from './pages/Overview';
 import { Members, MemberDetail } from './pages/Members';
@@ -20,6 +21,19 @@ import { Checkin } from './pages/Checkin';
 export function App() {
   const { route, loading, error, refreshBoot } = useApp();
   const [chat, setChat] = useState(false);
+  const [palette, setPalette] = useState(false);
+
+  // ⌘K / Ctrl-K from anywhere, and "/" when not already typing.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target as HTMLElement)?.tagName ?? '')
+        || (e.target as HTMLElement)?.isContentEditable;
+      if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)) { e.preventDefault(); setPalette(p => !p); }
+      else if (e.key === '/' && !typing) { e.preventDefault(); setPalette(true); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   // The QR check-in page is standalone: no shell, no filters, phone-sized.
   const checkinToken = route.match(/^\/checkin\/(.+)$/)?.[1];
@@ -60,8 +74,9 @@ export function App() {
 
   return (
     <>
-      <Shell onOpenChat={() => setChat(true)}>{page()}</Shell>
+      <Shell onOpenChat={() => setChat(true)} onOpenSearch={() => setPalette(true)}>{page()}</Shell>
       <ChatDrawer open={chat} onClose={() => setChat(false)} />
+      <CommandPalette open={palette} onClose={() => setPalette(false)} onOpenChat={() => setChat(true)} />
     </>
   );
 }

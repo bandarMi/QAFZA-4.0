@@ -84,7 +84,7 @@ export function Chart({ kind, title, subtitle, rows, xKey, series, unit, note, h
           <table className="w-full border-collapse">
             <thead className="sticky top-0 bg-surface-raised">
               <tr>
-                <th className="th">{xKey.replace(/_/g, ' ')}</th>
+                <th scope="col" className="th">{xKey.replace(/_/g, ' ')}</th>
                 {resolved.map(s => <th key={s.key} className="th text-end">{s.label ?? s.key.replace(/_/g, ' ')}</th>)}
               </tr>
             </thead>

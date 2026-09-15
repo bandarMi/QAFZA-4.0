@@ -19,8 +19,51 @@ export function Card({ title, subtitle, actions, children, className = '', pad =
   );
 }
 
-export function Stat({ label, value, sub, tone = 'brand', icon }:
-  { label: string; value: ReactNode; sub?: ReactNode; tone?: 'brand' | 'accent' | 'neutral'; icon?: ReactNode }) {
+export type Trend = { current: number; previous: number; deltaPct: number | null; direction: 'up' | 'down' | 'flat' };
+
+/**
+ * A change badge. Direction is not the same as good: fewer unverified hours is an
+ * improvement, so `invert` lets a metric say which way is up.
+ */
+export function TrendBadge({ trend, invert, compared }: { trend?: Trend | null; invert?: boolean; compared?: string }) {
+  if (!trend || trend.deltaPct == null) return null;
+  const good = invert ? trend.direction === 'down' : trend.direction === 'up';
+  const flat = trend.direction === 'flat';
+  const cls = flat ? 'text-ink-muted' : good ? 'text-state-good' : 'text-state-serious';
+  const arrow = flat ? '→' : trend.direction === 'up' ? '▲' : '▼';
+  return (
+    <span className={`inline-flex items-center gap-1 text-[11px] font-semibold tabular-nums ${cls}`}
+          title={compared ? `vs ${compared}: ${trend.previous.toLocaleString('en-US')}` : undefined}>
+      {arrow} {Math.abs(trend.deltaPct)}%
+    </span>
+  );
+}
+
+/** A bare trend line — shape only, no axes, sized to sit inside a stat card. */
+export function Sparkline({ values, color = 'var(--sls-brand-secondary)' }: { values: number[]; color?: string }) {
+  if (!values || values.length < 2) return null;
+  const w = 72, h = 22, pad = 2;
+  const max = Math.max(...values), min = Math.min(...values);
+  const span = max - min || 1;
+  const pts = values.map((v, i) => {
+    const x = pad + (i / (values.length - 1)) * (w - pad * 2);
+    const y = pad + (1 - (v - min) / span) * (h - pad * 2);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+  const last = values[values.length - 1]!;
+  const lastX = pad + (w - pad * 2), lastY = pad + (1 - (last - min) / span) * (h - pad * 2);
+  return (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="shrink-0" aria-hidden="true">
+      <polyline points={pts.join(' ')} fill="none" stroke={color} strokeWidth={1.5}
+                strokeLinecap="round" strokeLinejoin="round" opacity={0.85} />
+      <circle cx={lastX} cy={lastY} r={2} fill={color} />
+    </svg>
+  );
+}
+
+export function Stat({ label, value, sub, tone = 'brand', icon, trend, invert, compared, spark }:
+  { label: string; value: ReactNode; sub?: ReactNode; tone?: 'brand' | 'accent' | 'neutral'; icon?: ReactNode;
+    trend?: Trend | null; invert?: boolean; compared?: string; spark?: number[] }) {
   const color = tone === 'accent' ? 'text-brand-accent' : tone === 'neutral' ? 'text-ink-primary' : 'text-brand-primary';
   return (
     <div className="card p-4 min-w-0">
@@ -28,8 +71,14 @@ export function Stat({ label, value, sub, tone = 'brand', icon }:
         <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted truncate">{label}</p>
         {icon && <span className="text-ink-disabled shrink-0">{icon}</span>}
       </div>
-      <p className={`mt-1.5 text-2xl font-bold tabular-nums leading-none ${color}`}>{value}</p>
-      {sub && <p className="mt-1.5 text-[12px] text-ink-muted leading-snug">{sub}</p>}
+      <div className="mt-1.5 flex items-end justify-between gap-2">
+        <p className={`text-2xl font-bold tabular-nums leading-none ${color}`}>{value}</p>
+        {spark && <Sparkline values={spark} />}
+      </div>
+      <div className="mt-1.5 flex items-center gap-2 flex-wrap">
+        <TrendBadge trend={trend} invert={invert} compared={compared} />
+        {sub && <p className="text-[12px] text-ink-muted leading-snug">{sub}</p>}
+      </div>
     </div>
   );
 }

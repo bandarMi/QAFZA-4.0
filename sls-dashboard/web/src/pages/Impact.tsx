@@ -49,8 +49,8 @@ export function Impact() {
                 pad={false}>
             <div className="scroll-x">
               <table className="w-full border-collapse">
-                <thead><tr><th className="th">Period</th><th className="th">Metric</th><th className="th text-end">Value</th>
-                  <th className="th">Unit</th><th className="th">Source</th><th className="th">Notes</th></tr></thead>
+                <thead><tr><th scope="col" className="th">Period</th><th scope="col" className="th">Metric</th><th scope="col" className="th text-end">Value</th>
+                  <th scope="col" className="th">Unit</th><th scope="col" className="th">Source</th><th scope="col" className="th">Notes</th></tr></thead>
                 <tbody>
                   {(data?.metrics ?? []).map((m: any) => (
                     <tr key={m.id}>
@@ -89,9 +89,9 @@ export function Impact() {
             <div className="scroll-x">
               <table className="w-full border-collapse">
                 <thead><tr>
-                  <th className="th">#</th><th className="th">Project</th><th className="th">Team</th>
-                  <th className="th">Lead member</th><th className="th">Pillar</th>
-                  <th className="th text-end">Score</th><th className="th text-end">Member hours</th><th className="th">Status</th>
+                  <th scope="col" className="th">#</th><th scope="col" className="th">Project</th><th scope="col" className="th">Team</th>
+                  <th scope="col" className="th">Lead member</th><th scope="col" className="th">Pillar</th>
+                  <th scope="col" className="th text-end">Score</th><th scope="col" className="th text-end">Member hours</th><th scope="col" className="th">Status</th>
                 </tr></thead>
                 <tbody>
                   {(challenge.data?.rows ?? []).map((r: any, i: number) => (

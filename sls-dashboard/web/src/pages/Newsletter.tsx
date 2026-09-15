@@ -193,7 +193,7 @@ export function Newsletter() {
                body="Generating reads that month's events, chapters, milestones and upcoming calendar, and fills all six pages of the template."
                action={<button className="btn-primary" disabled={!period || busy !== null} onClick={() => generate(aiReady)}>Generate it</button>} />
       ) : (
-        <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,560px)]">
+        <div className="grid gap-4 grid-cols-1 xl:grid-cols-[minmax(0,1fr)_minmax(0,560px)]">
           {/* ---- editor ---- */}
           <div className="space-y-4 min-w-0">
             {!!doc.gaps?.length && (
@@ -224,13 +224,8 @@ export function Newsletter() {
           {/* ---- live preview ---- */}
           <div className="xl:sticky xl:top-20 h-fit">
             <Card title="Preview" subtitle="Exactly what prints — all six A4 pages" pad={false}
-                  actions={<button className="btn-quiet" onClick={() => setPreviewKey(k => k + 1)}>↻</button>}>
-              <div className="bg-surface-sunken rounded-b-lg overflow-hidden" style={{ height: '78vh' }}>
-                <iframe key={previewKey} title="Newsletter preview"
-                        src={downloadUrl(`/newsletter/${period}/preview.html`)}
-                        className="border-0 origin-top-left"
-                        style={{ width: '794px', height: `${(78 * window.innerHeight / 100) / 0.66}px`, transform: 'scale(0.66)' }} />
-              </div>
+                  actions={<button className="btn-quiet" aria-label="Refresh preview" onClick={() => setPreviewKey(k => k + 1)}>↻</button>}>
+              <PreviewFrame key={previewKey} src={downloadUrl(`/newsletter/${period}/preview.html`)} />
             </Card>
           </div>
         </div>
@@ -239,6 +234,37 @@ export function Newsletter() {
       <MilestonesModal open={showMilestones} period={period} onClose={() => setShowMilestones(false)}
                        onChanged={() => setMsg({ ok: true, text: 'Milestones updated — regenerate to pull them into page 5.' })} />
     </>
+  );
+}
+
+/**
+ * The newsletter renders at a fixed A4 width, so the preview scales it to fit
+ * whatever space it has rather than forcing its container wide — which is what
+ * used to push the whole page sideways on a phone.
+ */
+function PreviewFrame({ src }: { src: string }) {
+  const wrap = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0.66);
+  const PAGE_W = 794;
+
+  useEffect(() => {
+    const el = wrap.current;
+    if (!el) return;
+    const fit = () => setScale(Math.min(1, el.clientWidth / PAGE_W));
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const height = Math.round(window.innerHeight * 0.78);
+  return (
+    <div ref={wrap} className="bg-surface-sunken rounded-b-lg overflow-hidden w-full max-w-full"
+         style={{ height }}>
+      <iframe title="Newsletter preview" src={src}
+              className="border-0 origin-top-left block"
+              style={{ width: PAGE_W, height: height / scale, transform: `scale(${scale})` }} />
+    </div>
   );
 }
 
@@ -387,8 +413,8 @@ function CoverEditor({ doc, edit, period }: { doc: Doc; edit: (fn: (d: Doc) => v
             <StoryEditor key={`${s.id}-${i}`} story={s} edit={edit} path={`also.${i}`} period={period}
               actions={<>
                 <button className="btn-quiet text-[12px]" onClick={() => swapWithHero(i)} title="Swap with the lead story">↑ Make lead</button>
-                <button className="btn-quiet text-[12px]" disabled={i === 0} onClick={() => move(i, -1)}>←</button>
-                <button className="btn-quiet text-[12px]" disabled={i === doc.also.length - 1} onClick={() => move(i, 1)}>→</button>
+                <button className="btn-quiet text-[12px]" aria-label="Move left" disabled={i === 0} onClick={() => move(i, -1)}>←</button>
+                <button className="btn-quiet text-[12px]" aria-label="Move right" disabled={i === doc.also.length - 1} onClick={() => move(i, 1)}>→</button>
                 <button className="btn-quiet text-[12px] text-ink-muted" onClick={() => toBench(i)}>Remove</button>
               </>} />
           ))}
@@ -483,7 +509,7 @@ function ChaptersEditor({ doc, edit, period }: { doc: Doc; edit: (fn: (d: Doc) =
                            onChange={e => edit(d => { d[key][i].activities[j].title = e.target.value; })} />
                     <span className="text-[12px] text-ink-muted">{a.dateLabel}</span>
                     <button className="btn-quiet text-[12px]"
-                            onClick={() => edit(d => { d[key][i].activities.splice(j, 1); })}>✕</button>
+                            aria-label="Remove activity" onClick={() => edit(d => { d[key][i].activities.splice(j, 1); })}>✕</button>
                   </li>
                 ))}
               </ul>
@@ -560,7 +586,7 @@ function AheadEditor({ doc, edit, period }: { doc: Doc; edit: (fn: (d: Doc) => v
                       <input className="input flex-1 min-w-40" value={e.title}
                              onChange={ev => edit(d => { d.upcoming[i].entries[j].title = ev.target.value; })} />
                       <button className="btn-quiet text-[12px]"
-                              onClick={() => edit(d => { d.upcoming[i].entries.splice(j, 1); })}>✕</button>
+                              aria-label="Remove entry" onClick={() => edit(d => { d.upcoming[i].entries.splice(j, 1); })}>✕</button>
                     </li>
                   ))}
                 </ul>
@@ -614,8 +640,8 @@ function MilestonesModal({ open, period, onClose, onChanged }:
       {loading ? <Skeleton rows={3} height="h-9" /> : (
         <div className="scroll-x max-h-64 overflow-y-auto mb-4">
           <table className="w-full border-collapse">
-            <thead><tr><th className="th">Member</th><th className="th">Kind</th><th className="th">Title</th>
-              <th className="th">Organisation</th><th className="th">Date</th><th className="th"></th></tr></thead>
+            <thead><tr><th scope="col" className="th">Member</th><th scope="col" className="th">Kind</th><th scope="col" className="th">Title</th>
+              <th scope="col" className="th">Organisation</th><th scope="col" className="th">Date</th><th scope="col" className="th"></th></tr></thead>
             <tbody>
               {(data ?? []).map(m => (
                 <tr key={m.id}>

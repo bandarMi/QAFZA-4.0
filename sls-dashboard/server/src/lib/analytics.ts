@@ -11,6 +11,50 @@ import { engagementWhere, eventWhere, memberWhere, describeFilters, type Filters
 
 export type Provenance = { tables: string[]; filters: string; rowCount: number };
 
+/** A KPI against the equivalent preceding window. */
+export type Trend = { current: number; previous: number; deltaPct: number | null; direction: 'up' | 'down' | 'flat' };
+
+/**
+ * The window immediately before the filtered one, of the same length — so "this
+ * quarter" compares against the quarter before it, not an arbitrary baseline.
+ * Returns null when the filter has no date range to step back from.
+ */
+export function previousWindow(f: Filters): { dateFrom: string; dateTo: string } | null {
+  if (!f.dateFrom || !f.dateTo) return null;
+  const from = Date.parse(`${f.dateFrom}T00:00:00Z`);
+  const to = Date.parse(`${f.dateTo}T00:00:00Z`);
+  if (!Number.isFinite(from) || !Number.isFinite(to) || to < from) return null;
+  const span = to - from;
+  const day = 86_400_000;
+  return {
+    dateFrom: new Date(from - span - day).toISOString().slice(0, 10),
+    dateTo: new Date(from - day).toISOString().slice(0, 10),
+  };
+}
+
+export type Kpis = {
+  totalMembers: number; leaders2030: number; miskFellows: number; activeMembers: number;
+  membersOnboarded: number; totalHours: number; avgHoursPerMember: number;
+  avgHoursPerEngagedMember: number; engagedMembers: number; autoHoursShare: number;
+  verifiedHoursShare: number; unverifiedEntries: number; unverifiedHours: number;
+  events: number; eventAttendees: number; avgSatisfaction: number | null;
+  startupsSupported: number; membersRecognised: number;
+};
+
+export type OverviewResult = {
+  kpis: Kpis;
+  trends: Record<string, Trend> | null;
+  comparedTo: { dateFrom: string; dateTo: string } | null;
+  provenance: Provenance;
+};
+
+function trend(current: number, previous: number): Trend {
+  const deltaPct = previous > 0 ? Math.round(((current - previous) / previous) * 1000) / 10 : null;
+  const direction: Trend['direction'] =
+    deltaPct == null || Math.abs(deltaPct) < 0.5 ? 'flat' : deltaPct > 0 ? 'up' : 'down';
+  return { current, previous, deltaPct, direction };
+}
+
 const prov = (tables: string[], f: Filters, rowCount: number): Provenance =>
   ({ tables, filters: describeFilters(f), rowCount });
 
@@ -18,7 +62,7 @@ const r2 = (n: number | null | undefined) => (n == null ? 0 : Math.round(n * 100
 
 // ------------------------------------------------------------------ overview --
 
-export function overviewKpis(f: Filters) {
+export function overviewKpis(f: Filters, opts: { skipTrend?: boolean } = {}): OverviewResult {
   const e = engagementWhere(f);
   const ev = eventWhere(f);
   const m = memberWhere(f);
@@ -76,7 +120,25 @@ export function overviewKpis(f: Filters) {
   const totalHours = hours?.total_hours ?? 0;
   const memberCount = members?.total ?? 0;
 
+  // Compare against the window immediately before this one. A headline number
+  // without a direction tells a programme director very little.
+  const prev = previousWindow(f);
+  let trends: Record<string, Trend> | null = null;
+  if (prev && !opts.skipTrend) {
+    const before = overviewKpis({ ...f, ...prev }, { skipTrend: true }).kpis;
+    trends = {
+      totalHours: trend(hours?.total_hours ?? 0, before.totalHours),
+      engagedMembers: trend(hours?.active_members ?? 0, before.engagedMembers),
+      events: trend(events?.events ?? 0, before.events),
+      eventAttendees: trend(events?.attendees ?? 0, before.eventAttendees),
+      membersOnboarded: trend(onboarded?.c ?? 0, before.membersOnboarded),
+      avgSatisfaction: trend(events?.avg_satisfaction ?? 0, before.avgSatisfaction ?? 0),
+    };
+  }
+
   return {
+    trends,
+    comparedTo: prev,
     kpis: {
       totalMembers: memberCount,
       leaders2030: members?.leaders_2030 ?? 0,

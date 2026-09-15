@@ -39,10 +39,10 @@ export function Initiatives() {
             <div className="scroll-x">
               <table className="w-full border-collapse">
                 <thead><tr>
-                  <th className="th">Initiative</th><th className="th">Pillar</th><th className="th">Council owner</th>
-                  <th className="th">Cadence</th><th className="th text-end">Events</th><th className="th text-end">Attendees</th>
-                  <th className="th text-end">Per event</th><th className="th text-end">Hours</th>
-                  <th className="th text-end">Members</th><th className="th text-end">Reach</th><th className="th text-end">Satisfaction</th>
+                  <th scope="col" className="th">Initiative</th><th scope="col" className="th">Pillar</th><th scope="col" className="th">Council owner</th>
+                  <th scope="col" className="th">Cadence</th><th scope="col" className="th text-end">Events</th><th scope="col" className="th text-end">Attendees</th>
+                  <th scope="col" className="th text-end">Per event</th><th scope="col" className="th text-end">Hours</th>
+                  <th scope="col" className="th text-end">Members</th><th scope="col" className="th text-end">Reach</th><th scope="col" className="th text-end">Satisfaction</th>
                 </tr></thead>
                 <tbody>
                   {(inits.data?.rows ?? []).map((r: any) => (
@@ -76,10 +76,10 @@ export function Initiatives() {
             <div className="scroll-x max-h-[640px] overflow-y-auto">
               <table className="w-full border-collapse">
                 <thead className="sticky top-0 bg-surface-raised"><tr>
-                  <th className="th">Date</th><th className="th">Event</th><th className="th">Initiative</th>
-                  <th className="th">Type</th><th className="th text-end">Attendees</th><th className="th text-end">Linked</th>
-                  <th className="th text-end">Checked in</th><th className="th text-end">Duration</th>
-                  <th className="th text-end">Hours logged</th><th className="th">Status</th><th className="th"></th>
+                  <th scope="col" className="th">Date</th><th scope="col" className="th">Event</th><th scope="col" className="th">Initiative</th>
+                  <th scope="col" className="th">Type</th><th scope="col" className="th text-end">Attendees</th><th scope="col" className="th text-end">Linked</th>
+                  <th scope="col" className="th text-end">Checked in</th><th scope="col" className="th text-end">Duration</th>
+                  <th scope="col" className="th text-end">Hours logged</th><th scope="col" className="th">Status</th><th scope="col" className="th"></th>
                 </tr></thead>
                 <tbody>
                   {events.data.rows.map((e: any) => (
@@ -191,8 +191,8 @@ function EventModal({ id, onClose, onChanged }: { id: number | null; onClose: ()
               <div className="scroll-x max-h-96 overflow-y-auto">
                 <table className="w-full border-collapse">
                   <thead className="sticky top-0 bg-surface-raised"><tr>
-                    <th className="th">Member</th><th className="th">Role</th><th className="th">Checked in</th>
-                    <th className="th">Checked out</th><th className="th">Source</th></tr></thead>
+                    <th scope="col" className="th">Member</th><th scope="col" className="th">Role</th><th scope="col" className="th">Checked in</th>
+                    <th scope="col" className="th">Checked out</th><th scope="col" className="th">Source</th></tr></thead>
                   <tbody>
                     {data.attendance.map((a: any) => (
                       <tr key={a.id}>
@@ -217,8 +217,8 @@ function EventModal({ id, onClose, onChanged }: { id: number | null; onClose: ()
                 <div className="scroll-x max-h-96 overflow-y-auto">
                   <table className="w-full border-collapse">
                     <thead className="sticky top-0 bg-surface-raised"><tr>
-                      <th className="th">Member id</th><th className="th text-end">Hours</th><th className="th">Direction</th>
-                      <th className="th">Source</th><th className="th">Basis</th></tr></thead>
+                      <th scope="col" className="th">Member id</th><th scope="col" className="th text-end">Hours</th><th scope="col" className="th">Direction</th>
+                      <th scope="col" className="th">Source</th><th scope="col" className="th">Basis</th></tr></thead>
                     <tbody>
                       {data.logs.map((l: any) => (
                         <tr key={l.id}>

@@ -170,9 +170,9 @@ export function Ingest() {
           ) : (
             <div className="scroll-x">
               <table className="w-full border-collapse">
-                <thead><tr><th className="th">When</th><th className="th">Target</th><th className="th">File</th>
-                  <th className="th text-end">Rows</th><th className="th text-end">Inserted</th>
-                  <th className="th text-end">Updated</th><th className="th text-end">Skipped</th><th className="th">Status</th></tr></thead>
+                <thead><tr><th scope="col" className="th">When</th><th scope="col" className="th">Target</th><th scope="col" className="th">File</th>
+                  <th scope="col" className="th text-end">Rows</th><th scope="col" className="th text-end">Inserted</th>
+                  <th scope="col" className="th text-end">Updated</th><th scope="col" className="th text-end">Skipped</th><th scope="col" className="th">Status</th></tr></thead>
                 <tbody>
                   {jobs.data.map((j: any) => (
                     <tr key={j.id}>

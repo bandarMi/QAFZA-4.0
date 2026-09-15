@@ -50,8 +50,8 @@ export function Council() {
             <Card title="Owned initiatives" pad={false}>
               <div className="scroll-x">
                 <table className="w-full border-collapse">
-                  <thead><tr><th className="th">Initiative</th><th className="th">Pillar</th>
-                    <th className="th text-end">Events</th><th className="th text-end">Hours</th><th className="th text-end">Reach</th></tr></thead>
+                  <thead><tr><th scope="col" className="th">Initiative</th><th scope="col" className="th">Pillar</th>
+                    <th scope="col" className="th text-end">Events</th><th scope="col" className="th text-end">Hours</th><th scope="col" className="th text-end">Reach</th></tr></thead>
                   <tbody>
                     {data.initiatives.map((i: any) => (
                       <tr key={i.initiative_id}>

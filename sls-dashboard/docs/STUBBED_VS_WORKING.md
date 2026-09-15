@@ -29,6 +29,9 @@ Three honest categories.
 | **Social listening layer 2** | Paste a post URL → captured, keyword-scored, tagged to a member. |
 | **Bilingual EN/AR with RTL** | The full interface, including layout direction. |
 | **Monthly newsletter** | One click composes all six pages of the supplied template from the month's real data, with a live preview, per-box editing, story moving, photo upload, HTML export and print-to-PDF. Works fully **without** an AI key — the AI only rewrites wording and adds alternatives. |
+| **Command palette (⌘K)** | Cross-entity search over members, events, initiatives and chapters, with keyboard navigation. |
+| **KPI trends** | Every headline number compared against the preceding period of equal length, computed server-side. |
+| **Sortable tables + CSV export** | On the member list and engagement ledger; exports exactly what is on screen. |
 | **Runtime-swappable brand tokens** | Edit in the UI; the app, charts and PDFs follow with no rebuild. |
 | **Portable Windows build** | One folder, one `.exe`, its own Node runtime. No installer, no admin rights, nothing written outside the folder. Verified end-to-end: the real `node.exe` and the real launcher were run against the real bundle, cold, with no database. |
 

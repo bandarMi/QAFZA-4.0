@@ -9,12 +9,15 @@ import { useI18n } from '../i18n';
 import { FilterBar } from '../components/FilterBar';
 import { Chart, Provenance } from '../components/Chart';
 import { Card, Badge, Stat, Skeleton, ErrorBox, Toggle, Modal, Empty } from '../components/ui';
+import { CsvButton, toCsv, downloadCsv, type Column } from '../components/DataTable';
+import { useToast } from '../components/Toast';
 import { api, qs } from '../lib/api';
 import { hours, monthLabel, nf, pct } from '../lib/format';
 
 export function Engagement() {
   const { query, filters, navigate } = useApp();
   const { t } = useI18n();
+  const { toast } = useToast();
   const [tab, setTab] = useState('summary');
   const { data, loading, error, reload } = useData<any>(`/engagement/summary${query}`);
   const kpi = useData<any>(`/overview${query}`);
@@ -42,7 +45,11 @@ export function Engagement() {
           { value: 'rules', label: 'Rules & automation' },
           { value: 'recognition', label: 'Recognition' },
         ]} />
-        <button className="btn-ghost ms-auto" onClick={async () => { await api.post('/engagement/recalculate'); reload(); }}>
+        <button className="btn-ghost ms-auto" onClick={async () => {
+          const r = await api.post<any>('/engagement/recalculate');
+          reload(); kpi.reload();
+          toast(`Recalculated ${r.events} events — ${r.created} created, ${r.updated} updated, ${r.skipped} left alone.`);
+        }}>
           ↻ Recalculate all closed events
         </button>
       </div>
@@ -67,9 +74,9 @@ export function Engagement() {
             <div className="scroll-x max-h-96 overflow-y-auto">
               <table className="w-full border-collapse">
                 <thead className="sticky top-0 bg-surface-raised"><tr>
-                  <th className="th">#</th><th className="th">Member</th><th className="th">Cohort</th>
-                  <th className="th">Sector</th><th className="th text-end">Hours</th>
-                  <th className="th text-end">Given</th><th className="th text-end">Verified</th><th className="th text-end">Entries</th>
+                  <th scope="col" className="th">#</th><th scope="col" className="th">Member</th><th scope="col" className="th">Cohort</th>
+                  <th scope="col" className="th">Sector</th><th scope="col" className="th text-end">Hours</th>
+                  <th scope="col" className="th text-end">Given</th><th scope="col" className="th text-end">Verified</th><th scope="col" className="th text-end">Entries</th>
                 </tr></thead>
                 <tbody>
                   {(data?.leaderboard?.rows ?? []).map((r: any, i: number) => (
@@ -113,9 +120,28 @@ function pivotCohort(rows: any[]) {
 }
 
 /** The verification / audit surface. */
+/** The ledger export mirrors the columns on screen, including provenance. */
+const ledgerColumns: Column<any>[] = [
+  { key: 'date', label: 'Date' },
+  { key: 'member_name', label: 'Member' },
+  { key: 'member_code', label: 'Member code' },
+  { key: 'cohort_type', label: 'Cohort' },
+  { key: 'activity_type', label: 'Activity' },
+  { key: 'direction', label: 'Direction' },
+  { key: 'initiative_name', label: 'Initiative' },
+  { key: 'pillar', label: 'Pillar' },
+  { key: 'event_name', label: 'Event' },
+  { key: 'hours', label: 'Hours', align: 'end' },
+  { key: 'override_of_hours', label: 'Original hours', align: 'end' },
+  { key: 'source', label: 'Source' },
+  { key: 'verified_flag', label: 'Verified', value: r => (r.verified_flag ? 'yes' : 'no') },
+  { key: 'notes', label: 'Basis' },
+];
+
 function Ledger() {
   const { filters } = useApp();
   const { t } = useI18n();
+  const { toast } = useToast();
   const [verified, setVerified] = useState('all');
   const [selected, setSelected] = useState<number[]>([]);
   const [override, setOverride] = useState<any>(null);
@@ -130,8 +156,15 @@ function Ledger() {
           actions={<>
             <Toggle value={verified} onChange={setVerified} options={[
               { value: 'all', label: 'All' }, { value: 'false', label: t.common.unverified }, { value: 'true', label: t.common.verified }]} />
+            <CsvButton rows={data?.rows ?? []} columns={ledgerColumns}
+                       filename={`sls-engagement-ledger-${new Date().toISOString().slice(0, 10)}.csv`} />
             <button className="btn-primary" disabled={!selected.length}
-                    onClick={async () => { await api.post('/engagement/verify', { ids: selected, verified: true }); setSelected([]); reload(); }}>
+                    onClick={async () => {
+                      const n = selected.length;
+                      await api.post('/engagement/verify', { ids: selected, verified: true });
+                      setSelected([]); reload();
+                      toast(`Verified ${n} ${n === 1 ? 'entry' : 'entries'}.`);
+                    }}>
               ✓ {t.common.verify} {selected.length || ''}
             </button>
           </>} pad={false}>
@@ -141,12 +174,12 @@ function Ledger() {
         <div className="scroll-x max-h-[560px] overflow-y-auto">
           <table className="w-full border-collapse">
             <thead className="sticky top-0 bg-surface-raised"><tr>
-              <th className="th w-8"><input type="checkbox" className="accent-[var(--sls-brand-primary)]"
+              <th scope="col" className="th w-8"><input type="checkbox" className="accent-[var(--sls-brand-primary)]"
                     checked={!!data.rows.length && selected.length === data.rows.length}
                     onChange={e => setSelected(e.target.checked ? data.rows.map((r: any) => r.id) : [])} /></th>
-              <th className="th">Date</th><th className="th">Member</th><th className="th">Activity</th>
-              <th className="th">Initiative</th><th className="th text-end">Hours</th>
-              <th className="th">Basis</th><th className="th">{t.common.status}</th><th className="th"></th>
+              <th scope="col" className="th">Date</th><th scope="col" className="th">Member</th><th scope="col" className="th">Activity</th>
+              <th scope="col" className="th">Initiative</th><th scope="col" className="th text-end">Hours</th>
+              <th scope="col" className="th">Basis</th><th scope="col" className="th">{t.common.status}</th><th scope="col" className="th"></th>
             </tr></thead>
             <tbody>
               {data.rows.map((r: any) => (
@@ -232,9 +265,9 @@ function Rules() {
         <div className="scroll-x">
           <table className="w-full border-collapse">
             <thead><tr>
-              <th className="th">Activity type</th><th className="th text-end">Default hours</th>
-              <th className="th">Role multipliers</th><th className="th">Counts for recognition</th>
-              <th className="th">Notes</th><th className="th"></th>
+              <th scope="col" className="th">Activity type</th><th scope="col" className="th text-end">Default hours</th>
+              <th scope="col" className="th">Role multipliers</th><th scope="col" className="th">Counts for recognition</th>
+              <th scope="col" className="th">Notes</th><th scope="col" className="th"></th>
             </tr></thead>
             <tbody>
               {(data ?? []).map(r => (
@@ -315,7 +348,7 @@ function Recognition() {
             actions={<button className="btn-primary" onClick={() => setAdding(true)}>+ Rule</button>} pad={false}>
         {loading ? <div className="p-4"><Skeleton rows={3} height="h-9" /></div> : (
           <table className="w-full border-collapse">
-            <thead><tr><th className="th">Rule</th><th className="th text-end">Threshold</th><th className="th">Period</th><th className="th text-end">Flagged</th></tr></thead>
+            <thead><tr><th scope="col" className="th">Rule</th><th scope="col" className="th text-end">Threshold</th><th scope="col" className="th">Period</th><th scope="col" className="th text-end">Flagged</th></tr></thead>
             <tbody>
               {(data?.byRule ?? []).map((r: any) => (
                 <tr key={r.rule_id}>
@@ -337,8 +370,8 @@ function Recognition() {
         <div className="scroll-x max-h-96 overflow-y-auto">
           <table className="w-full border-collapse">
             <thead className="sticky top-0 bg-surface-raised"><tr>
-              <th className="th">Member</th><th className="th">Rule</th><th className="th">Period</th>
-              <th className="th text-end">Hours</th><th className="th">Status</th></tr></thead>
+              <th scope="col" className="th">Member</th><th scope="col" className="th">Rule</th><th scope="col" className="th">Period</th>
+              <th scope="col" className="th text-end">Hours</th><th scope="col" className="th">Status</th></tr></thead>
             <tbody>
               {(data?.flags ?? []).map((f: any) => (
                 <tr key={f.id} className="hover:bg-surface-sunken/60 cursor-pointer" onClick={() => navigate(`/members/${f.member_id}`)}>

@@ -3,9 +3,28 @@ import { useApp, useData } from '../state';
 import { useI18n } from '../i18n';
 import { FilterBar } from '../components/FilterBar';
 import { Card, Badge, Modal, Skeleton, ErrorBox, Empty } from '../components/ui';
+import { DataTable, CsvButton, type Column } from '../components/DataTable';
+import { useToast } from '../components/Toast';
 import { Chart } from '../components/Chart';
 import { api, qs } from '../lib/api';
 import { hours, monthLabel, nf } from '../lib/format';
+
+const memberColumns: Column<any>[] = [
+  { key: 'name', label: 'Member', render: m => (
+      <>
+        <span className="font-medium text-ink-primary">{m.name}</span>
+        <span className="block text-[11px] text-ink-muted font-mono">{m.member_code}</span>
+      </>) },
+  { key: 'cohort_type', label: 'Cohort' },
+  { key: 'sector', label: 'Sector' },
+  { key: 'company', label: 'Company' },
+  { key: 'mentor_name', label: 'Mentor' },
+  { key: 'status', label: 'Status', render: m => <Badge tone={m.status === 'active' ? 'good' : 'neutral'}>{m.status}</Badge> },
+  { key: 'total_hours', label: 'Hours', align: 'end',
+    render: m => <span className="font-semibold text-brand-primary">{hours(m.total_hours)}</span> },
+  { key: 'recognition_count', label: 'Recognition', align: 'end',
+    render: m => (m.recognition_count > 0 ? `★ ${m.recognition_count}` : '—') },
+];
 
 export function Members() {
   const { query, filters, navigate } = useApp();
@@ -13,6 +32,7 @@ export function Members() {
   const [q, setQ] = useState('');
   const [page, setPage] = useState(0);
   const [adding, setAdding] = useState(false);
+  const { toast } = useToast();
   const limit = 50;
 
   const path = `/members${qs(filters as any, { q: q || undefined, limit, offset: page * limit })}`;
@@ -25,10 +45,11 @@ export function Members() {
       <FilterBar />
       <Card
         title={`${t.nav.members}${data ? ` — ${nf(data.total)}` : ''}`}
-        subtitle="Hours shown are within the selected date range. Click a member for their journey and ledger."
+        subtitle="Hours shown are within the selected date range. Click any column header to sort, or a row for that member's journey and ledger."
         actions={<>
           <input className="input w-52" placeholder={t.common.search} value={q}
-                 onChange={e => { setQ(e.target.value); setPage(0); }} />
+                 onChange={e => { setQ(e.target.value); setPage(0); }} aria-label={t.common.search} />
+          <CsvButton rows={data?.rows ?? []} columns={memberColumns} filename={`sls-members-${new Date().toISOString().slice(0, 10)}.csv`} />
           <button className="btn-primary" onClick={() => setAdding(true)}>+ {t.common.add}</button>
         </>}
         pad={false}
@@ -37,46 +58,26 @@ export function Members() {
           <Empty title="No members match" body="Try clearing the filters or the search box." />
         ) : (
           <>
-            <div className="scroll-x">
-              <table className="w-full border-collapse">
-                <thead><tr>
-                  <th className="th">Member</th><th className="th">Cohort</th><th className="th">Sector</th>
-                  <th className="th">Company</th><th className="th">Mentor</th><th className="th">Status</th>
-                  <th className="th text-end">Hours</th><th className="th text-end">Recognition</th>
-                </tr></thead>
-                <tbody>
-                  {data.rows.map((m: any) => (
-                    <tr key={m.id} className="hover:bg-surface-sunken/60 cursor-pointer" onClick={() => navigate(`/members/${m.id}`)}>
-                      <td className="td">
-                        <span className="font-medium text-ink-primary">{m.name}</span>
-                        <span className="block text-[11px] text-ink-muted font-mono">{m.member_code}</span>
-                      </td>
-                      <td className="td">{m.cohort_type}</td>
-                      <td className="td">{m.sector ?? '—'}</td>
-                      <td className="td">{m.company ?? '—'}</td>
-                      <td className="td">{m.mentor_name ?? '—'}</td>
-                      <td className="td"><Badge tone={m.status === 'active' ? 'good' : 'neutral'}>{m.status}</Badge></td>
-                      <td className="td text-end tabular-nums font-semibold text-brand-primary">{hours(m.total_hours)}</td>
-                      <td className="td text-end tabular-nums">{m.recognition_count > 0 ? `★ ${m.recognition_count}` : '—'}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <DataTable
+              rows={data.rows}
+              rowKey={(m: any) => m.id}
+              onRowClick={(m: any) => navigate(`/members/${m.id}`)}
+              columns={memberColumns}
+            />
             <div className="flex items-center justify-between px-4 py-2.5 border-t border-line-subtle">
               <p className="text-[12px] text-ink-muted">
                 {t.common.showing} {page * limit + 1}–{Math.min((page + 1) * limit, data.total)} {t.common.of} {nf(data.total)}
               </p>
               <div className="flex gap-1.5">
-                <button className="btn-ghost" disabled={page === 0} onClick={() => setPage(p => p - 1)}>←</button>
-                <button className="btn-ghost" disabled={(page + 1) * limit >= data.total} onClick={() => setPage(p => p + 1)}>→</button>
+                <button className="btn-ghost" aria-label="Previous page" disabled={page === 0} onClick={() => setPage(p => p - 1)}>←</button>
+                <button className="btn-ghost" aria-label="Next page" disabled={(page + 1) * limit >= data.total} onClick={() => setPage(p => p + 1)}>→</button>
               </div>
             </div>
           </>
         )}
       </Card>
 
-      <AddMemberModal open={adding} onClose={() => setAdding(false)} onSaved={() => { setAdding(false); reload(); }} />
+      <AddMemberModal open={adding} onClose={() => setAdding(false)} onSaved={() => { setAdding(false); reload(); toast('Member added.'); }} />
     </>
   );
 }
