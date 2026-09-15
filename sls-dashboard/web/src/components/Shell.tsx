@@ -8,6 +8,7 @@ const NAV: Array<{ id: string; route: string; icon: string; group: 1 | 2 | 3 }> 
   { id: 'engagement',  route: '/engagement',  icon: '◷', group: 1 },
   { id: 'initiatives', route: '/initiatives', icon: '❖', group: 1 },
   { id: 'impact',      route: '/impact',      icon: '▲', group: 1 },
+  { id: 'newsletter',  route: '/newsletter',  icon: '✉', group: 2 },
   { id: 'social',      route: '/social',      icon: '◎', group: 2 },
   { id: 'ai',          route: '/ai',          icon: '✦', group: 2 },
   { id: 'exports',     route: '/exports',     icon: '⇩', group: 2 },

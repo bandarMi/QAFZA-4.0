@@ -9,7 +9,7 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 const EN = {
   appName: 'SLS Data Center',
   org: 'Saudi Leadership Society',
-  nav: { overview: 'Overview', members: 'Members', engagement: 'Engagement Hours', initiatives: 'Initiatives & Events', impact: 'Impact & Startups', social: 'Social Listening', ai: 'AI Reports', exports: 'Exports', ingest: 'Data Ingestion', council: 'Council Cockpit', settings: 'Settings' },
+  nav: { overview: 'Overview', members: 'Members', engagement: 'Engagement Hours', initiatives: 'Initiatives & Events', impact: 'Impact & Startups', newsletter: 'Newsletter', social: 'Social Listening', ai: 'AI Reports', exports: 'Exports', ingest: 'Data Ingestion', council: 'Council Cockpit', settings: 'Settings' },
   filters: { title: 'Filters', dateRange: 'Date range', from: 'From', to: 'To', pillar: 'Pillar', initiative: 'Initiative', cohort: 'Cohort', sector: 'Sector', councilOwner: 'Council owner', hoursRange: 'Engagement hours', min: 'Min', max: 'Max', reset: 'Reset', apply: 'Apply', all: 'All', active: 'active', quick: 'Quick ranges', thisYear: 'This year', lastYear: 'Last year', last90: 'Last 90 days', allTime: 'All time' },
   kpi: { totalMembers: 'Total members', leaders2030: '2030 Leaders', miskFellows: 'Misk Fellows', onboarded: 'Members onboarded', totalHours: 'Engagement hours', avgHours: 'Avg hours / member', engagedMembers: 'Members engaged', autoShare: 'Auto-captured', events: 'Events held', attendees: 'Event attendees', satisfaction: 'Avg satisfaction', startups: 'Startups supported', recognised: 'Members recognised', verified: 'Hours verified' },
   chart: { table: 'Table', chart: 'Chart', noData: 'No data for the selected filters.', source: 'Source' },
@@ -45,7 +45,7 @@ type Dict = typeof EN;
 const AR: Dict = {
   appName: 'مركز بيانات جمعية القيادات',
   org: 'جمعية القيادات السعودية',
-  nav: { overview: 'نظرة عامة', members: 'الأعضاء', engagement: 'ساعات المشاركة', initiatives: 'المبادرات والفعاليات', impact: 'الأثر والشركات الناشئة', social: 'الرصد الاجتماعي', ai: 'تقارير الذكاء الاصطناعي', exports: 'التصدير', ingest: 'إدخال البيانات', council: 'لوحة المجلس', settings: 'الإعدادات' },
+  nav: { overview: 'نظرة عامة', members: 'الأعضاء', engagement: 'ساعات المشاركة', initiatives: 'المبادرات والفعاليات', impact: 'الأثر والشركات الناشئة', newsletter: 'النشرة الشهرية', social: 'الرصد الاجتماعي', ai: 'تقارير الذكاء الاصطناعي', exports: 'التصدير', ingest: 'إدخال البيانات', council: 'لوحة المجلس', settings: 'الإعدادات' },
   filters: { title: 'عوامل التصفية', dateRange: 'النطاق الزمني', from: 'من', to: 'إلى', pillar: 'المحور', initiative: 'المبادرة', cohort: 'الفوج', sector: 'القطاع', councilOwner: 'مالك المجلس', hoursRange: 'ساعات المشاركة', min: 'الأدنى', max: 'الأعلى', reset: 'إعادة تعيين', apply: 'تطبيق', all: 'الكل', active: 'مفعّل', quick: 'نطاقات سريعة', thisYear: 'هذا العام', lastYear: 'العام الماضي', last90: 'آخر ٩٠ يومًا', allTime: 'كل الفترات' },
   kpi: { totalMembers: 'إجمالي الأعضاء', leaders2030: 'قادة ٢٠٣٠', miskFellows: 'زمالة مسك', onboarded: 'الأعضاء المنضمون', totalHours: 'ساعات المشاركة', avgHours: 'متوسط الساعات لكل عضو', engagedMembers: 'الأعضاء المشاركون', autoShare: 'مُحتسب تلقائيًا', events: 'الفعاليات المنفذة', attendees: 'حضور الفعاليات', satisfaction: 'متوسط الرضا', startups: 'الشركات الناشئة المدعومة', recognised: 'الأعضاء المكرّمون', verified: 'الساعات المعتمدة' },
   chart: { table: 'جدول', chart: 'رسم بياني', noData: 'لا توجد بيانات ضمن عوامل التصفية المحددة.', source: 'المصدر' },

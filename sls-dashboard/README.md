@@ -163,6 +163,7 @@ LinkedIn reshare captions, and recap-card quote lines.
 | **Engagement Hours** | Summary, the hour ledger with verification and override, the **activity-type → hours rules table**, and recognition thresholds |
 | **Initiatives & Events** | Per-initiative performance and member reach; event management, **QR check-in**, and one-click **recap cards** |
 | **Impact & Startups** | Startup trends by sector/stage/year, reported impact metrics with provenance, and the **Impact Challenge leaderboard** |
+| **Newsletter** | One click turns the month's data into the six-page SLS newsletter in the supplied template, with 1–3 AI-written options per box, drag-free story moving, photo upload, and print-ready PDF |
 | **Social Listening** | LinkedIn social wall, paste-a-URL capture, AI triage, connector status, monthly highlights |
 | **AI Reports** | Saved analyst conversations, report sections, and the guardrails the analyst runs under |
 | **Exports** | Branded PDF report generator and the Power BI dataset export |
@@ -346,6 +347,7 @@ dashboard** or **add to the report** — that's how an ad-hoc question becomes a
 | [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md) | Every table and field, including the engagement-hours rules |
 | [`docs/STUBBED_VS_WORKING.md`](docs/STUBBED_VS_WORKING.md) | Exactly what works, what needs your key, and what is deliberately stubbed |
 | [`docs/POWERBI_SETUP.md`](docs/POWERBI_SETUP.md) | Both Power BI routes, with the DAX measures |
+| [`docs/NEWSLETTER.md`](docs/NEWSLETTER.md) | The monthly newsletter: how it generates, where each page's content comes from, the template palette, and PDF export |
 
 ---
 

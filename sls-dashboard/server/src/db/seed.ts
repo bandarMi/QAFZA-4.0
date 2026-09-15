@@ -63,6 +63,17 @@ const VALUES = [
   ['Impact',       'Measuring success by the change we create.', 4],
 ] as const;
 
+/** Chapters, matching the regions and countries the newsletter template reports on. */
+const CHAPTERS: Array<[string, string, 'local' | 'global', string | null, string | null, number]> = [
+  // name, name_ar, kind, region, country, sort
+  ['Riyadh Region',    'منطقة الرياض',   'local',  'Riyadh',           null,             1],
+  ['Gharbiyah Region', 'المنطقة الغربية', 'local',  'Makkah',           null,             2],
+  ['Sharqiyah Region', 'المنطقة الشرقية', 'local',  'Eastern Province', null,             3],
+  ['United Kingdom',   'المملكة المتحدة', 'global', null,               'United Kingdom', 4],
+  ['United States',    'الولايات المتحدة','global', null,               'United States',  5],
+  ['Australia',        'أستراليا',        'global', null,               'Australia',      6],
+];
+
 const COUNCIL_ROLES = [
   'Chair','Vice Chair','Finance & Growth Lead','Governance Lead','Engagement & Impact Lead','Strategic Positioning Lead',
 ] as const;
@@ -98,7 +109,7 @@ const RULES: Array<[string,number,Record<string,number>,number,string]> = [
 ];
 
 export function seed() {
-  const tables = ['engagement_audit','engagement_logs','event_attendance','events','challenge_scores','challenge_submissions','recognition_flags','recognition_rules','engagement_rules','linkedin_mentions','startups','impact_metrics','council','initiatives','members','pillars','values_ref','alerts','pinned_widgets','ai_messages','ai_conversations','import_jobs'];
+  const tables = ['newsletter_issues','newsletter_templates','member_milestones','engagement_audit','engagement_logs','event_attendance','events','challenge_scores','challenge_submissions','recognition_flags','recognition_rules','engagement_rules','linkedin_mentions','startups','impact_metrics','council','initiatives','members','chapters','pillars','values_ref','alerts','pinned_widgets','ai_messages','ai_conversations','import_jobs'];
   db.exec('PRAGMA foreign_keys = OFF');
   for (const t of tables) db.exec(`DELETE FROM ${t}; DELETE FROM sqlite_sequence WHERE name='${t}';`);
   db.exec('PRAGMA foreign_keys = ON');
@@ -120,10 +131,19 @@ export function seed() {
     db.prepare('INSERT INTO recognition_rules (name, name_ar, threshold_hours, period, active) VALUES (?,?,?,?,1)')
       .run('Lifetime Contributor (250+ hours)', 'المساهم المتميز (٢٥٠+ ساعة)', 250, 'all_time');
 
+    // ---- chapters -----------------------------------------------------------
+    const insChapter = db.prepare('INSERT INTO chapters (name,name_ar,kind,region,country,sort_order,active) VALUES (?,?,?,?,?,?,1)');
+    const chapterIds: Record<string, number> = {};
+    for (const [name, nameAr, kind, region, country, sort] of CHAPTERS) {
+      chapterIds[name] = Number(insChapter.run(name, nameAr, kind, region, country, sort).lastInsertRowid);
+    }
+    const localChapters = CHAPTERS.filter(c => c[2] === 'local').map(c => c[0]);
+    const globalChapters = CHAPTERS.filter(c => c[2] === 'global').map(c => c[0]);
+
     // ---- members: 974 = 611 "2030 Leaders" + 363 "Misk Fellows" -------------
     const insMember = db.prepare(`INSERT INTO members
-      (member_code,name,name_ar,cohort_type,cohort_year,join_date,graduation_date,sector,company,title,email,region,linkedin_url,status,tags)
-      VALUES (@member_code,@name,@name_ar,@cohort_type,@cohort_year,@join_date,@graduation_date,@sector,@company,@title,@email,@region,@linkedin_url,@status,@tags)`);
+      (member_code,name,name_ar,cohort_type,cohort_year,join_date,graduation_date,sector,company,title,email,region,chapter_id,linkedin_url,status,tags)
+      VALUES (@member_code,@name,@name_ar,@cohort_type,@cohort_year,@join_date,@graduation_date,@sector,@company,@title,@email,@region,@chapter_id,@linkedin_url,@status,@tags)`);
 
     const total2030 = 611, totalFellows = 363;
     const memberIds: number[] = [];
@@ -141,6 +161,14 @@ export function seed() {
         const joinYear = onboardedThisPeriod ? 2026 : int(2021, 2025);
         const joinMonth = onboardedThisPeriod ? int(1, 8) : int(1, 12);
         const slug = `${first}-${last}`.toLowerCase().replace(/[^a-z-]/g, '');
+        // ~8% of the society sits with a global chapter; the rest map by region.
+        const region = chance(0.55) ? 'Riyadh' : pick(REGIONS);
+        const chapterName = chance(0.08)
+          ? pick(globalChapters)
+          : region === 'Riyadh' ? 'Riyadh Region'
+          : region === 'Eastern Province' ? 'Sharqiyah Region'
+          : region === 'Makkah' || region === 'Madinah' ? 'Gharbiyah Region'
+          : pick(localChapters);
         const r = insMember.run({
           member_code: `SLS-${String(n).padStart(4, '0')}`,
           name: `${first} ${last}`,
@@ -153,7 +181,8 @@ export function seed() {
           company: pick(COMPANIES[sector]!),
           title: pick(TITLES),
           email: `${slug}.${n}@example.sa`,
-          region: chance(0.55) ? 'Riyadh' : pick(REGIONS),
+          region,
+          chapter_id: chapterIds[chapterName]!,
           linkedin_url: `https://www.linkedin.com/in/${slug}-${n}`,
           status: chance(0.93) ? 'active' : pick(['inactive', 'paused', 'alumni']),
           tags: JSON.stringify(['demo-data', sector]),
@@ -179,6 +208,16 @@ export function seed() {
       insCouncil.run(m.id, m.name, role, COUNCIL_ROLES_AR[role], '2025-01-01', '2026-12-31', m.linkedin_url);
     });
 
+    // ---- chapter leads ------------------------------------------------------
+    const pickFromChapter = db.prepare('SELECT id FROM members WHERE chapter_id=? ORDER BY id LIMIT 2 OFFSET ?');
+    const setLead = db.prepare('UPDATE chapters SET lead_member_id=?, deputy_member_id=? WHERE id=?');
+    for (const [name] of CHAPTERS) {
+      const cid = chapterIds[name]!;
+      const picks = pickFromChapter.all(cid, int(0, 5)) as any[];
+      if (picks.length >= 2) setLead.run(picks[0].id, picks[1].id, cid);
+      else if (picks.length === 1) setLead.run(picks[0].id, null, cid);
+    }
+
     // ---- initiatives --------------------------------------------------------
     const insInit = db.prepare('INSERT INTO initiatives (name,name_ar,pillar,description,owner_council_role,recurring_flag,cadence) VALUES (?,?,?,?,?,?,?)');
     const initIds: Record<string, number> = {};
@@ -190,8 +229,8 @@ export function seed() {
     // ---- events -------------------------------------------------------------
     // Shaped so total attendee_count lands just over the 13,000 headline.
     const insEvent = db.prepare(`INSERT INTO events
-      (initiative_id,name,name_ar,date,attendee_count,location,type,satisfaction_score,duration_hours,activity_type,status,checkin_token)
-      VALUES (@initiative_id,@name,@name_ar,@date,@attendee_count,@location,@type,@satisfaction_score,@duration_hours,@activity_type,@status,@checkin_token)`);
+      (initiative_id,chapter_id,name,name_ar,date,attendee_count,location,type,satisfaction_score,duration_hours,activity_type,status,checkin_token)
+      VALUES (@initiative_id,@chapter_id,@name,@name_ar,@date,@attendee_count,@location,@type,@satisfaction_score,@duration_hours,@activity_type,@status,@checkin_token)`);
 
     const eventPlan: Record<string, { perYear: number; hours: number; size: [number, number]; activity: string }> = {
       'Leadership Toolkit':            { perYear: 12, hours: 1.5, size: [40, 120],  activity: 'content contribution' },
@@ -211,16 +250,23 @@ export function seed() {
     const eventIds: number[] = [];
     for (const [initName, plan] of Object.entries(eventPlan)) {
       for (const year of [2024, 2025, 2026]) {
-        const count = year === 2026 ? Math.ceil(plan.perYear * 0.7) : plan.perYear;
+        const count = year === 2026 ? plan.perYear : plan.perYear;
         for (let i = 0; i < count; i++) {
-          const month = year === 2026 ? int(1, 9) : int(1, 12);
+          const month = int(1, 12);
           const date = `${year}-${String(month).padStart(2, '0')}-${String(int(1, 28)).padStart(2, '0')}`;
           const past = date <= TODAY;
           // Gentle growth year over year.
           const growth = year === 2024 ? 0.82 : year === 2025 ? 1.0 : 1.12;
           const size = Math.round(int(plan.size[0], plan.size[1]) * growth * 0.72);
+          // Most activity is chapter-run; the Annual Assembly and Transformational
+          // Experiences are society-wide and stay unassigned.
+          const societyWide = initName === 'Annual Assembly' || initName === 'Transformational Experiences';
+          const chapterName = societyWide ? null
+            : chance(0.28) ? pick(globalChapters)
+            : pick(localChapters);
           const r = insEvent.run({
             initiative_id: initIds[initName]!,
+            chapter_id: chapterName ? chapterIds[chapterName]! : null,
             name: `${initName} — ${date}`,
             name_ar: null,
             date,
@@ -320,6 +366,65 @@ export function seed() {
       );
     }
 
+    // ---- member milestones (the "Celebrating our members" page) -------------
+    const insMilestone = db.prepare(`INSERT INTO member_milestones
+      (member_id,member_name,kind,title,detail,organisation,date,source)
+      VALUES (?,?,?,?,?,?,?,'manual')`);
+    const APPOINTMENTS: Array<[string, string]> = [
+      ['Elected President of the Saudi Leadership Society', 'Saudi Leadership Society'],
+      ['Elected Vice Chair of the Saudi Leadership Society', 'Saudi Leadership Society'],
+      ['Appointed Chief Strategy Officer', 'Public Investment Fund'],
+      ['Appointed Director of Digital Transformation', 'Ministry of Economy & Planning'],
+      ['Named Head of Sustainability', 'Red Sea Global'],
+      ['Appointed Managing Director', 'Jadwa Investment'],
+    ];
+    const AWARDS: Array<[string, string]> = [
+      ['Named among the Top 50 Saudi Tech Leaders', 'Saudi Digital Academy'],
+      ['Received the National Excellence Award for Public Service', 'Ministry of Human Resources'],
+      ['Won the Emerging Leader Award', 'Arab Youth Forum'],
+      ['Recognised for Outstanding Contribution to STEM Education', 'KAUST'],
+      ['Awarded Innovator of the Year', 'LEAP'],
+    ];
+    const PROGRAMS: Array<[string, string]> = [
+      ["Accepted into Misk's WAFD program", 'Misk Foundation'],
+      ['Selected for the Harvard Kennedy School executive program', 'Harvard Kennedy School'],
+      ['Joined the Hult Ashridge leadership cohort', 'Hult Ashridge'],
+      ['Selected for the Vision 2030 Fellowship', 'Royal Commission'],
+    ];
+    const BOARDS: Array<[string, string]> = [
+      ['Appointed to the Board of Directors', 'Saudi Venture Capital Company'],
+      ['Joined the Audit & Risk Committee', 'Tadawul'],
+      ['Appointed to the Advisory Council', 'Misk Foundation'],
+      ['Joined the Governance Committee', 'King Khalid Foundation'],
+    ];
+    const KINDS: Array<['appointment' | 'award' | 'program_acceptance' | 'board_seat', Array<[string, string]>, number]> = [
+      ['appointment', APPOINTMENTS, 2],
+      ['award', AWARDS, 2],
+      ['program_acceptance', PROGRAMS, 1],
+      ['board_seat', BOARDS, 2],
+    ];
+    // A spread across the last two years so any month the user opens has something.
+    for (const year of [2025, 2026]) {
+      const months = year === 2026 ? 9 : 12;
+      for (let m = 1; m <= months; m++) {
+        for (const [kind, pool, perMonth] of KINDS) {
+          // Distinct entries within a month — two members winning the identical
+          // award in the same month reads as a bug, not as data.
+          const used = new Set<string>();
+          for (let k = 0; k < perMonth; k++) {
+            let chosen = pick(pool);
+            for (let tries = 0; tries < 8 && used.has(chosen[0]); tries++) chosen = pick(pool);
+            used.add(chosen[0]);
+            const [title, org] = chosen;
+            const mid = pick(memberIds);
+            const who = getMember.get(mid) as any;
+            insMilestone.run(mid, who.name, kind, title, null, org,
+              `${year}-${String(m).padStart(2, '0')}-${String(int(1, 28)).padStart(2, '0')}`);
+          }
+        }
+      }
+    }
+
     // ---- Impact Challenge ---------------------------------------------------
     const insSub = db.prepare('INSERT INTO challenge_submissions (year,member_id,team_name,project_title,summary,pillar,status) VALUES (?,?,?,?,?,?,?)');
     const insScore = db.prepare('INSERT INTO challenge_scores (submission_id,criterion,score,weight,judge) VALUES (?,?,?,?,?)');
@@ -367,7 +472,7 @@ export function seed() {
   evaluateRecognition();
 
   const counts = Object.fromEntries(
-    ['members','initiatives','events','event_attendance','engagement_logs','startups','linkedin_mentions','challenge_submissions','recognition_flags']
+    ['members','chapters','initiatives','events','event_attendance','engagement_logs','startups','linkedin_mentions','challenge_submissions','recognition_flags','member_milestones']
       .map(t => [t, (db.prepare(`SELECT COUNT(*) c FROM ${t}`).get() as any).c]),
   );
   return counts;

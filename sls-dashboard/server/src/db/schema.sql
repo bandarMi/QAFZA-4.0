@@ -19,6 +19,21 @@ CREATE TABLE IF NOT EXISTS values_ref (
   sort_order  INTEGER NOT NULL DEFAULT 0
 );
 
+-- Chapters: how the society is organised regionally and internationally.
+-- The newsletter groups a month of activity by these.
+CREATE TABLE IF NOT EXISTS chapters (
+  id             INTEGER PRIMARY KEY AUTOINCREMENT,
+  name           TEXT NOT NULL UNIQUE,      -- "Riyadh Region", "United Kingdom"
+  name_ar        TEXT,
+  kind           TEXT NOT NULL CHECK (kind IN ('local','global')),
+  country        TEXT,                      -- global chapters
+  region         TEXT,                      -- local chapters
+  lead_member_id   INTEGER REFERENCES members(id) ON DELETE SET NULL,
+  deputy_member_id INTEGER REFERENCES members(id) ON DELETE SET NULL,
+  sort_order     INTEGER NOT NULL DEFAULT 0,
+  active         INTEGER NOT NULL DEFAULT 1
+);
+
 -- ------------------------------------------------------------------ members --
 CREATE TABLE IF NOT EXISTS members (
   id            INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,6 +52,7 @@ CREATE TABLE IF NOT EXISTS members (
   linkedin_url  TEXT,
   status        TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active','inactive','alumni','paused')),
   mentor_id     INTEGER REFERENCES members(id) ON DELETE SET NULL,
+  chapter_id    INTEGER REFERENCES chapters(id) ON DELETE SET NULL,
   tags          TEXT NOT NULL DEFAULT '[]',        -- JSON array of strings
   created_at    TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at    TEXT NOT NULL DEFAULT (datetime('now'))
@@ -74,6 +90,8 @@ CREATE TABLE IF NOT EXISTS events (
   duration_hours    REAL NOT NULL DEFAULT 2,
   activity_type     TEXT NOT NULL DEFAULT 'event attendance',
   status            TEXT NOT NULL DEFAULT 'planned' CHECK (status IN ('planned','open','closed','cancelled')),
+  chapter_id        INTEGER REFERENCES chapters(id) ON DELETE SET NULL,
+  photo_url         TEXT,                          -- used by the newsletter
   checkin_token     TEXT UNIQUE,                   -- opaque token behind the QR code
   hours_posted_at   TEXT,                          -- set when the hours engine has run for this event
   notes             TEXT,
@@ -310,4 +328,54 @@ CREATE TABLE IF NOT EXISTS alerts (
   status      TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open','acknowledged','resolved')),
   detected_at TEXT NOT NULL DEFAULT (datetime('now')),
   UNIQUE (kind, entity_type, entity_id, status)
+);
+
+-- =============================================================================
+-- Newsletter
+-- The monthly newsletter is assembled from the same tables the dashboard already
+-- keeps, plus three things it did not previously model: which chapter a member or
+-- an event belongs to, the member milestones the "Celebrating our members" page
+-- reports, and the issues themselves.
+-- =============================================================================
+
+-- Milestones behind the "Celebrating our members" page. Kinds match its boxes.
+CREATE TABLE IF NOT EXISTS member_milestones (
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  member_id    INTEGER REFERENCES members(id) ON DELETE CASCADE,
+  member_name  TEXT,                        -- for a milestone about a non-member
+  kind         TEXT NOT NULL CHECK (kind IN ('appointment','award','program_acceptance','board_seat')),
+  title        TEXT NOT NULL,
+  detail       TEXT,
+  organisation TEXT,
+  date         TEXT NOT NULL,               -- ISO yyyy-mm-dd; the month it belongs to
+  photo_url    TEXT,
+  source       TEXT NOT NULL DEFAULT 'manual' CHECK (source IN ('manual','import','api')),
+  created_at   TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_milestones_date ON member_milestones(date);
+CREATE INDEX IF NOT EXISTS idx_milestones_kind ON member_milestones(kind);
+
+CREATE TABLE IF NOT EXISTS newsletter_templates (
+  key        TEXT PRIMARY KEY,
+  name       TEXT NOT NULL,
+  is_default INTEGER NOT NULL DEFAULT 0,
+  spec       TEXT NOT NULL,                 -- JSON: pages -> sections -> slots
+  updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+/*
+ * One row per monthly issue. `doc` is the whole newsletter as JSON: every slot's
+ * chosen value plus the alternative options the generator produced, so reopening
+ * an issue restores the choices rather than regenerating them.
+ */
+CREATE TABLE IF NOT EXISTS newsletter_issues (
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  period        TEXT NOT NULL UNIQUE,       -- "2026-08"
+  issue_number  INTEGER,
+  template_key  TEXT NOT NULL DEFAULT 'sls-monthly-v1' REFERENCES newsletter_templates(key),
+  status        TEXT NOT NULL DEFAULT 'draft' CHECK (status IN ('draft','review','published')),
+  doc           TEXT NOT NULL,              -- JSON document
+  generated_with TEXT NOT NULL DEFAULT 'rules' CHECK (generated_with IN ('rules','ai')),
+  created_at    TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at    TEXT NOT NULL DEFAULT (datetime('now'))
 );

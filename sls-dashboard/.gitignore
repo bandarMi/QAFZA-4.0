@@ -11,3 +11,6 @@ design-tokens.backup.json
 # Build artifacts — packaging/build-windows-bundle.sh regenerates these.
 packaging/out/
 packaging/*.exe
+
+# Uploaded newsletter photos are a deployment's own content, not source.
+assets/newsletter/

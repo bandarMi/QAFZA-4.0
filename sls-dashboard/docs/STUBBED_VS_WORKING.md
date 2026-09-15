@@ -28,6 +28,7 @@ Three honest categories.
 | **Event recap cards** | On-brand SVG at LinkedIn / square / story sizes, generated from the tokens. |
 | **Social listening layer 2** | Paste a post URL → captured, keyword-scored, tagged to a member. |
 | **Bilingual EN/AR with RTL** | The full interface, including layout direction. |
+| **Monthly newsletter** | One click composes all six pages of the supplied template from the month's real data, with a live preview, per-box editing, story moving, photo upload, HTML export and print-to-PDF. Works fully **without** an AI key — the AI only rewrites wording and adds alternatives. |
 | **Runtime-swappable brand tokens** | Edit in the UI; the app, charts and PDFs follow with no rebuild. |
 | **Portable Windows build** | One folder, one `.exe`, its own Node runtime. No installer, no admin rights, nothing written outside the folder. Verified end-to-end: the real `node.exe` and the real launcher were run against the real bundle, cold, with no database. |
 
@@ -41,6 +42,7 @@ Three honest categories.
 | **AI-drafted board paragraphs** | Same key | Same |
 | **AI reshare captions (layer 3 triage)** | Same key | Same |
 | **AI recap-card quote lines** | Same key | Same |
+| **Newsletter copywriting (1–3 options per box)** | Same key | Same. Without it the newsletter still generates in full, in plainer wording, with one version per box. |
 
 The code paths are complete — tool definitions, the tool-use loop, guardrails, chart rendering,
 pin-to-dashboard, conversation history. Nothing is mocked. The key is the only missing input, the

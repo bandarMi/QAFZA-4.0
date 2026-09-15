@@ -16,11 +16,17 @@ import * as RC from '../lib/recap.js';
 import * as CI from '../lib/checkin.js';
 import { buildReport, ALL_SECTIONS, loadTokens, type ReportSection } from '../lib/pdf.js';
 import { IMPORT_SCHEMAS, importRows, suggestMapping, type ImportTarget } from '../lib/ingest.js';
+import { newsletter } from './newsletter.js';
+import { ensureTemplates } from '../lib/newsletter/store.js';
+
+ensureTemplates();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../..');
 
 export const api = Router();
+
+api.use('/newsletter', newsletter);
 
 /** Wrap a handler so a thrown error becomes a clean JSON error, not a stack trace. */
 const h = (fn: (req: Request, res: Response) => unknown | Promise<unknown>) =>

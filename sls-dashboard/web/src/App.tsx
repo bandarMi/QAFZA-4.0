@@ -9,6 +9,7 @@ import { Engagement } from './pages/Engagement';
 import { Initiatives } from './pages/Initiatives';
 import { Impact } from './pages/Impact';
 import { Social } from './pages/Social';
+import { Newsletter } from './pages/Newsletter';
 import { AIReports } from './pages/AIReports';
 import { Exports } from './pages/Exports';
 import { Ingest } from './pages/Ingest';
@@ -46,6 +47,7 @@ export function App() {
       case '/engagement':  return <Engagement />;
       case '/initiatives': return <Initiatives />;
       case '/impact':      return <Impact />;
+      case '/newsletter':  return <Newsletter />;
       case '/social':      return <Social />;
       case '/ai':          return <AIReports onOpenChat={() => setChat(true)} />;
       case '/exports':     return <Exports />;
